@@ -1,0 +1,25 @@
+[    1934ms] [LOG] Submitted Leads Data: {status: true, message: Case list, data: Object} @ https://dental-monitoring.sadigit.co.id/_aalto/68XvrZI-.js:7
+[    1936ms] [LOG] Production Cases Data: {status: true, message: Case list, data: Object} @ https://dental-monitoring.sadigit.co.id/_aalto/68XvrZI-.js:7
+[    1939ms] [LOG] referral lx @ https://dental-monitoring.sadigit.co.id/_aalto/68XvrZI-.js:7
+[    1940ms] [LOG] Lead Data: {total: 0, new: 0, booked: 0, appointment: Array(0), started: 0} @ https://dental-monitoring.sadigit.co.id/_aalto/68XvrZI-.js:7
+[    1941ms] [ERROR] Hydration completed but contains mismatches. @ https://dental-monitoring.sadigit.co.id/_aalto/CY9q1-ip.js:1
+[    5998ms] [ERROR] TypeError: Cannot read properties of null (reading 'collapsed')
+    at lx.get [as fn] (https://dental-monitoring.sadigit.co.id/_aalto/D8iN5UDM.js:1:606)
+    at ET (https://dental-monitoring.sadigit.co.id/_aalto/CY9q1-ip.js:2:7513)
+    at Rp (https://dental-monitoring.sadigit.co.id/_aalto/CY9q1-ip.js:2:7213)
+    at get dirty (https://dental-monitoring.sadigit.co.id/_aalto/CY9q1-ip.js:2:6435)
+    at y (https://dental-monitoring.sadigit.co.id/_aalto/CY9q1-ip.js:2:20586)
+    at gc (https://dental-monitoring.sadigit.co.id/_aalto/CY9q1-ip.js:2:21508)
+    at FT (https://dental-monitoring.sadigit.co.id/_aalto/CY9q1-ip.js:2:23261) @ https://dental-monitoring.sadigit.co.id/_aalto/CY9q1-ip.js:1
+[    6004ms] [ERROR] TypeError: Cannot read properties of null (reading 'size')
+    at lx.get [as fn] (https://dental-monitoring.sadigit.co.id/_aalto/D8iN5UDM.js:1:734)
+    at ET (https://dental-monitoring.sadigit.co.id/_aalto/CY9q1-ip.js:2:7513)
+    at get value (https://dental-monitoring.sadigit.co.id/_aalto/CY9q1-ip.js:2:19606)
+    at lx.fn (https://dental-monitoring.sadigit.co.id/_aalto/D8iN5UDM.js:1:805)
+    at ET (https://dental-monitoring.sadigit.co.id/_aalto/CY9q1-ip.js:2:7513)
+    at get value (https://dental-monitoring.sadigit.co.id/_aalto/CY9q1-ip.js:2:19606)
+    at O (https://dental-monitoring.sadigit.co.id/_aalto/CY9q1-ip.js:2:17829)
+    at Proxy.<anonymous> (https://dental-monitoring.sadigit.co.id/_aalto/BNNoXOJn.js:1:4630)
+    at Ph (https://dental-monitoring.sadigit.co.id/_aalto/CY9q1-ip.js:4:17166)
+    at _T.ee [as fn] (https://dental-monitoring.sadigit.co.id/_aalto/CY9q1-ip.js:4:26797) @ https://dental-monitoring.sadigit.co.id/_aalto/CY9q1-ip.js:1
+[    6708ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ https://dentist-api.sadigit.co.id/v1/notifications?limit=25:0

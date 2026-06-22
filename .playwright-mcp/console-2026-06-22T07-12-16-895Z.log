@@ -1,0 +1,7 @@
+[    1384ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Page not found: /aalto_aligners.webp) @ https://dental-monitoring.sadigit.co.id/aalto_aligners.webp:0
+[    1920ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ https://dentist-api.sadigit.co.id/v1/notifications?limit=25:0
+[   30450ms] [LOG] Submitted Leads Data: {status: true, message: Case list, data: Object} @ https://dental-monitoring.sadigit.co.id/_aalto/68XvrZI-.js:7
+[   30459ms] [LOG] Production Cases Data: {status: true, message: Case list, data: Object} @ https://dental-monitoring.sadigit.co.id/_aalto/68XvrZI-.js:7
+[   30461ms] [LOG] referral lx @ https://dental-monitoring.sadigit.co.id/_aalto/68XvrZI-.js:7
+[   30462ms] [LOG] Lead Data: {total: 0, new: 0, booked: 0, appointment: Array(0), started: 0} @ https://dental-monitoring.sadigit.co.id/_aalto/68XvrZI-.js:7
+[   30465ms] [ERROR] Hydration completed but contains mismatches. @ https://dental-monitoring.sadigit.co.id/_aalto/CY9q1-ip.js:1

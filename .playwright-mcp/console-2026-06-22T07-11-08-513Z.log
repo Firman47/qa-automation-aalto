@@ -1,0 +1,12 @@
+[     329ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Page not found: /auth) @ https://dental-monitoring.sadigit.co.id/auth:0
+[    1449ms] [ERROR] [nuxt] error caught during app initialization hb: Page not found: /auth
+    at ED (https://dental-monitoring.sadigit.co.id/_aalto/CY9q1-ip.js:4:75514)
+    at Xs (https://dental-monitoring.sadigit.co.id/_aalto/CY9q1-ip.js:4:78129)
+    at https://dental-monitoring.sadigit.co.id/_aalto/CY9q1-ip.js:39:105224
+    at r (https://dental-monitoring.sadigit.co.id/_aalto/CY9q1-ip.js:4:73278)
+    at Object.runWithContext (https://dental-monitoring.sadigit.co.id/_aalto/CY9q1-ip.js:4:15303)
+    at db (https://dental-monitoring.sadigit.co.id/_aalto/CY9q1-ip.js:4:73315)
+    at https://dental-monitoring.sadigit.co.id/_aalto/CY9q1-ip.js:4:71285
+    at gT.run (https://dental-monitoring.sadigit.co.id/_aalto/CY9q1-ip.js:2:4883)
+    at Object.runWithContext (https://dental-monitoring.sadigit.co.id/_aalto/CY9q1-ip.js:4:71277)
+    at https://dental-monitoring.sadigit.co.id/_aalto/CY9q1-ip.js:39:105202 @ https://dental-monitoring.sadigit.co.id/_aalto/CY9q1-ip.js:3

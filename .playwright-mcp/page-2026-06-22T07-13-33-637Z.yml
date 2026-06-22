@@ -1,0 +1,29 @@
+- generic [ref=e4]:
+  - generic [ref=e5]:
+    - generic [ref=e6]:
+      - img [ref=e7]
+      - generic [ref=e37]:
+        - heading "DID YOU KNOW?" [level=1] [ref=e38]
+        - heading "Aalto dentist complete treatment in 1-4 visits vs the industry average of 8+" [level=1] [ref=e39]
+    - generic [ref=e40]:
+      - generic [ref=e41]:
+        - heading "Orthodontist Support" [level=1] [ref=e44]
+        - heading "Remote Monitoring" [level=1] [ref=e47]
+        - heading "AI Assisted Workflow" [level=1] [ref=e50]
+      - heading "The clear aligner operating system for dentists." [level=1] [ref=e51]
+  - generic [ref=e54]:
+    - img "Aalto Logo" [ref=e56]
+    - generic [ref=e57]:
+      - generic [ref=e58]:
+        - heading "Forgot password?" [level=2] [ref=e59]
+        - paragraph [ref=e60]: Enter your email address and we'll send you instructions to reset your password
+      - generic [ref=e61]:
+        - generic [ref=e62]:
+          - generic [ref=e65]: Email*
+          - textbox "Email*" [ref=e68]:
+            - /placeholder: your.name@example.com
+        - generic [ref=e71]:
+          - button "Send reset link" [ref=e72] [cursor=pointer]
+          - link "Back to login" [ref=e73] [cursor=pointer]:
+            - /url: /auth/login
+            - text: Back to login

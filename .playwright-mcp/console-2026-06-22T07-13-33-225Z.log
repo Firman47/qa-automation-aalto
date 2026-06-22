@@ -1,0 +1,9 @@
+[     481ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ https://dentist-api.sadigit.co.id/v1/notifications?limit=25:0
+[   30424ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ https://dentist-api.sadigit.co.id/v1/notifications?limit=25:0
+[   60449ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ https://dentist-api.sadigit.co.id/v1/notifications?limit=25:0
+[   90432ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ https://dentist-api.sadigit.co.id/v1/notifications?limit=25:0
+[  120419ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ https://dentist-api.sadigit.co.id/v1/notifications?limit=25:0
+[  151207ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ https://dentist-api.sadigit.co.id/v1/notifications?limit=25:0
+[  180461ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ https://dentist-api.sadigit.co.id/v1/notifications?limit=25:0
+[  210519ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ https://dentist-api.sadigit.co.id/v1/notifications?limit=25:0
+[  240426ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ https://dentist-api.sadigit.co.id/v1/notifications?limit=25:0

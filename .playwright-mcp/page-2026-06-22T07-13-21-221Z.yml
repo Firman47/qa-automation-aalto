@@ -1,0 +1,145 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e4]:
+    - generic [ref=e5]:
+      - link [ref=e7] [cursor=pointer]:
+        - /url: /dashboard
+        - generic [ref=e8]:
+          - img [ref=e9]
+          - img [ref=e39]
+      - navigation [ref=e46]:
+        - list [ref=e47]:
+          - listitem [ref=e48]:
+            - link "Dashboard" [ref=e49] [cursor=pointer]:
+              - /url: /dashboard
+              - generic [ref=e51]: Dashboard
+          - listitem [ref=e52]:
+            - link "Patients" [ref=e53] [cursor=pointer]:
+              - /url: /cases
+              - generic [ref=e55]: Patients
+          - listitem [ref=e56]:
+            - button "Leads" [expanded] [ref=e57]:
+              - generic [ref=e59]: Leads
+            - region "Leads" [ref=e62]:
+              - list [ref=e63]:
+                - listitem [ref=e64]:
+                  - link "Lead Patients" [ref=e65] [cursor=pointer]:
+                    - /url: /leads
+                    - generic [ref=e67]: Lead Patients
+                - listitem [ref=e68]:
+                  - link "Lead Income" [ref=e69] [cursor=pointer]:
+                    - /url: /leads/income
+                    - generic [ref=e71]: Lead Income
+                - listitem [ref=e72]:
+                  - link "Invoices" [ref=e73] [cursor=pointer]:
+                    - /url: /leads/invoices
+                    - generic [ref=e75]: Invoices
+          - listitem [ref=e76]:
+            - link "Blogs" [ref=e77] [cursor=pointer]:
+              - /url: /blogs
+              - generic [ref=e79]: Blogs
+          - listitem [ref=e80]:
+            - link "Users" [ref=e81] [cursor=pointer]:
+              - /url: /users
+              - generic [ref=e83]: Users
+          - listitem [ref=e84]:
+            - button "Messages" [expanded] [ref=e85]:
+              - generic [ref=e87]: Messages
+            - region "Messages" [ref=e90]:
+              - list [ref=e91]:
+                - listitem [ref=e92]:
+                  - link "Patients" [ref=e93] [cursor=pointer]:
+                    - /url: /messages
+                    - generic [ref=e95]: Patients
+                - listitem [ref=e96]:
+                  - link "Support Admin" [ref=e97] [cursor=pointer]:
+                    - /url: /messages/support
+                    - generic [ref=e99]: Support Admin
+          - listitem [ref=e100]:
+            - button "Settings" [expanded] [ref=e101]:
+              - generic [ref=e103]: Settings
+            - region "Settings" [ref=e106]:
+              - list [ref=e107]:
+                - listitem [ref=e108]:
+                  - link "General" [ref=e109] [cursor=pointer]:
+                    - /url: /settings
+                    - generic [ref=e111]: General
+                - listitem [ref=e112]:
+                  - link "Bank Account" [ref=e113] [cursor=pointer]:
+                    - /url: /settings/bank
+                    - generic [ref=e115]: Bank Account
+                - listitem [ref=e116]:
+                  - link "Practice" [ref=e117] [cursor=pointer]:
+                    - /url: /settings/clinic
+                    - generic [ref=e119]: Practice
+                - listitem [ref=e120]:
+                  - link "Notifications" [ref=e121] [cursor=pointer]:
+                    - /url: /settings/notifications
+                    - generic [ref=e123]: Notifications
+                - listitem [ref=e124]:
+                  - link "Security" [ref=e125] [cursor=pointer]:
+                    - /url: /settings/security
+                    - generic [ref=e127]: Security
+    - generic [ref=e128]:
+      - generic [ref=e129]:
+        - generic [ref=e130]:
+          - button "Collapse sidebar" [ref=e131]
+          - heading [level=1]
+        - generic [ref=e134]:
+          - button [ref=e135] [cursor=pointer]
+          - link [ref=e138] [cursor=pointer]:
+            - /url: /messages
+          - button [ref=e140] [cursor=pointer]
+          - button "T" [ref=e143] [cursor=pointer]:
+            - generic [ref=e145]: T
+      - generic [ref=e147]:
+        - generic [ref=e148]:
+          - heading "Good afternoon, Tatang Doctor 👋" [level=1] [ref=e149]
+          - generic [ref=e150]:
+            - heading "Here’s whats need your attention." [level=1] [ref=e151]
+            - img [ref=e152]
+        - heading "Overview" [level=1] [ref=e182]
+        - generic [ref=e183]:
+          - generic [ref=e184]:
+            - img "New Case" [ref=e186]
+            - heading "Start a new Submission" [level=1] [ref=e188]
+          - generic [ref=e191]:
+            - heading "Appointments" [level=1] [ref=e195]
+            - generic [ref=e197]: No appointments available
+        - heading "Patient Journey" [level=1] [ref=e199]
+        - generic [ref=e200]:
+          - tablist [ref=e201]:
+            - tab "Show Potential Patients" [selected] [ref=e203] [cursor=pointer]:
+              - generic [ref=e204]: Show Potential Patients
+            - tab "Show Current Patients" [ref=e205] [cursor=pointer]:
+              - generic [ref=e206]: Show Current Patients
+          - tabpanel "Show Potential Patients" [ref=e207]:
+            - generic [ref=e208]:
+              - generic [ref=e209]:
+                - generic [ref=e211]:
+                  - heading "New Patient Leads" [level=1] [ref=e214]
+                  - heading "0" [level=1] [ref=e215]
+                - generic [ref=e218]: New enquiries or refferals awaiting booking or consultation.
+              - generic [ref=e219]:
+                - generic [ref=e221]:
+                  - heading "Booked Patient" [level=1] [ref=e224]
+                  - heading "0" [level=1] [ref=e225]
+                - generic [ref=e228]: Patient records collected and ready to submit for treatment planning.
+              - generic [ref=e229]:
+                - generic [ref=e231]:
+                  - heading "Cases Submitted" [level=1] [ref=e234]
+                  - heading "0" [level=1] [ref=e235]
+                - generic [ref=e238]: Patient records collected and ready to submit for treatment planning.
+              - generic [ref=e239]:
+                - generic [ref=e241]:
+                  - heading "Design Ready" [level=1] [ref=e244]
+                  - heading "2" [level=1] [ref=e245]
+                - generic [ref=e247]:
+                  - generic [ref=e248] [cursor=pointer]:
+                    - heading "tatang pasien 12" [level=1] [ref=e250]
+                    - heading "tatang.pasien12@gmail.co" [level=1] [ref=e253]
+                  - generic [ref=e254] [cursor=pointer]:
+                    - heading "tatang pasien 5" [level=1] [ref=e256]
+                    - heading "firmansrf47@gmail.com" [level=1] [ref=e259]
+  - img [ref=e260]
+  - region "Notifications (F8)":
+    - list

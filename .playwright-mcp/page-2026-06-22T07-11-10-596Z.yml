@@ -1,0 +1,23 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e4]:
+    - heading "404" [level=1] [ref=e8]
+    - generic [ref=e9]:
+      - heading "Page not found" [level=2] [ref=e10]
+      - paragraph [ref=e11]: Sorry, we couldn't find the page you're looking for.
+      - paragraph [ref=e12]: "Page not found: /auth"
+    - generic [ref=e13]:
+      - button "Go back home" [ref=e14]: Go back home
+      - button "Go back" [ref=e16]: Go back
+    - generic [ref=e18]:
+      - paragraph [ref=e19]: "Or try these helpful links:"
+      - generic [ref=e20]:
+        - link "Home" [ref=e21] [cursor=pointer]:
+          - /url: /
+        - generic [ref=e22]: •
+        - link "Dashboard" [ref=e23] [cursor=pointer]:
+          - /url: /dashboard
+        - generic [ref=e24]: •
+        - link "Help Center" [ref=e25] [cursor=pointer]:
+          - /url: /help
+  - region "Notifications (F8)":
+    - list
