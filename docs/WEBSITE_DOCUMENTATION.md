@@ -94,7 +94,10 @@ Multi-role dental clinic management portal. 1 aplikasi dengan 3 pengalaman berbe
 - Create/manage users (dentists, orthodontists, admins)
 - Assign orthodontists to clinics
 - Bulk operations (assign orthodontist, update tier, reassign cases)
-- Create leads and assign to dentists
+- Review patient cases and request clarification from dentists
+- Create treatment plans for cases
+- Approve/reject 3D treatment plans
+- Create leads and assign to dentists (or leave unassigned for all dentists)
 - Create invoices for approved cases ("In Production" status)
 - View system statistics & reports
 - Manage audit & activity logs
@@ -103,34 +106,63 @@ Multi-role dental clinic management portal. 1 aplikasi dengan 3 pengalaman berbe
 
 ## 3. Initial Setup — System Configuration
 
+> **Referensi workflow detail:** `QA-Workflow–Setup-Awal.md`
+> — Mencakup seluruh langkah setup DM + AALTO dengan credentials aktual.
+
 Setup awal dilakukan oleh **Superadmin** sebelum aplikasi dapat digunakan oleh Dentist dan Orthodontist.
 
 ### 3.1 Dental Monitoring Setup
 
+> **DM Partner URL:** `https://partner.dental-monitoring.com`
+>
+> **DM Credentials:**
+> - Email: `e5be48b6-c784-461c-8910-71eb66130ba2@dentalmonitoring.com`
+> - Password: `ab06683134:3bf4ffffb01cde186_c14`
+>
+> **Referensi detail:** `QA-Workflow–Setup-Awal.md` §1–2
+
 Sebelum menggunakan AALTO, akun **Dental Monitoring** harus dikonfigurasi:
 
-#### 3.1.1 Create Practice (DM)
-1. Login ke `https://partner.dental-monitoring.com`
+#### 3.1.1 Login DM
+1. Buka `https://partner.dental-monitoring.com`
+2. Masukkan email: `e5be48b6-c784-461c-8910-71eb66130ba2@dentalmonitoring.com`
+3. Masukkan password: `ab06683134:3bf4ffffb01cde186_c14`
+4. Klik **Sign In**
+
+#### 3.1.2 Create Practice (DM)
+1. Login ke Dental Monitoring (langkah 3.1.1)
 2. Buka menu **Practice**
 3. Klik **Create Practice**
-4. Isi detail practice & simpan
+4. Isi detail practice (nama, alamat, telepon, email)
+5. Klik **Save**
 
-#### 3.1.2 Create Dentist / Doctor (DM)
+#### 3.1.3 Create Dentist / Doctor (DM)
 1. Buka menu **Dentist / Doctor**
 2. Klik **Create Dentist**
-3. Assign dentist ke **Practice** yang sudah dibuat
-4. Simpan data
+3. Isi data dentist (nama, email **harus sama dengan AALTO** nantinya)
+4. Assign dentist ke **Practice** yang sudah dibuat
+5. Klik **Save**
 
-#### 3.1.3 Create Protocol / Quickstart (DM)
+#### 3.1.4 Create Protocol / Quickstart (DM)
 1. Buka **Detail Dentist**
 2. Masuk ke tab **Protocol**
 3. Klik **Create Protocol**
 4. Pilih tipe **Quickstart**
 5. Simpan
 
+#### 3.1.5 Manage Protocol (DM)
+Setelah protocol dibuat, dapat dikelola melalui **Detail Doctor**:
+1. Buka daftar **Doctor** di DM
+2. Pilih doctor yang sudah dibuat
+3. Klik **Manage Protocol**
+4. Buat protocol baru atau edit yang sudah ada
+5. Setelah protocol aktif, pastikan **Quickstart** type sudah terpilih dan tersimpan
+
 ### 3.2 AALTO Practice Setup
 
 1. Login AALTO sebagai **Superadmin**
+   - Gunakan kredensial superadmin yang sudah didaftarkan (misal: `ikhsan@sadigit.com` / `Password123!`)
+   - Kredensial test (`tatang.admin@gmail.com`) juga bisa digunakan setelah setup
 2. Buka menu **Practice** (Settings → Practice)
 3. Klik **Create Practice**
 4. Isi informasi practice (nama, alamat, telepon, email, practice type)
@@ -152,10 +184,12 @@ Sebelum menggunakan AALTO, akun **Dental Monitoring** harus dikonfigurasi:
 3. Pilih **Role: Orthodontist**
 
 #### 3.4.2 Assign Orthodontist ke Practice
-1. Login sebagai **Orthodontist**
-2. Buka **Orthodontist Profile** / Assignment section
-3. Pilih **Practice** yang sudah dibuat sebelumnya
-4. Simpan
+1. Login sebagai **Orthodontist** (user yang baru dibuat)
+2. Buka **Orthodontist Profile** (biasanya menu Settings atau halaman profile orthodontist)
+3. Pilih **Practice** yang sudah dibuat sebelumnya dari daftar yang tersedia
+4. Simpan — orthodontist sekarang terhubung dengan practice dan dapat melihat case dari practice tersebut
+
+> **Catatan:** Orthodontist hanya dapat melihat dan mereview case dari practice yang sudah di-assign. Jika belum di-assign ke practice, orthodontist tidak akan melihat case apapun.
 
 ---
 
@@ -454,7 +488,8 @@ Multi-step or single-page form:
 **Button:** "Submit / Save Case"
 
 **Behavior:**
-- Success → case created, status = `draft`, auto-create message thread
+- Success → case created, status = `draft`
+- **Auto-create message thread** — sistem otomatis membuat message room untuk case tersebut dengan participant: case creator (dentist) + assigned orthodontist
 - Redirect to case detail page
 
 ### 6.7 Case Detail Page (`/cases/:id`)
@@ -482,8 +517,9 @@ Multi-step or single-page form:
   - Approve / Reject buttons
 - **Dentist Flow:**
   - Review treatment plan
+  - Review 3D Treatment Detail
   - Approve / Reject with feedback
-  - Assign dentist button
+  - **Assign Dentist** — pada saat approve, Dentist (Admin) dapat memilih/meng-assign dentist yang bertanggung jawab untuk case ini
 
 #### AI Summary Section
 Appears when case status >= "Treatment Ready" / "Approved by Dentist":
@@ -500,12 +536,17 @@ Appears when case status >= "Treatment Ready" / "Approved by Dentist":
 
 #### Patient Consent
 - Status: Not Sent / Sent / Signed
+- Isi consent yang dikirim ke patient via email:
+  1. **Consent Form** — Persetujuan tindakan medis
+  2. **Treatment Plan** — Rencana perawatan
+  3. **3D Treatment View** — Visualisasi 3D rencana perawatan
 - Actions: Send Consent Form to patient email
-- Required before manufacturing
+- Required before manufacturing — case tidak bisa lanjut ke manufacturing sampai consent di-sign
 
 #### Medical History
 - Status: Not Sent / Sent / Signed
 - Actions: Send Medical History form to patient email
+- Merupakan langkah terpisah dari **Patient Consent** — keduanya wajib di-sign sebelum manufacturing
 - Required before manufacturing
 
 #### Dental Monitoring
@@ -753,31 +794,34 @@ Appears when case status >= "Treatment Ready" / "Approved by Dentist":
               └─────────────┬───────────────┘
                             │
                             ▼
-              ┌─────────────────────────────┐
-              │  3. Orthodontist: Review    │
-              │  ├ Approve (continue)       │
-              │  └ Request Clarification    │
-              │     → Dentist revises       │
-              │     → Back to Ortho         │
-              └─────────────┬───────────────┘
-                            │
-                            ▼
-              ┌─────────────────────────────┐
-              │  4. Ortho: Treatment Plan   │
-              │  ├ Write Treatment Plan     │
-              │  ├ Create 3D Plan (Smiley   │
-              │  │  Nova integration)       │
-              │  └ Send to Dentist          │
-              └─────────────┬───────────────┘
-                            │
-                            ▼
-              ┌─────────────────────────────┐
-              │  5. Ortho: Approve/Reject   │
-              │  3D Plan                    │
-              │  ├ Approve → send to Dentist│
-              │  └ Reject → feedback to     │
-              │     Smiley Nova Team        │
-              └─────────────┬───────────────┘
+               ┌─────────────────────────────┐
+               │  3. Orthodontist: Review    │
+               │  ├ Approve (continue)       │
+               │  └ Request Clarification    │
+               │     → Dentist revises       │
+               │     → Back to Ortho         │
+               └─────────────┬───────────────┘
+                             │
+                             ▼
+               ┌─────────────────────────────┐
+               │  4. Ortho: Treatment Plan   │
+               │  ├ Write Treatment Plan     │
+               │  ├ Request 3D via Discord*  │
+               │  │  (koordinasi dengan      │
+               │  │   Smiley Nova Team)      │
+               │  ├ Create 3D Plan (Smiley   │
+               │  │  Nova integration)       │
+               │  └ Send to Dentist          │
+               └─────────────┬───────────────┘
+                             │
+                             ▼
+               ┌─────────────────────────────┐
+               │  5. Ortho: Approve/Reject   │
+               │  3D Plan                    │
+               │  ├ Approve → send to Dentist│
+               │  └ Reject → feedback to     │
+               │     Smiley Nova Team        │
+               └─────────────┬───────────────┘
                             │
                             ▼
               ┌─────────────────────────────┐
@@ -807,11 +851,17 @@ Appears when case status >= "Treatment Ready" / "Approved by Dentist":
               └─────────────┬───────────────┘
                             │
                             ▼
-              ┌─────────────────────────────┐
-              │  9. AI Summary (optional)   │
-              │  ├ AI Treatment Summary     │
-              │  └ AI Assurance Summary     │
-              └─────────────┬───────────────┘
+               ┌─────────────────────────────┐
+               │  9. AI Summary (optional)   │
+               │  Prerequisite: Case status  │
+               │  ≥ "Treatment Ready" /      │
+               │  "Approved by Dentist"      │
+               │  ├ AI Treatment Summary     │
+               │  │  (Generate + Edit)       │
+               │  ├ AI Assurance Summary     │
+               │  │  (Generate + Edit)       │
+               │  └ Save / Copy / Send Email │
+               └─────────────┬───────────────┘
                             │
                             ▼
               ┌─────────────────────────────┐
@@ -845,6 +895,8 @@ Appears when case status >= "Treatment Ready" / "Approved by Dentist":
               │  14. Case COMPLETED         │
               └─────────────────────────────┘
 ```
+
+> **\*Discord Coordination Note:** Pada step 4, Orthodontist melakukan koordinasi dengan **Smiley Nova Team** (via Discord — kontak: A / Eko / Ikhsan) untuk pembuatan 3D plan. Setelah 3D selesai, Orthodontist mereview dan mengirim ke Dentist.
 
 ### 7.2 Case Status Definitions
 
@@ -934,7 +986,20 @@ Needs clarification? → YES → Ortho sends Request Clarification
 - Klik **Create Lead**
 - Isi **Basic Information** (patient name, contact, treatment type)
 - **Assign to Dentist:** Pilih dentist tertentu atau kosongkan agar bisa diakses semua dentist
+  - Jika **Practice kosong (tidak dipilih)** → lead tampil ke **semua dentist** di semua practice
+  - Jika **Practice dipilih** → lead hanya tampil ke **dentist dalam practice tersebut**
 - Simpan
+
+### 8.4 Lead to Case Conversion
+
+Setelah dentist menyelesaikan semua tahapan lead (accept → booking → isi diagnostic & treatment goals):
+
+1. **Diagnostic** — Dentist mengisi clinical notes, smile goals, medical history
+2. **Treatment Goals** — Dentist mengisi goal answers dan treatment notes
+3. **Simpan** — Status lead berubah menjadi **"Case Submitted"**
+4. Lead otomatis menjadi **Patient / Case** dan mengikuti **Case Flow** (Section 7)
+
+> **Catatan:** Proses ini adalah konversi satu arah — setelah lead menjadi case, data tidak bisa kembali ke status lead.
 
 ---
 
@@ -1269,7 +1334,20 @@ Start Monitoring → status: "Monitoring"
 
 ### 12.4 DM Case Verification
 
-Setelah case masuk ke DM, verifikasi data di monitoring tabs:
+Setelah case masuk ke DM, verifikasi data di monitoring tabs. Checklist verifikasi lengkap:
+
+| #  | Tab          | Verifikasi                                                       |
+| -- | ------------ | ---------------------------------------------------------------- |
+| 1  | **Info**     | Pastikan data pasien sesuai: nama, email, DOB, nomor telepon     |
+| 2  | **Protocol** | Pastikan protocol sesuai: Plan type, Frequency, Upper/Lower arch |
+| 3  | **Monitoring**| Pastikan monitoring aktif dan scan tersedia                      |
+| 4  | **Scans**    | Verifikasi hasil scan — quality, completeness, tanggal scan      |
+| 5  | **History**  | Cek timeline event monitoring: start, scans, pause/resume        |
+| 6  | **Alerts**   | Cek apakah ada alerts atau notifikasi dari sistem DM             |
+| 7  | **Agreements**| Pastikan DM terms & conditions sudah di-agree oleh pasien       |
+| 8  | **Files**    | Cek file-file monitoring yang terupload                          |
+
+**Verifikasi Data di Monitoring Tab:**
 - **Info tab** — Pastikan data pasien sesuai (nama, email, DOB)
 - **Protocol tab** — Pastikan protocol sesuai (Plan, Frequency)
 - **Monitoring tab** — Pastikan scan tersedia dan status monitoring aktif
@@ -1376,17 +1454,19 @@ Setelah Dentist **Approve** treatment plan:
 
 ### Case Action Buttons by Status & Role
 
-| Case Status       | Dentist Actions                         | Orthodontist Actions            | Superadmin Actions      |
-| ----------------- | --------------------------------------- | ------------------------------- | ----------------------- |
-| Draft             | Edit, Submit                            | —                               | —                       |
-| Submitted         | —                                       | Review, Request Clarification   | —                       |
-| Under Review      | —                                       | Create Treatment Plan           | —                       |
-| Need Clarification| Revise & Resubmit                       | —                               | —                       |
-| Treatment Ready   | Review, Approve/Reject                  | Approve/Reject 3D Plan          | —                       |
-| In Production     | —                                       | —                               | Create Invoice          |
-| In Treatment      | Open Monitoring, Pause/Stop Monitoring, Send To Patient, Complete Treatment, View | —                               | —                       |
-| Completed         | View                                    | —                               | —                       |
-| Rejected          | View Feedback                           | View Feedback                   | —                       |
+| Case Status       | Dentist Actions                         | Orthodontist Actions            | Superadmin Actions                    |
+| ----------------- | --------------------------------------- | ------------------------------- | ------------------------------------- |
+| Draft             | Edit, Submit                            | —                               | —                                     |
+| Submitted         | —                                       | Review, Request Clarification   | Review, Request Clarification         |
+| Under Review      | —                                       | Create Treatment Plan*, Send 3D | Create Treatment Plan                 |
+| Need Clarification| Revise & Resubmit                       | —                               | —                                     |
+| Treatment Ready   | Review, Approve/Reject, **Assign Dentist** | Approve/Reject 3D Plan      | Approve/Reject 3D Plan                |
+| In Production     | —                                       | —                               | Create Invoice                        |
+| In Treatment      | Open Monitoring, Pause/Stop Monitoring, Send To Patient, Complete Treatment, View | —             | —                                     |
+| Completed         | View                                    | —                               | —                                     |
+| Rejected          | View Feedback                           | View Feedback                   | View Feedback                         |
+
+> **\*Catatan:** Orthodontist melakukan koordinasi pembuatan 3D plan dengan **Smiley Nova Team** via Discord sebelum mengirim ke Dentist. Untuk Superadmin, kemampuan review case dan treatment plan memungkinkan admin untuk turun tangan jika diperlukan.
 
 ---
 

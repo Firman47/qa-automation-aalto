@@ -216,4 +216,327 @@ test.describe('Login Module', () => {
       expect(page.url()).toContain('/auth/register');
     });
   });
+
+  test('[AUTH-011] Login dengan remember me — session cookie bertahan', async ({
+    page,
+  }) => {
+    await test.step('Login dengan remember true', async () => {
+      const [response] = await Promise.all([
+        loginPage.waitForLoginResponse(),
+        loginPage.loginWithRemember(DOCTOR.email, DOCTOR.password),
+      ]);
+
+      expect(response.status).toBe(200);
+      expect(response.body.status).toBe(true);
+    });
+
+    await test.step('Verifikasi cookie access_token ada', async () => {
+      await loginPage.waitForDashboard();
+      const hasCookie = await loginPage.isAccessTokenCookiePresent();
+      expect(hasCookie).toBe(true);
+    });
+  });
+
+  test('[AUTH-012] Login dengan password expired — 403 toast reset link', async ({
+    page,
+  }) => {
+    // Note: Test ini mensimulasikan response 403 password expired.
+    // Diperlukan akun dengan password expired or mock intercept.
+    // Jika tidak ada akun expired, test di-skip dengan pesan.
+    test.info().annotations.push({
+      type: 'requires',
+      description: 'Akun dengan password expired. Jika tidak tersedia, gunakan route拦截.',
+    });
+
+    await test.step('Route拦截 403 response untuk password expired', async () => {
+      await page.route('**/v1/auth/login', async (route) => {
+        const request = route.request();
+        if (request.method() === 'POST') {
+          await route.fulfill({
+            status: 403,
+            contentType: 'application/json',
+            body: JSON.stringify({
+              status: false,
+              message:
+                'Your password has expired. A password reset link has been sent to your email.',
+              data: null,
+            }),
+          });
+        } else {
+          await route.continue();
+        }
+      });
+    });
+
+    await test.step('Login — intercept 403', async () => {
+      await loginPage.login(DOCTOR.email, DOCTOR.password);
+    });
+
+    await test.step('Verifikasi toast error muncul', async () => {
+      await expect(loginPage.errorAlert).toBeVisible({ timeout: 5000 });
+      const toastText = await loginPage.toastDescription.textContent();
+      expect(toastText).toContain('password has expired');
+    });
+
+    await test.step('Tetap di halaman login', async () => {
+      expect(page.url()).toContain('/auth/login');
+    });
+  });
+
+  test('[AUTH-013] Login saat account locked — 403 toast locked', async ({
+    page,
+  }) => {
+    await test.step('Route拦截 403 response untuk account locked', async () => {
+      await page.route('**/v1/auth/login', async (route) => {
+        const request = route.request();
+        if (request.method() === 'POST') {
+          await route.fulfill({
+            status: 403,
+            contentType: 'application/json',
+            body: JSON.stringify({
+              status: false,
+              message:
+                'Account has been locked due to too many failed login attempts. Please try again in 30 minutes.',
+              data: null,
+            }),
+          });
+        } else {
+          await route.continue();
+        }
+      });
+    });
+
+    await test.step('Login — intercept 403', async () => {
+      await loginPage.login(DOCTOR.email, DOCTOR.password);
+    });
+
+    await test.step('Verifikasi toast locked', async () => {
+      await expect(loginPage.errorAlert).toBeVisible({ timeout: 5000 });
+      const toastText = await loginPage.toastDescription.textContent();
+      expect(toastText).toContain('Account has been locked');
+    });
+
+    await test.step('Tetap di halaman login', async () => {
+      expect(page.url()).toContain('/auth/login');
+    });
+  });
+
+  test('[AUTH-014] Double login required — email token confirmation', async ({
+    page,
+  }) => {
+    await test.step('Route拦截 200 dengan requires_double_login', async () => {
+      await page.route('**/v1/auth/login', async (route) => {
+        const request = route.request();
+        if (request.method() === 'POST') {
+          await route.fulfill({
+            status: 200,
+            contentType: 'application/json',
+            body: JSON.stringify({
+              status: true,
+              message:
+                'Double login confirmation required. Please check your email for confirmation token.',
+              data: {
+                requires_double_login: true,
+                email: DOCTOR.email,
+                message:
+                  'A confirmation email has been sent to your email address. Please use the provided token to confirm your login.',
+              },
+            }),
+          });
+        } else {
+          await route.continue();
+        }
+      });
+    });
+
+    await test.step('Login — intercept double login', async () => {
+      await loginPage.login(DOCTOR.email, DOCTOR.password);
+    });
+
+    await test.step('Verifikasi toast double login muncul', async () => {
+      await expect(loginPage.errorAlert).toBeVisible({ timeout: 5000 });
+      const toastText = await loginPage.toastDescription.textContent();
+      expect(toastText).toContain('Double login');
+    });
+
+    await test.step('Verifikasi tidak redirect ke dashboard', async () => {
+      expect(page.url()).toContain('/auth/login');
+    });
+  });
+
+  test('[AUTH-015] Rate limited (429) — Too many requests toast', async ({
+    page,
+  }) => {
+    await test.step('Route拦截 429 rate limit', async () => {
+      await page.route('**/v1/auth/login', async (route) => {
+        const request = route.request();
+        if (request.method() === 'POST') {
+          await route.fulfill({
+            status: 429,
+            contentType: 'application/json',
+            body: JSON.stringify({
+              status: false,
+              message: 'Too many requests',
+            }),
+          });
+        } else {
+          await route.continue();
+        }
+      });
+    });
+
+    await test.step('Login — intercept 429', async () => {
+      await loginPage.login(DOCTOR.email, DOCTOR.password);
+    });
+
+    await test.step('Verifikasi toast rate limit', async () => {
+      await expect(loginPage.errorAlert).toBeVisible({ timeout: 5000 });
+      const toastText = await loginPage.toastDescription.textContent();
+      expect(toastText).toContain('Too many requests');
+    });
+  });
+
+  test('[AUTH-016] Logout flow — POST logout, cookie cleared, redirect login', async ({
+    page,
+  }) => {
+    await test.step('Login dulu', async () => {
+      const [response] = await Promise.all([
+        loginPage.waitForLoginResponse(),
+        loginPage.login(DOCTOR.email, DOCTOR.password),
+      ]);
+      expect(response.status).toBe(200);
+      await loginPage.waitForDashboard();
+    });
+
+    await test.step('Logout via avatar menu', async () => {
+      await loginPage.clickAvatar();
+      const [logoutResponse] = await Promise.all([
+        loginPage.waitForLogoutResponse(),
+        loginPage.clickSignOut(),
+      ]);
+
+      expect(logoutResponse.status).toBe(200);
+      expect(logoutResponse.body.status).toBe(true);
+    });
+
+    await test.step('Verifikasi redirect ke login page', async () => {
+      await loginPage.waitForLoginPage();
+      expect(page.url()).toContain('/auth/login');
+    });
+
+    await test.step('Verifikasi cookie access_token hilang', async () => {
+      const hasCookie = await loginPage.isAccessTokenCookiePresent();
+      expect(hasCookie).toBe(false);
+    });
+  });
+
+  test('[AUTH-017] Login response — verifikasi struktur user + clinic', async ({
+    page,
+  }) => {
+    await test.step('Login doctor — parse response body', async () => {
+      const [response] = await Promise.all([
+        loginPage.waitForLoginResponse(),
+        loginPage.login(DOCTOR.email, DOCTOR.password),
+      ]);
+
+      expect(response.status).toBe(200);
+      const body = response.body;
+
+      // Verifikasi struktur response
+      expect(body.status).toBe(true);
+      expect(body.message).toBeDefined();
+      expect(body.data).toBeDefined();
+
+      const data = body.data as Record<string, unknown>;
+      expect(data.user).toBeDefined();
+
+      const user = data.user as Record<string, unknown>;
+      expect(user.id).toBeDefined();
+      expect(user.email).toBe(DOCTOR.email);
+      expect(user.context_role).toBe('dentist');
+      expect(user.full_name).toBe(DOCTOR.displayName);
+      expect(user.is_active).toBe(true);
+      expect(user.clinic).toBeDefined();
+    });
+  });
+
+  test('[AUTH-018] Login dengan invalid email format — client-side validation', async ({
+    page,
+  }) => {
+    let requestSent = false;
+
+    page.on('request', (req) => {
+      if (req.url().includes('/v1/auth/login') && req.method() === 'POST') {
+        requestSent = true;
+      }
+    });
+
+    await test.step('Isi email format salah (tanpa @)', async () => {
+      await loginPage.fillEmail('not-an-email');
+      await loginPage.fillPassword('Password123!');
+    });
+
+    await test.step('Klik SIGN IN', async () => {
+      await loginPage.clickSignIn();
+    });
+
+    await test.step('Verifikasi NO API call terkirim', async () => {
+      await page.waitForTimeout(100);
+      expect(requestSent).toBe(false);
+    });
+
+    await test.step('Verifikasi tetap di login page', async () => {
+      expect(page.url()).toContain('/auth/login');
+    });
+  });
+
+  test('[AUTH-019] GET /v1/auth/me — verifikasi profile setelah login', async ({
+    page,
+  }) => {
+    await test.step('Login doctor', async () => {
+      const [response] = await Promise.all([
+        loginPage.waitForLoginResponse(),
+        loginPage.login(DOCTOR.email, DOCTOR.password),
+      ]);
+      expect(response.status).toBe(200);
+      await loginPage.waitForDashboard();
+    });
+
+    await test.step('GET /v1/auth/me — verifikasi profile', async () => {
+      const meResponse = await loginPage.waitForMeResponse();
+      expect(meResponse.status).toBe(200);
+      expect(meResponse.body.status).toBe(true);
+
+      const data = meResponse.body.data as Record<string, unknown>;
+      const user = data.user as Record<string, unknown>;
+      expect(user.email).toBe(DOCTOR.email);
+      expect(user.context_role).toBe('dentist');
+    });
+  });
+
+  test('[AUTH-020] Login dengan whitespace email — client-side validation', async ({
+    page,
+  }) => {
+    let requestSent = false;
+
+    page.on('request', (req) => {
+      if (req.url().includes('/v1/auth/login') && req.method() === 'POST') {
+        requestSent = true;
+      }
+    });
+
+    await test.step('Isi email dengan spasi', async () => {
+      await loginPage.fillEmail('   ');
+      await loginPage.fillPassword('Password123!');
+    });
+
+    await test.step('Klik SIGN IN', async () => {
+      await loginPage.clickSignIn();
+    });
+
+    await test.step('Verifikasi NO API call terkirim', async () => {
+      await page.waitForTimeout(100);
+      expect(requestSent).toBe(false);
+    });
+  });
 });

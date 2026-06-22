@@ -29,7 +29,7 @@ test.describe('Forgot Password Module', () => {
     });
   });
 
-  test('[FRG-002] Kirim reset link dengan email valid', async ({ page }) => {
+  test('[FRG-002] @smoke Kirim reset link dengan email valid', async () => {
     await test.step('Isi email valid dan klik send', async () => {
       const [response] = await Promise.all([
         forgotPage.waitForForgotResponse(),
@@ -42,7 +42,50 @@ test.describe('Forgot Password Module', () => {
     });
   });
 
-  test('[FRG-005] Klik Back to login — redirect ke login', async ({ page }) => {
+  test('[FRG-003] Kirim reset link dengan email tidak terdaftar', async () => {
+    await test.step('Isi email tidak terdaftar dan klik send', async () => {
+      const [response] = await Promise.all([
+        forgotPage.waitForForgotResponse(),
+        forgotPage.fillEmail('unregistered@test.com'),
+        forgotPage.clickSendReset(),
+      ]);
+
+      // API mungkin tetap 200 untuk security (tidak reveal user existence)
+      // atau 404 jika API mengembalikan error
+      expect([200, 404]).toContain(response.status);
+    });
+
+    await test.step('Verifikasi toast muncul (success atau error)', async () => {
+      await expect(forgotPage.errorAlert).toBeVisible({ timeout: 5000 });
+    });
+  });
+
+  test('[FRG-004] Kirim reset link dengan email kosong — client-side validation', async ({
+    page,
+  }) => {
+    let requestSent = false;
+
+    page.on('request', (req) => {
+      if (req.url().includes('/v1/auth/forgot') && req.method() === 'POST') {
+        requestSent = true;
+      }
+    });
+
+    await test.step('Klik Send reset link tanpa isi email', async () => {
+      await forgotPage.clickSendReset();
+    });
+
+    await test.step('Verifikasi NO API call terkirim', async () => {
+      await page.waitForTimeout(100);
+      expect(requestSent).toBe(false);
+    });
+
+    await test.step('Tetap di forgot-password page', async () => {
+      expect(page.url()).toContain('/auth/forgot-password');
+    });
+  });
+
+  test('[FRG-005] @smoke Klik Back to login — redirect ke login', async ({ page }) => {
     await test.step('Klik Back to login', async () => {
       await forgotPage.clickBackToLogin();
     });
@@ -50,6 +93,28 @@ test.describe('Forgot Password Module', () => {
     await test.step('Verifikasi redirect', async () => {
       await page.waitForURL(/login/, { timeout: 10000 });
       expect(page.url()).toContain('/auth/login');
+    });
+  });
+
+  test('[FRG-006] Kirim reset link dengan invalid email format — client-side validation', async ({
+    page,
+  }) => {
+    let requestSent = false;
+
+    page.on('request', (req) => {
+      if (req.url().includes('/v1/auth/forgot') && req.method() === 'POST') {
+        requestSent = true;
+      }
+    });
+
+    await test.step('Isi email format invalid', async () => {
+      await forgotPage.fillEmail('not-an-email');
+      await forgotPage.clickSendReset();
+    });
+
+    await test.step('Verifikasi NO API call terkirim', async () => {
+      await page.waitForTimeout(100);
+      expect(requestSent).toBe(false);
     });
   });
 });
