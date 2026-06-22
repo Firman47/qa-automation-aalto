@@ -1,0 +1,27 @@
+- generic [active]:
+  - generic [ref=e455]:
+    - banner [ref=e456]:
+      - generic [ref=e457]:
+        - generic [ref=e460] [cursor=pointer]:
+          - img [ref=e461]
+          - img [ref=e491]
+        - navigation "breadcrumb" [ref=e498]:
+          - list [ref=e499]:
+            - listitem [ref=e500]:
+              - link "EDIT CASE" [ref=e501] [cursor=pointer]:
+                - /url: /cases/cf314022-0560-4671-a601-1722227960f5
+                - generic [ref=e503]: EDIT CASE
+        - generic [ref=e505]:
+          - button [ref=e506] [cursor=pointer]
+          - link [ref=e510] [cursor=pointer]:
+            - /url: /messages
+          - button [ref=e512] [cursor=pointer]
+          - button "T" [ref=e515] [cursor=pointer]:
+            - generic [ref=e517]: T
+    - generic [ref=e520]:
+      - img [ref=e521]
+      - generic [ref=e524]: Loading...
+      - generic [ref=e525]: Please wait while the data is being loaded.
+  - img [ref=e276]
+  - region "Notifications (F8)":
+    - list

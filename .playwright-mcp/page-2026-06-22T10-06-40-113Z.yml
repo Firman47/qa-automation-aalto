@@ -1,0 +1,206 @@
+- generic [ref=e1]:
+  - generic [ref=e4]:
+    - generic [ref=e5]:
+      - link [ref=e7] [cursor=pointer]:
+        - /url: /dashboard
+        - generic [ref=e8]:
+          - img [ref=e9]
+          - img [ref=e39]
+      - navigation [ref=e46]:
+        - list [ref=e47]:
+          - listitem [ref=e48]:
+            - link "Dashboard" [ref=e49] [cursor=pointer]:
+              - /url: /dashboard
+              - generic [ref=e51]: Dashboard
+          - listitem [ref=e52]:
+            - link "Patients" [active] [ref=e53] [cursor=pointer]:
+              - /url: /cases
+              - generic [ref=e55]: Patients
+          - listitem [ref=e56]:
+            - button "Leads" [expanded] [ref=e57]:
+              - generic [ref=e59]: Leads
+            - region "Leads" [ref=e62]:
+              - list [ref=e63]:
+                - listitem [ref=e64]:
+                  - link "Lead Patients" [ref=e65] [cursor=pointer]:
+                    - /url: /leads
+                    - generic [ref=e67]: Lead Patients
+                - listitem [ref=e68]:
+                  - link "Lead Income" [ref=e69] [cursor=pointer]:
+                    - /url: /leads/income
+                    - generic [ref=e71]: Lead Income
+                - listitem [ref=e72]:
+                  - link "Invoices" [ref=e73] [cursor=pointer]:
+                    - /url: /leads/invoices
+                    - generic [ref=e75]: Invoices
+          - listitem [ref=e76]:
+            - link "Blogs" [ref=e77] [cursor=pointer]:
+              - /url: /blogs
+              - generic [ref=e79]: Blogs
+          - listitem [ref=e80]:
+            - link "Users" [ref=e81] [cursor=pointer]:
+              - /url: /users
+              - generic [ref=e83]: Users
+          - listitem [ref=e84]:
+            - button "Messages" [expanded] [ref=e85]:
+              - generic [ref=e87]: Messages
+            - region "Messages" [ref=e90]:
+              - list [ref=e91]:
+                - listitem [ref=e92]:
+                  - link "Patients" [ref=e93] [cursor=pointer]:
+                    - /url: /messages
+                    - generic [ref=e95]: Patients
+                - listitem [ref=e96]:
+                  - link "Support Admin" [ref=e97] [cursor=pointer]:
+                    - /url: /messages/support
+                    - generic [ref=e99]: Support Admin
+          - listitem [ref=e100]:
+            - button "Settings" [expanded] [ref=e101]:
+              - generic [ref=e103]: Settings
+            - region "Settings" [ref=e106]:
+              - list [ref=e107]:
+                - listitem [ref=e108]:
+                  - link "General" [ref=e109] [cursor=pointer]:
+                    - /url: /settings
+                    - generic [ref=e111]: General
+                - listitem [ref=e112]:
+                  - link "Bank Account" [ref=e113] [cursor=pointer]:
+                    - /url: /settings/bank
+                    - generic [ref=e115]: Bank Account
+                - listitem [ref=e116]:
+                  - link "Practice" [ref=e117] [cursor=pointer]:
+                    - /url: /settings/clinic
+                    - generic [ref=e119]: Practice
+                - listitem [ref=e120]:
+                  - link "Notifications" [ref=e121] [cursor=pointer]:
+                    - /url: /settings/notifications
+                    - generic [ref=e123]: Notifications
+                - listitem [ref=e124]:
+                  - link "Security" [ref=e125] [cursor=pointer]:
+                    - /url: /settings/security
+                    - generic [ref=e127]: Security
+    - generic [ref=e128]:
+      - generic [ref=e129]:
+        - generic [ref=e130]:
+          - button "Collapse sidebar" [ref=e131]
+          - heading [level=1]
+        - generic [ref=e134]:
+          - button [ref=e135] [cursor=pointer]
+          - link [ref=e138] [cursor=pointer]:
+            - /url: /messages
+          - button [ref=e140] [cursor=pointer]
+          - button "T" [ref=e143] [cursor=pointer]:
+            - generic [ref=e145]: T
+      - generic [ref=e278]:
+        - generic [ref=e280]:
+          - generic [ref=e282]:
+            - generic [ref=e285]:
+              - heading "Cases Overview" [level=3] [ref=e286]
+              - paragraph [ref=e287]: Total cases across all statuses
+            - generic [ref=e288]:
+              - generic [ref=e289]: "16"
+              - generic [ref=e290]: Total Cases
+          - generic [ref=e292]:
+            - figure [ref=e296]:
+              - generic [ref=e299]: "16"
+              - img [ref=e300]
+            - generic [ref=e309]:
+              - generic [ref=e314] [cursor=pointer]:
+                - generic [ref=e315]: "6"
+                - generic [ref=e316]: Draft
+              - generic [ref=e321] [cursor=pointer]:
+                - generic [ref=e322]: "0"
+                - generic [ref=e323]: Pre-treatment
+              - generic [ref=e328] [cursor=pointer]:
+                - generic [ref=e329]: "2"
+                - generic [ref=e330]: Ready Treatment Plan
+              - generic [ref=e335] [cursor=pointer]:
+                - generic [ref=e336]: "0"
+                - generic [ref=e337]: Treatment Plan Revision
+              - generic [ref=e342] [cursor=pointer]:
+                - generic [ref=e343]: "0"
+                - generic [ref=e344]: Rejected Treatment Plan
+              - generic [ref=e349] [cursor=pointer]:
+                - generic [ref=e350]: "5"
+                - generic [ref=e351]: In Production
+              - generic [ref=e356] [cursor=pointer]:
+                - generic [ref=e357]: "1"
+                - generic [ref=e358]: In Treatment
+              - generic [ref=e363] [cursor=pointer]:
+                - generic [ref=e364]: "2"
+                - generic [ref=e365]: Completed
+        - generic [ref=e366]:
+          - generic [ref=e368]:
+            - generic [ref=e369]:
+              - heading "Patient Cases Management" [level=1] [ref=e370]
+              - generic [ref=e371]:
+                - button "Archived Cases" [ref=e372] [cursor=pointer]:
+                  - generic [ref=e374]: Archived Cases
+                - link "Create New" [ref=e375] [cursor=pointer]:
+                  - /url: /cases/create
+                  - generic [ref=e377]: Create New
+            - generic [ref=e378]: Manage and track your patient cases efficiently.
+          - generic [ref=e379]:
+            - textbox "Search by name, email, or location..." [ref=e381]
+            - combobox [ref=e384]:
+              - generic: Draft
+          - table [ref=e390]:
+            - rowgroup [ref=e391]:
+              - row "Patient Case Type Started on Last Updated" [ref=e392]:
+                - columnheader "Patient" [ref=e393]:
+                  - button "Patient" [ref=e394]:
+                    - generic [ref=e396]: Patient
+                - columnheader "Case Type" [ref=e397]:
+                  - button "Case Type" [ref=e398]:
+                    - generic [ref=e400]: Case Type
+                - columnheader "Started on" [ref=e401]:
+                  - button "Started on" [ref=e402]:
+                    - generic [ref=e404]: Started on
+                - columnheader "Last Updated" [ref=e405]:
+                  - button "Last Updated" [ref=e406]:
+                    - generic [ref=e408]: Last Updated
+              - row [ref=e409]
+            - rowgroup [ref=e410] [cursor=pointer]:
+              - button "tatang pasien 11 - April 09, 2026 April 09, 2026" [ref=e411]:
+                - cell "tatang pasien 11" [ref=e412]
+                - cell "-" [ref=e413]
+                - cell "April 09, 2026" [ref=e414]
+                - cell "April 09, 2026" [ref=e415]
+              - button "tatang pasien 10 - April 09, 2026 April 09, 2026" [ref=e416]:
+                - cell "tatang pasien 10" [ref=e417]
+                - cell "-" [ref=e418]
+                - cell "April 09, 2026" [ref=e419]
+                - cell "April 09, 2026" [ref=e420]
+              - button "test test - April 08, 2026 April 08, 2026" [ref=e421]:
+                - cell "test test" [ref=e422]
+                - cell "-" [ref=e423]
+                - cell "April 08, 2026" [ref=e424]
+                - cell "April 08, 2026" [ref=e425]
+              - button "tatang pasien 7 - April 08, 2026 April 08, 2026" [ref=e426]:
+                - cell "tatang pasien 7" [ref=e427]
+                - cell "-" [ref=e428]
+                - cell "April 08, 2026" [ref=e429]
+                - cell "April 08, 2026" [ref=e430]
+              - button "tatang pasien 6 - April 08, 2026 April 08, 2026" [ref=e431]:
+                - cell "tatang pasien 6" [ref=e432]
+                - cell "-" [ref=e433]
+                - cell "April 08, 2026" [ref=e434]
+                - cell "April 08, 2026" [ref=e435]
+              - button "test test - April 08, 2026 April 08, 2026" [ref=e436]:
+                - cell "test test" [ref=e437]
+                - cell "-" [ref=e438]
+                - cell "April 08, 2026" [ref=e439]
+                - cell "April 08, 2026" [ref=e440]
+          - generic [ref=e441]:
+            - generic [ref=e442]: 1-6 of 6
+            - generic [ref=e443]:
+              - paragraph [ref=e444]: Show
+              - combobox [ref=e445]:
+                - generic: "20"
+              - paragraph [ref=e448]: per page
+            - generic [ref=e449]:
+              - button [disabled] [ref=e450]
+              - button [disabled] [ref=e452]
+  - img [ref=e276]
+  - region "Notifications (F8)":
+    - list

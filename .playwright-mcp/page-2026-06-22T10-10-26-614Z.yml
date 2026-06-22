@@ -1,0 +1,159 @@
+- generic [active]:
+  - generic:
+    - generic [ref=e2]:
+      - banner [ref=e3]:
+        - generic [ref=e4]:
+          - generic [ref=e7] [cursor=pointer]:
+            - img [ref=e8]
+            - img [ref=e38]
+          - navigation "breadcrumb" [ref=e45]:
+            - list [ref=e46]:
+              - listitem [ref=e47]:
+                - link "Patient" [ref=e48] [cursor=pointer]:
+                  - /url: /cases/1c76aebc-d382-4d09-9ccf-93cb6f11e293
+                  - generic [ref=e50]: Patient
+              - listitem [ref=e51]
+              - listitem [ref=e53]:
+                - link "Agreement" [ref=e54] [cursor=pointer]:
+                  - /url: /monitoring/1c76aebc-d382-4d09-9ccf-93cb6f11e293/agreement
+                  - generic [ref=e55]: Agreement
+          - generic [ref=e57]:
+            - button [ref=e58] [cursor=pointer]
+            - link [ref=e61] [cursor=pointer]:
+              - /url: /messages
+            - button [ref=e63] [cursor=pointer]
+            - button "T" [ref=e66] [cursor=pointer]:
+              - generic [ref=e68]: T
+      - generic [ref=e69]:
+        - generic [ref=e71]:
+          - banner [ref=e72]:
+            - generic [ref=e73]:
+              - generic [ref=e76] [cursor=pointer]:
+                - img [ref=e77]
+                - img [ref=e107]
+              - navigation "breadcrumb" [ref=e114]:
+                - list [ref=e115]:
+                  - listitem [ref=e116]:
+                    - link "Patient" [ref=e117] [cursor=pointer]:
+                      - /url: /cases/1c76aebc-d382-4d09-9ccf-93cb6f11e293
+                      - generic [ref=e119]: Patient
+                  - listitem [ref=e120]
+                  - listitem [ref=e122]:
+                    - link "Agreement" [ref=e123] [cursor=pointer]:
+                      - /url: /monitoring/1c76aebc-d382-4d09-9ccf-93cb6f11e293/agreement
+                      - generic [ref=e124]: Agreement
+              - generic [ref=e126]:
+                - button [ref=e127] [cursor=pointer]
+                - link [ref=e130] [cursor=pointer]:
+                  - /url: /messages
+                - button [ref=e132] [cursor=pointer]
+                - button "T" [ref=e135] [cursor=pointer]:
+                  - generic [ref=e137]: T
+          - generic [ref=e139]:
+            - 'link "tp tatang pasien 15 ID: 5725-204D-Z" [ref=e140] [cursor=pointer]':
+              - /url: /cases/1c76aebc-d382-4d09-9ccf-93cb6f11e293
+              - button [ref=e141]
+              - generic [ref=e143]:
+                - generic [ref=e145]: tp
+                - generic [ref=e146]:
+                  - paragraph [ref=e147]: tatang pasien 15
+                  - paragraph [ref=e148]: "ID: 5725-204D-Z"
+            - generic [ref=e149]:
+              - generic [ref=e151]:
+                - heading "Monitoring Information" [level=4] [ref=e154] [cursor=pointer]
+                - generic [ref=e158]:
+                  - generic [ref=e159]:
+                    - generic [ref=e160]:
+                      - generic [ref=e161]: Plan
+                      - generic [ref=e163]: 3D Monitoring Full
+                    - generic [ref=e164]:
+                      - generic [ref=e165]: Started
+                      - generic [ref=e167]: Apr 15, 2026, 05:08 PM
+                    - generic [ref=e168]:
+                      - generic [ref=e169]: Patient App
+                      - generic [ref=e171]: Not Activated
+                    - generic [ref=e172]:
+                      - generic [ref=e173]: Scan Box
+                      - generic [ref=e175]: "-"
+                    - generic [ref=e176]:
+                      - generic [ref=e177]: Next Scan
+                      - generic [ref=e179]: May 15, 2026, 05:08 PM
+                    - generic [ref=e180]:
+                      - generic [ref=e181]: Frequency
+                      - generic [ref=e183]: Every 4 week(s) and 2 day(s)
+                    - generic [ref=e184]:
+                      - generic [ref=e185]: Upper/Lower
+                      - generic [ref=e187]: Orthodontic pre-treatment - No appliance - No appliance
+                    - generic [ref=e188]:
+                      - generic [ref=e189]: "Aligner #"
+                      - generic [ref=e191]: "-"
+                    - generic [ref=e192]:
+                      - generic [ref=e193]: Excluded Teeth
+                      - generic [ref=e195]: "-"
+                  - generic [ref=e196]:
+                    - button "Pause" [ref=e197] [cursor=pointer]:
+                      - generic [ref=e199]: Pause
+                    - button "Stop" [ref=e200]:
+                      - generic [ref=e202]: Stop
+              - generic [ref=e203]:
+                - navigation [ref=e205]:
+                  - list [ref=e207]:
+                    - listitem [ref=e208]:
+                      - link "Monitoring" [ref=e209] [cursor=pointer]:
+                        - /url: /monitoring/1c76aebc-d382-4d09-9ccf-93cb6f11e293/monitoring
+                        - generic [ref=e210]: Monitoring
+                    - listitem [ref=e211]:
+                      - link "Protocol" [ref=e212] [cursor=pointer]:
+                        - /url: /monitoring/1c76aebc-d382-4d09-9ccf-93cb6f11e293/protocol
+                        - generic [ref=e213]: Protocol
+                    - listitem [ref=e214]:
+                      - link "Info" [ref=e215] [cursor=pointer]:
+                        - /url: /monitoring/1c76aebc-d382-4d09-9ccf-93cb6f11e293/info
+                        - generic [ref=e216]: Info
+                    - listitem [ref=e217]:
+                      - link "Notes" [ref=e218] [cursor=pointer]:
+                        - /url: /monitoring/1c76aebc-d382-4d09-9ccf-93cb6f11e293/notes
+                        - generic [ref=e219]: Notes
+                    - listitem [ref=e220]:
+                      - link "Files" [ref=e221] [cursor=pointer]:
+                        - /url: /monitoring/1c76aebc-d382-4d09-9ccf-93cb6f11e293/files
+                        - generic [ref=e222]: Files
+                    - listitem [ref=e223]:
+                      - link "Scans" [ref=e224] [cursor=pointer]:
+                        - /url: /monitoring/1c76aebc-d382-4d09-9ccf-93cb6f11e293/scans
+                        - generic [ref=e225]: Scans
+                    - listitem [ref=e226]:
+                      - link "History" [ref=e227] [cursor=pointer]:
+                        - /url: /monitoring/1c76aebc-d382-4d09-9ccf-93cb6f11e293/history
+                        - generic [ref=e228]: History
+                    - listitem [ref=e229]:
+                      - link "Agreements" [ref=e230] [cursor=pointer]:
+                        - /url: /monitoring/1c76aebc-d382-4d09-9ccf-93cb6f11e293/agreement
+                        - generic [ref=e231]: Agreements
+                - generic [ref=e232]:
+                  - heading "Terms & conditions" [level=1] [ref=e233]
+                  - generic [ref=e234]: "Madura A Arachchige, to continue using DentalMonitoring services, please read and agree to our latest terms and conditions:"
+                  - generic [ref=e235]:
+                    - generic [ref=e236]:
+                      - generic [ref=e237]: "Patient Terms of Use: xview document (PDF)"
+                      - generic [ref=e238]:
+                        - checkbox "I HAVE READ AND UNDERSTOOD THE PATIENT TERMS OF USE" [ref=e240]
+                        - generic [ref=e242]: I HAVE READ AND UNDERSTOOD THE PATIENT TERMS OF USE
+                    - generic [ref=e243]:
+                      - generic [ref=e244]: "Patient User Guide: xview document (PDF)"
+                      - generic [ref=e245]:
+                        - checkbox "I I HAVE READ AND UNDERSTOOD THE PATIENT USER GUIDE" [ref=e247]
+                        - generic [ref=e249]: I I HAVE READ AND UNDERSTOOD THE PATIENT USER GUIDE
+                    - generic [ref=e250]:
+                      - generic [ref=e251]: "Privacy Policy: xview document (PDF)"
+                      - generic [ref=e252]:
+                        - checkbox "I HAVE READ AND UNDERSTOOD THE PRIVACY POLICY" [ref=e254]
+                        - generic [ref=e256]: I HAVE READ AND UNDERSTOOD THE PRIVACY POLICY
+        - generic [ref=e263] [cursor=pointer]:
+          - generic [ref=e265]: tp
+          - paragraph [ref=e267]: tatang pasien 15
+    - generic [ref=e274] [cursor=pointer]:
+      - generic [ref=e276]: tp
+      - paragraph [ref=e278]: tatang pasien 15
+  - region "Notifications (F8)":
+    - list

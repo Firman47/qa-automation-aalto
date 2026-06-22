@@ -1,0 +1,161 @@
+- generic [active]:
+  - generic:
+    - generic [ref=e2]:
+      - banner [ref=e3]:
+        - generic [ref=e4]:
+          - generic [ref=e7] [cursor=pointer]:
+            - img [ref=e8]
+            - img [ref=e38]
+          - navigation "breadcrumb" [ref=e45]:
+            - list [ref=e46]:
+              - listitem [ref=e47]:
+                - link "Patient" [ref=e48] [cursor=pointer]:
+                  - /url: /cases/1c76aebc-d382-4d09-9ccf-93cb6f11e293
+                  - generic [ref=e50]: Patient
+              - listitem [ref=e51]
+              - listitem [ref=e53]:
+                - link "Infos" [ref=e54] [cursor=pointer]:
+                  - /url: /monitoring/1c76aebc-d382-4d09-9ccf-93cb6f11e293
+                  - generic [ref=e55]: Infos
+          - generic [ref=e57]:
+            - button [ref=e58] [cursor=pointer]
+            - link [ref=e61] [cursor=pointer]:
+              - /url: /messages
+            - button [ref=e63] [cursor=pointer]
+            - button "T" [ref=e66] [cursor=pointer]:
+              - generic [ref=e68]: T
+      - generic [ref=e70]:
+        - 'link "tp tatang pasien 15 ID: 5725-204D-Z" [ref=e71] [cursor=pointer]':
+          - /url: /cases/1c76aebc-d382-4d09-9ccf-93cb6f11e293
+          - button [ref=e72]
+          - generic [ref=e74]:
+            - generic [ref=e76]: tp
+            - generic [ref=e77]:
+              - paragraph [ref=e78]: tatang pasien 15
+              - paragraph [ref=e79]: "ID: 5725-204D-Z"
+        - generic [ref=e80]:
+          - generic [ref=e82]:
+            - heading "Monitoring Information" [level=4] [ref=e85] [cursor=pointer]
+            - generic [ref=e89]:
+              - generic [ref=e90]:
+                - generic [ref=e91]:
+                  - generic [ref=e92]: Plan
+                  - generic [ref=e94]: 3D Monitoring Full
+                - generic [ref=e95]:
+                  - generic [ref=e96]: Started
+                  - generic [ref=e98]: Apr 15, 2026, 10:08 AM
+                - generic [ref=e99]:
+                  - generic [ref=e100]: Patient App
+                  - generic [ref=e102]: Not Activated
+                - generic [ref=e103]:
+                  - generic [ref=e104]: Scan Box
+                  - generic [ref=e106]: "-"
+                - generic [ref=e107]:
+                  - generic [ref=e108]: Next Scan
+                  - generic [ref=e110]: May 15, 2026, 10:08 AM
+                - generic [ref=e111]:
+                  - generic [ref=e112]: Frequency
+                  - generic [ref=e114]: Every 4 week(s) and 2 day(s)
+                - generic [ref=e115]:
+                  - generic [ref=e116]: Upper/Lower
+                  - generic [ref=e118]: Orthodontic pre-treatment - No appliance - No appliance
+                - generic [ref=e119]:
+                  - generic [ref=e120]: "Aligner #"
+                  - generic [ref=e122]: "-"
+                - generic [ref=e123]:
+                  - generic [ref=e124]: Excluded Teeth
+                  - generic [ref=e126]: "-"
+              - generic [ref=e127]:
+                - button "Pause" [ref=e128] [cursor=pointer]:
+                  - generic [ref=e130]: Pause
+                - button "Stop" [ref=e131]:
+                  - generic [ref=e133]: Stop
+          - generic [ref=e134]:
+            - navigation [ref=e136]:
+              - list [ref=e138]:
+                - listitem [ref=e139]:
+                  - link "Monitoring" [ref=e140] [cursor=pointer]:
+                    - /url: /monitoring/1c76aebc-d382-4d09-9ccf-93cb6f11e293/monitoring
+                    - generic [ref=e141]: Monitoring
+                - listitem [ref=e142]:
+                  - link "Protocol" [ref=e143] [cursor=pointer]:
+                    - /url: /monitoring/1c76aebc-d382-4d09-9ccf-93cb6f11e293/protocol
+                    - generic [ref=e144]: Protocol
+                - listitem [ref=e145]:
+                  - link "Info" [ref=e146] [cursor=pointer]:
+                    - /url: /monitoring/1c76aebc-d382-4d09-9ccf-93cb6f11e293/info
+                    - generic [ref=e147]: Info
+                - listitem [ref=e148]:
+                  - link "Notes" [ref=e149] [cursor=pointer]:
+                    - /url: /monitoring/1c76aebc-d382-4d09-9ccf-93cb6f11e293/notes
+                    - generic [ref=e150]: Notes
+                - listitem [ref=e151]:
+                  - link "Files" [ref=e152] [cursor=pointer]:
+                    - /url: /monitoring/1c76aebc-d382-4d09-9ccf-93cb6f11e293/files
+                    - generic [ref=e153]: Files
+                - listitem [ref=e154]:
+                  - link "Scans" [ref=e155] [cursor=pointer]:
+                    - /url: /monitoring/1c76aebc-d382-4d09-9ccf-93cb6f11e293/scans
+                    - generic [ref=e156]: Scans
+                - listitem [ref=e157]:
+                  - link "History" [ref=e158] [cursor=pointer]:
+                    - /url: /monitoring/1c76aebc-d382-4d09-9ccf-93cb6f11e293/history
+                    - generic [ref=e159]: History
+                - listitem [ref=e160]:
+                  - link "Agreements" [ref=e161] [cursor=pointer]:
+                    - /url: /monitoring/1c76aebc-d382-4d09-9ccf-93cb6f11e293/agreement
+                    - generic [ref=e162]: Agreements
+            - generic [ref=e163]:
+              - generic [ref=e164]:
+                - generic [ref=e165]:
+                  - heading "PATIENT PROFILE ID" [level=1] [ref=e166]
+                  - heading "7225" [level=1] [ref=e167]
+                - generic [ref=e168]:
+                  - heading "FIRST NAME" [level=1] [ref=e169]
+                  - heading "tatang" [level=1] [ref=e170]
+                - generic [ref=e171]:
+                  - heading "LAST NAME" [level=1] [ref=e172]
+                  - heading "pasien 15" [level=1] [ref=e173]
+                - generic [ref=e174]:
+                  - heading "EMAIL" [level=1] [ref=e175]
+                  - heading "tatang.pasien15@gmail.com" [level=1] [ref=e176]
+                - generic [ref=e177]:
+                  - heading "SECONDARY EMAIL (ALWAYS IN CC)" [level=1] [ref=e178]
+                  - heading "-" [level=1] [ref=e179]
+                - generic [ref=e180]:
+                  - heading "LANGUAGE" [level=1] [ref=e181]
+                  - heading "English" [level=1] [ref=e182]
+                - generic [ref=e183]:
+                  - heading "APP ACTIVATED:" [level=1] [ref=e184]
+                  - heading "Not Activated" [level=1] [ref=e185]
+              - generic [ref=e186]:
+                - generic [ref=e187]:
+                  - heading "MOBILE PHONE" [level=1] [ref=e188]
+                  - heading "+12135550192" [level=1] [ref=e189]
+                - generic [ref=e190]:
+                  - heading "PRACTICE SOFTWARE ID" [level=1] [ref=e191]
+                  - heading "-" [level=1] [ref=e192]
+                - generic [ref=e193]:
+                  - 'heading "MEDICAL FILE #" [level=1] [ref=e194]'
+                  - heading "10668ef2-243d-44bb-918a-897e3a22fe4a" [level=1] [ref=e195]
+                - generic [ref=e196]:
+                  - heading "DATE OF BIRTH" [level=1] [ref=e197]
+                  - heading "2000-03-13" [level=1] [ref=e198]
+                - generic [ref=e199]:
+                  - heading "SCAN PROCESS VERSION" [level=1] [ref=e200]
+                  - heading "Scan process V2" [level=1] [ref=e201]
+                - generic [ref=e202]:
+                  - heading "ADAPTER INSTRUCTION (DM APP?)" [level=1] [ref=e203]
+                  - heading "-" [level=1] [ref=e204]
+                - generic [ref=e205]:
+                  - heading "HAS LED ADAPTER?" [level=1] [ref=e206]
+                  - heading "Enabled" [level=1] [ref=e207]
+                - generic [ref=e208]:
+                  - heading "SCAN SEQUENCE ORDER" [level=1] [ref=e209]
+                  - heading "Not Specified" [level=1] [ref=e210]
+                - generic [ref=e211]:
+                  - heading "PRACTICE" [level=1] [ref=e212]
+                  - heading "Tatang Practice" [level=1] [ref=e213]
+    - generic [ref=e220] [cursor=pointer]:
+      - img "tatang pasien 15" [ref=e222]
+      - paragraph [ref=e224]: tatang pasien 15

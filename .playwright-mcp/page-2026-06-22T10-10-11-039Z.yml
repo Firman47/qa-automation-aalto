@@ -1,0 +1,118 @@
+- generic [active]:
+  - generic:
+    - generic [ref=e2]:
+      - banner [ref=e3]:
+        - generic [ref=e4]:
+          - generic [ref=e7] [cursor=pointer]:
+            - img [ref=e8]
+            - img [ref=e38]
+          - navigation "breadcrumb" [ref=e45]:
+            - list [ref=e46]:
+              - listitem [ref=e47]:
+                - link "Patient" [ref=e48] [cursor=pointer]:
+                  - /url: /cases/1c76aebc-d382-4d09-9ccf-93cb6f11e293
+                  - generic [ref=e50]: Patient
+              - listitem [ref=e51]
+              - listitem [ref=e53]:
+                - link "Infos" [ref=e54] [cursor=pointer]:
+                  - /url: /monitoring/1c76aebc-d382-4d09-9ccf-93cb6f11e293
+                  - generic [ref=e55]: Infos
+          - generic [ref=e57]:
+            - button [ref=e58] [cursor=pointer]
+            - link [ref=e61] [cursor=pointer]:
+              - /url: /messages
+            - button [ref=e63] [cursor=pointer]
+            - button "T" [ref=e66] [cursor=pointer]:
+              - generic [ref=e68]: T
+      - generic [ref=e70]:
+        - 'link "tp tatang pasien 15 ID: 5725-204D-Z" [ref=e71] [cursor=pointer]':
+          - /url: /cases/1c76aebc-d382-4d09-9ccf-93cb6f11e293
+          - button [ref=e72]
+          - generic [ref=e74]:
+            - generic [ref=e76]: tp
+            - generic [ref=e77]:
+              - paragraph [ref=e78]: tatang pasien 15
+              - paragraph [ref=e79]: "ID: 5725-204D-Z"
+        - generic [ref=e80]:
+          - generic [ref=e82]:
+            - heading "Monitoring Information" [level=4] [ref=e85] [cursor=pointer]
+            - generic [ref=e89]:
+              - generic [ref=e90]:
+                - generic [ref=e91]:
+                  - generic [ref=e92]: Plan
+                  - generic [ref=e94]: 3D Monitoring Full
+                - generic [ref=e95]:
+                  - generic [ref=e96]: Started
+                  - generic [ref=e98]: Apr 15, 2026, 05:08 PM
+                - generic [ref=e99]:
+                  - generic [ref=e100]: Patient App
+                  - generic [ref=e102]: Not Activated
+                - generic [ref=e103]:
+                  - generic [ref=e104]: Scan Box
+                  - generic [ref=e106]: "-"
+                - generic [ref=e107]:
+                  - generic [ref=e108]: Next Scan
+                  - generic [ref=e110]: May 15, 2026, 05:08 PM
+                - generic [ref=e111]:
+                  - generic [ref=e112]: Frequency
+                  - generic [ref=e114]: Every 4 week(s) and 2 day(s)
+                - generic [ref=e115]:
+                  - generic [ref=e116]: Upper/Lower
+                  - generic [ref=e118]: Orthodontic pre-treatment - No appliance - No appliance
+                - generic [ref=e119]:
+                  - generic [ref=e120]: "Aligner #"
+                  - generic [ref=e122]: "-"
+                - generic [ref=e123]:
+                  - generic [ref=e124]: Excluded Teeth
+                  - generic [ref=e126]: "-"
+              - generic [ref=e127]:
+                - button "Pause" [ref=e128] [cursor=pointer]:
+                  - generic [ref=e130]: Pause
+                - button "Stop" [ref=e131]:
+                  - generic [ref=e133]: Stop
+          - generic [ref=e134]:
+            - navigation [ref=e136]:
+              - list [ref=e138]:
+                - listitem [ref=e139]:
+                  - link "Monitoring" [ref=e140] [cursor=pointer]:
+                    - /url: /monitoring/1c76aebc-d382-4d09-9ccf-93cb6f11e293/monitoring
+                    - generic [ref=e141]: Monitoring
+                - listitem [ref=e142]:
+                  - link "Protocol" [ref=e143] [cursor=pointer]:
+                    - /url: /monitoring/1c76aebc-d382-4d09-9ccf-93cb6f11e293/protocol
+                    - generic [ref=e144]: Protocol
+                - listitem [ref=e145]:
+                  - link "Info" [ref=e146] [cursor=pointer]:
+                    - /url: /monitoring/1c76aebc-d382-4d09-9ccf-93cb6f11e293/info
+                    - generic [ref=e147]: Info
+                - listitem [ref=e148]:
+                  - link "Notes" [ref=e149] [cursor=pointer]:
+                    - /url: /monitoring/1c76aebc-d382-4d09-9ccf-93cb6f11e293/notes
+                    - generic [ref=e150]: Notes
+                - listitem [ref=e151]:
+                  - link "Files" [ref=e152] [cursor=pointer]:
+                    - /url: /monitoring/1c76aebc-d382-4d09-9ccf-93cb6f11e293/files
+                    - generic [ref=e153]: Files
+                - listitem [ref=e154]:
+                  - link "Scans" [ref=e155] [cursor=pointer]:
+                    - /url: /monitoring/1c76aebc-d382-4d09-9ccf-93cb6f11e293/scans
+                    - generic [ref=e156]: Scans
+                - listitem [ref=e157]:
+                  - link "History" [ref=e158] [cursor=pointer]:
+                    - /url: /monitoring/1c76aebc-d382-4d09-9ccf-93cb6f11e293/history
+                    - generic [ref=e159]: History
+                - listitem [ref=e160]:
+                  - link "Agreements" [ref=e161] [cursor=pointer]:
+                    - /url: /monitoring/1c76aebc-d382-4d09-9ccf-93cb6f11e293/agreement
+                    - generic [ref=e162]: Agreements
+            - generic [ref=e166]:
+              - generic [ref=e167]:
+                - heading "Files" [level=2] [ref=e168]
+                - generic [ref=e169]: Manage and upload files related to this patient.
+              - button "Add a File" [ref=e172] [cursor=pointer]:
+                - generic [ref=e174]: Add a File
+    - generic [ref=e181] [cursor=pointer]:
+      - generic [ref=e183]: tp
+      - paragraph [ref=e185]: tatang pasien 15
+  - region "Notifications (F8)":
+    - list

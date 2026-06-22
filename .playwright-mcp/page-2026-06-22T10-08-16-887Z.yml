@@ -1,0 +1,167 @@
+- generic [active]:
+  - generic [ref=e333]:
+    - banner [ref=e334]:
+      - generic [ref=e335]:
+        - generic [ref=e338] [cursor=pointer]:
+          - img [ref=e339]
+          - img [ref=e369]
+        - navigation "breadcrumb" [ref=e376]:
+          - list [ref=e377]:
+            - listitem [ref=e378]:
+              - link "CASE VIEW" [ref=e379] [cursor=pointer]:
+                - /url: /cases
+                - generic [ref=e381]: CASE VIEW
+        - generic [ref=e383]:
+          - button [ref=e384] [cursor=pointer]
+          - link [ref=e388] [cursor=pointer]:
+            - /url: /messages
+          - button [ref=e390] [cursor=pointer]
+          - button "T" [ref=e393] [cursor=pointer]:
+            - generic [ref=e395]: T
+    - generic [ref=e396]:
+      - generic [ref=e397]:
+        - generic [ref=e398]:
+          - generic [ref=e399]:
+            - generic [ref=e400]:
+              - img "T1" [ref=e402]
+              - generic [ref=e403]: tatang pasien 15
+              - button [ref=e404] [cursor=pointer]
+            - generic [ref=e406]:
+              - generic [ref=e407]:
+                - generic [ref=e410]: Date of Birth
+                - generic [ref=e411]: 2000-03-13
+              - generic [ref=e412]:
+                - generic [ref=e415]: Email
+                - generic [ref=e416]: tatang.pasien15@gmail.com
+              - generic [ref=e417]:
+                - generic [ref=e420]: Phone Number
+                - generic [ref=e421]: +1 2135550192
+              - generic [ref=e422]:
+                - generic [ref=e425]: Home Address
+                - generic [ref=e426]: 789 Pine St Apt 3B
+              - link "Open Monitoring" [ref=e428] [cursor=pointer]:
+                - /url: /monitoring/1c76aebc-d382-4d09-9ccf-93cb6f11e293
+                - generic [ref=e429]: Open Monitoring
+          - generic [ref=e431]:
+            - generic [ref=e432]:
+              - generic [ref=e433]:
+                - heading "Consent Patient" [level=1] [ref=e434]
+                - button [ref=e435] [cursor=pointer]
+              - generic [ref=e439]: Signed
+            - generic [ref=e440]:
+              - heading "Medical History" [level=1] [ref=e442]
+              - generic [ref=e445]: Signed
+            - generic [ref=e446]:
+              - heading "Payment Status" [level=1] [ref=e448]
+              - generic [ref=e451]: Approved Payment
+            - button "Send To Patient" [ref=e452] [cursor=pointer]:
+              - generic [ref=e453]: Send To Patient
+        - generic [ref=e454]:
+          - generic [ref=e455]:
+            - generic [ref=e456]:
+              - generic [ref=e457]:
+                - generic [ref=e458]: CASE
+                - generic [ref=e459]: AAL-20260413-00004
+                - generic [ref=e460]: •
+                - generic [ref=e461]: Apr 13, 2026, 02:12 PM
+              - generic [ref=e462]: In Treatment
+            - generic [ref=e463]:
+              - generic [ref=e466]: Treatment Started
+              - button "Archive Case" [ref=e467] [cursor=pointer]:
+                - generic [ref=e469]: Archive Case
+              - link "View Submission" [ref=e470] [cursor=pointer]:
+                - /url: /cases/1c76aebc-d382-4d09-9ccf-93cb6f11e293/submission
+                - generic [ref=e471]: View Submission
+          - generic [ref=e472]:
+            - generic [ref=e475] [cursor=pointer]: Case Notes
+            - generic [ref=e477]:
+              - generic [ref=e479] [cursor=pointer]: Case Tracker
+              - generic [ref=e482]:
+                - generic [ref=e488]:
+                  - generic [ref=e489]: Treatment in progress
+                  - generic [ref=e490]: Treatment started • April 15, 2026 at 05:08 PM • tatang admin
+                - generic [ref=e496]:
+                  - generic [ref=e497]: Treatment plan approved
+                  - generic [ref=e498]: The treatment plan has been approved and ready for production. • April 13, 2026 at 03:49 PM • Tatang Doctor
+                - generic [ref=e504]:
+                  - generic [ref=e505]: Treatment plan ready for review
+                  - generic [ref=e506]: Your treatment plan is ready for review. Approve or request changes. • April 13, 2026 at 02:51 PM • Tatang Orthodontist
+                - generic [ref=e512]:
+                  - generic [ref=e513]: Treatment plan rejected
+                  - generic [ref=e514]: adsf • April 13, 2026 at 02:50 PM • Tatang Doctor
+                - generic [ref=e520]:
+                  - generic [ref=e521]: Treatment plan ready for review
+                  - generic [ref=e522]: Your treatment plan is ready for review. Approve or request changes. • April 13, 2026 at 02:50 PM • Tatang Orthodontist
+                - generic [ref=e528]:
+                  - generic [ref=e529]: Treatment plan in progress
+                  - generic [ref=e530]: A licensed orthodontist is currently building the treatment plan. Plans typically take between 24-48 hours. • April 13, 2026 at 02:47 PM • Tatang Orthodontist
+                - generic [ref=e535]:
+                  - generic [ref=e536]: Case submitted
+                  - generic [ref=e537]: Case has been submitted for review • April 13, 2026 at 02:15 PM • Tatang Doctor
+            - generic [ref=e538]:
+              - generic [ref=e540] [cursor=pointer]: Treatment Plan Summary
+              - generic [ref=e544]:
+                - generic [ref=e546]:
+                  - generic [ref=e547]:
+                    - generic [ref=e548]: Patient Name
+                    - generic [ref=e549]: tatang pasien 15
+                  - generic [ref=e551]:
+                    - generic [ref=e552]: Case Number
+                    - generic [ref=e553]: AAL-20260413-00004
+                  - generic [ref=e555]:
+                    - generic [ref=e556]: Case Type
+                    - generic [ref=e557]: Express
+                  - generic [ref=e559]:
+                    - generic [ref=e560]: Created by
+                    - generic [ref=e561]:
+                      - generic [ref=e563]: TO
+                      - generic [ref=e564]: Tatang Orthodontist
+                  - generic [ref=e566]:
+                    - generic [ref=e567]: Status
+                    - generic [ref=e568]: Approved
+                - generic [ref=e569]:
+                  - generic [ref=e570]:
+                    - paragraph [ref=e571]: Version
+                    - combobox [ref=e572]:
+                      - generic: Version 2 (Approved at Apr 13, 2026, 02:51 PM)
+                    - generic [ref=e575]:
+                      - paragraph [ref=e576]: "Created: Apr 13, 2026, 02:51 PM"
+                      - paragraph [ref=e577]: "Sent: Apr 13, 2026, 02:51 PM"
+                      - paragraph [ref=e578]: "Updated: Apr 13, 2026, 03:49 PM"
+                  - generic [ref=e580]:
+                    - generic [ref=e581]: Treatment Plan Overview
+                    - generic [ref=e582]:
+                      - generic [ref=e583]:
+                        - generic [ref=e584]: What you can achieve with this treatment
+                        - generic [ref=e585]: asdf
+                      - generic [ref=e586]:
+                        - generic [ref=e587]: Watch out for
+                        - generic [ref=e588]: adf
+                      - generic [ref=e589]:
+                        - generic [ref=e590]: Why did I choose this approach?
+                        - generic [ref=e591]: asdf
+                      - generic [ref=e592]:
+                        - generic [ref=e593]: Inform your patients
+                        - generic [ref=e594]: asdf2
+                - iframe [ref=e596]:
+                  - generic [active] [ref=f7e1]:
+                    - generic [ref=f7e4]:
+                      - generic [ref=f7e5]: L
+                      - generic [ref=f7e6]: ading
+                    - iframe [ref=f7e7]:
+                      - generic [active] [ref=f8e1]:
+                        - generic [ref=f8e2]: 页头
+                        - generic [ref=f8e7]: /
+                - generic [ref=e599]:
+                  - paragraph [ref=e600]: Treatment Plan Approved
+                  - paragraph [ref=e601]: This treatment plan has been approved and is ready for production.
+          - button "Complete Treatment" [ref=e603] [cursor=pointer]:
+            - generic [ref=e604]: Complete Treatment
+      - generic [ref=e607] [cursor=pointer]:
+        - generic [ref=e614]:
+          - paragraph [ref=e615]: Tatang Orthodontist
+          - paragraph [ref=e616]: Orthodontist
+        - button [ref=e618]
+  - img [ref=e310]
+  - region "Notifications (F8)":
+    - list

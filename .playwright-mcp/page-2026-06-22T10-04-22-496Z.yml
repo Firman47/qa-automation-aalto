@@ -1,0 +1,379 @@
+- generic [active] [ref=e1]:
+  - link "Skip to content" [ref=e2] [cursor=pointer]:
+    - /url: "#content"
+  - generic [ref=e5]:
+    - link "AD_MON_VS_DentalMonitoring-LOGO-CMYK_012_02_rd_A_MF_en" [ref=e9] [cursor=pointer]:
+      - /url: https://dentalmonitoring.com
+      - img "AD_MON_VS_DentalMonitoring-LOGO-CMYK_012_02_rd_A_MF_en" [ref=e10]
+    - generic [ref=e13]:
+      - navigation "Menu" [ref=e14]:
+        - list [ref=e15]:
+          - listitem [ref=e16]:
+            - link "Home" [ref=e17] [cursor=pointer]:
+              - /url: https://dentalmonitoring.com/
+          - listitem [ref=e18]:
+            - link "Our Solutions" [ref=e19] [cursor=pointer]:
+              - /url: https://dentalmonitoring.com/our-solutions/
+              - text: Our Solutions
+              - generic [ref=e20]:
+                - generic: 
+          - listitem [ref=e21]:
+            - link "Evidence" [ref=e22] [cursor=pointer]:
+              - /url: https://dentalmonitoring.com/evidence/
+          - listitem [ref=e23]:
+            - link "The DM Difference" [ref=e24] [cursor=pointer]:
+              - /url: https://dentalmonitoring.com/dm-difference/
+          - listitem [ref=e25]:
+            - link "Resources" [ref=e26] [cursor=pointer]:
+              - /url: https://dentalmonitoring.com/resources/
+              - text: Resources
+              - generic [ref=e27]:
+                - generic: 
+          - listitem [ref=e28]:
+            - link "Contact Us" [ref=e29] [cursor=pointer]:
+              - /url: https://dentalmonitoring.com/contact-us/
+          - listitem [ref=e30]:
+            - link "Log In" [ref=e31] [cursor=pointer]:
+              - /url: "#"
+              - text: Log In
+              - generic [ref=e32]:
+                - generic: 
+          - listitem [ref=e33]:
+            - link "English" [ref=e34] [cursor=pointer]:
+              - /url: https://dentalmonitoring.com/
+              - generic [ref=e35]: English
+              - generic [ref=e36]:
+                - generic: 
+      - text:      
+  - generic [ref=e37]:
+    - generic [ref=e42]:
+      - generic [ref=e43]:
+        - group "1 / 3" [ref=e44]:
+          - img [ref=e45]
+          - generic [ref=e47]:
+            - generic [ref=e48]: Smarter orthodontics starts here.
+            - generic [ref=e49]:
+              - text: Monitor your patients.
+              - text: Measure practice efficiency.
+              - text: Master your workflow.
+              - text: Leverage the most advanced AI-powered solutions to improve the quality of care , enable practice growth & optimization all while enhancing the patient experience.
+            - link "Learn How" [ref=e50] [cursor=pointer]:
+              - /url: https://dentalmonitoring.com/our-solutions/
+        - group "2 / 3" [ref=e51]:
+          - img [ref=e52]
+          - generic [ref=e54]:
+            - generic [ref=e55]: FDA DE NOVO APPROVED & MDR CERTIFIED
+            - generic [ref=e56]: We are the orthodontic industry’s first and only AI-powered Software as a Medical Device.
+            - link "Learn more" [ref=e57] [cursor=pointer]:
+              - /url: https://dentalmonitoring.com/new-standard/
+        - group "3 / 3" [ref=e58]:
+          - img [ref=e59]
+          - 'link "Better AI. Made for professionals. DentalMonitoring: The leader in dental AI solutions built to empower dental professionals The DM difference" [ref=e60] [cursor=pointer]':
+            - /url: https://dentalmonitoring.com/dm-difference/
+            - generic [ref=e61]:
+              - generic [ref=e62]:
+                - text: Better AI.
+                - text: Made for professionals.
+              - generic [ref=e63]: "DentalMonitoring: The leader in dental AI solutions built to empower dental professionals"
+              - generic [ref=e64]: The DM difference
+        - group "1 / 3" [ref=e65]:
+          - img [ref=e66]
+          - generic [ref=e68]:
+            - generic [ref=e69]: Smarter orthodontics starts here.
+            - generic [ref=e70]:
+              - text: Monitor your patients.
+              - text: Measure practice efficiency.
+              - text: Master your workflow.
+              - text: Leverage the most advanced AI-powered solutions to improve the quality of care , enable practice growth & optimization all while enhancing the patient experience.
+            - link "Learn How" [ref=e71] [cursor=pointer]:
+              - /url: https://dentalmonitoring.com/our-solutions/
+        - group "2 / 3" [ref=e72]:
+          - img [ref=e73]
+          - generic [ref=e75]:
+            - generic [ref=e76]: FDA DE NOVO APPROVED & MDR CERTIFIED
+            - generic [ref=e77]: We are the orthodontic industry’s first and only AI-powered Software as a Medical Device.
+            - link "Learn more" [ref=e78] [cursor=pointer]:
+              - /url: https://dentalmonitoring.com/new-standard/
+        - group "3 / 3" [ref=e79]:
+          - img [ref=e80]
+          - 'link "Better AI. Made for professionals. DentalMonitoring: The leader in dental AI solutions built to empower dental professionals The DM difference" [ref=e81] [cursor=pointer]':
+            - /url: https://dentalmonitoring.com/dm-difference/
+            - generic [ref=e82]:
+              - generic [ref=e83]:
+                - text: Better AI.
+                - text: Made for professionals.
+              - generic [ref=e84]: "DentalMonitoring: The leader in dental AI solutions built to empower dental professionals"
+              - generic [ref=e85]: The DM difference
+        - group "1 / 3" [ref=e86]:
+          - img [ref=e87]
+          - generic [ref=e89]:
+            - generic [ref=e90]: Smarter orthodontics starts here.
+            - generic [ref=e91]:
+              - text: Monitor your patients.
+              - text: Measure practice efficiency.
+              - text: Master your workflow.
+              - text: Leverage the most advanced AI-powered solutions to improve the quality of care , enable practice growth & optimization all while enhancing the patient experience.
+            - link "Learn How" [ref=e92] [cursor=pointer]:
+              - /url: https://dentalmonitoring.com/our-solutions/
+        - group "2 / 3" [ref=e93]:
+          - img [ref=e94]
+          - generic [ref=e96]:
+            - generic [ref=e97]: FDA DE NOVO APPROVED & MDR CERTIFIED
+            - generic [ref=e98]: We are the orthodontic industry’s first and only AI-powered Software as a Medical Device.
+            - link "Learn more" [ref=e99] [cursor=pointer]:
+              - /url: https://dentalmonitoring.com/new-standard/
+        - group "3 / 3" [ref=e100]:
+          - img [ref=e101]
+          - 'link "Better AI. Made for professionals. DentalMonitoring: The leader in dental AI solutions built to empower dental professionals The DM difference" [ref=e102] [cursor=pointer]':
+            - /url: https://dentalmonitoring.com/dm-difference/
+            - generic [ref=e103]:
+              - generic [ref=e104]:
+                - text: Better AI.
+                - text: Made for professionals.
+              - generic [ref=e105]: "DentalMonitoring: The leader in dental AI solutions built to empower dental professionals"
+              - generic [ref=e106]: The DM difference
+      - generic [ref=e107]:
+        - button "Go to slide 1" [ref=e108] [cursor=pointer]
+        - button "Go to slide 2" [ref=e109] [cursor=pointer]
+        - button "Go to slide 3" [ref=e110] [cursor=pointer]
+      - button "Previous slide" [ref=e111]:
+        - generic [ref=e112]: 
+        - generic [ref=e113]: Previous slide
+      - button "Next slide" [ref=e114]:
+        - generic [ref=e115]: 
+        - generic [ref=e116]: Next slide
+    - text:  
+    - generic [ref=e120]:
+      - heading "Smarter Orthodontics" [level=2] [ref=e123]
+      - heading "DentalMonitoring" [level=2] [ref=e126]
+      - paragraph [ref=e129]: The leading intelligent platform providing connected, smarter and more sustainable dental care.
+    - generic [ref=e136]:
+      - heading "Smarter Orthodontics starts with DentalMonitoring. Here’s proof." [level=2] [ref=e139]
+      - link "Access clinical studies" [ref=e143] [cursor=pointer]:
+        - /url: https://dentalmonitoring.com/evidence/
+        - generic [ref=e145]: Access clinical studies
+    - generic [ref=e147]:
+      - generic [ref=e149]:
+        - heading "Discover the Intelligent Platform" [level=2] [ref=e152]
+        - paragraph [ref=e155]: The DM Intelligent Platform is a unique suite of virtual, smart workflow solutions designed to connect patients, doctors and partners along the entire treatment journey.
+        - link "Explore the Intelligent Platform" [ref=e159] [cursor=pointer]:
+          - /url: https://dentalmonitoring.com/our-solutions/
+          - generic [ref=e160]:
+            - generic [ref=e162]: 
+            - generic [ref=e163]: Explore the Intelligent Platform
+      - generic [ref=e164]:
+        - generic [ref=e169]:
+          - heading "Practice Optimization and Growth" [level=2] [ref=e174]
+          - paragraph [ref=e179]: Differentiate your practice, attract more patients and access new revenue opportunities. Use comprehensive data and analytics to optimize practice workflows. Reduce workload and stress for doctors and practice staff.
+        - generic [ref=e184]:
+          - heading "Clinical control" [level=2] [ref=e189]
+          - paragraph [ref=e193]: Synchronize the delivery of care with the need of care. Improve clinical control and safety with validated remote treatment monitoring. Dynamically adjust treatments to optimize outcomes.
+        - generic [ref=e198]:
+          - heading "Patient Experience" [level=2] [ref=e203]
+          - paragraph [ref=e208]: Enjoy the most sustainable, convenient experience and get the best outcomes. Stay connected with their doctor and practice, anywhere, anytime. Have continuous insights into their treatment and oral health.
+      - generic [ref=e210]:
+        - heading "Discover DentalMonitoring’s Practice Solutions" [level=2] [ref=e213]
+        - link "Learn more" [ref=e217] [cursor=pointer]:
+          - /url: https://dentalmonitoring.com/our-solutions/
+          - generic [ref=e218]:
+            - generic [ref=e220]: 
+            - generic [ref=e221]: Learn more
+      - generic [ref=e223]:
+        - generic [ref=e228]:
+          - heading "DentalMonitoring" [level=2] [ref=e233]
+          - generic [ref=e237]: Elevate clinical treatment and maximize convenience.
+          - link "Learn more" [ref=e243] [cursor=pointer]:
+            - /url: https://dentalmonitoring.com/dental-monitoring/
+            - generic [ref=e244]:
+              - generic [ref=e246]: 
+              - generic [ref=e247]: Learn more
+        - generic [ref=e254]:
+          - heading "DM Engage" [level=2] [ref=e259]
+          - generic [ref=e263]: Assess your patient leads and preview treatment success.
+          - link "Learn more" [ref=e269] [cursor=pointer]:
+            - /url: https://dentalmonitoring.com/dm-engage/
+            - generic [ref=e270]:
+              - generic [ref=e272]: 
+              - generic [ref=e273]: Learn more
+        - generic [ref=e278]:
+          - heading "DM Insights" [level=2] [ref=e283]
+          - generic [ref=e287]: Access your practice analytics for improved outcomes.
+          - link "Learn more" [ref=e293] [cursor=pointer]:
+            - /url: https://dentalmonitoring.com/insights/
+            - generic [ref=e294]:
+              - generic [ref=e296]: 
+              - generic [ref=e297]: Learn more
+        - generic [ref=e302]:
+          - heading "SmartSTL" [level=2] [ref=e307]
+          - generic [ref=e311]:
+            - text: Export an updated STL file from monitoring scans remotely.
+            - paragraph [ref=e312]: Product availability, claims and regulatory status may differ across countries depending on local regulations.
+          - link "Learn more" [ref=e318] [cursor=pointer]:
+            - /url: /smart-stl/
+            - generic [ref=e319]:
+              - generic [ref=e321]: 
+              - generic [ref=e322]: Learn more
+    - generic [ref=e324]:
+      - heading "Powered by one-of-a-kind AI and the industry’s largest dental image database" [level=2] [ref=e327]:
+        - text: Powered by
+        - text: one-of-a-kind AI and the industry’s largest dental image database
+      - generic [ref=e329]:
+        - generic [ref=e331]:
+          - heading "2B+" [level=2] [ref=e334]
+          - heading "Patient photos processed" [level=2] [ref=e337]
+          - paragraph [ref=e341]: Growing our database with diverse and complex scans training the AI.
+        - generic [ref=e343]:
+          - heading "All" [level=2] [ref=e346]
+          - heading "Appliances and treatment types" [level=2] [ref=e349]
+          - paragraph [ref=e354]: Suited for most orthodontic treatments and appliance brands.
+        - generic [ref=e356]:
+          - heading "+60" [level=2] [ref=e359]
+          - heading "Parameters" [level=2] [ref=e362]
+          - paragraph [ref=e368]: Our patients scan weekly from home, which allows us to track over 60 parameters. Among these, 21 fall under indications cleared as a medical device under FDA and MDR regulations.
+      - link "See the DM difference" [ref=e372] [cursor=pointer]:
+        - /url: https://dentalmonitoring.com/dm-difference/
+        - generic [ref=e374]: See the DM difference
+    - generic [ref=e380]:
+      - 'heading "ScanBoxpro, ScanAssist: a unique experience." [level=2] [ref=e383]':
+        - text: ScanBox
+        - superscript [ref=e384]: pro
+        - text: ", ScanAssist: a unique experience."
+      - paragraph [ref=e387]: Master AI in orthodontics.
+      - paragraph [ref=e390]:
+        - text: Send the ScanBox
+        - superscript [ref=e391]: pro
+        - text: home with your patients so you can see exactly what's going on inside their mouth. Whenever. Wherever.
+      - link "Learn more" [ref=e395] [cursor=pointer]:
+        - /url: https://dentalmonitoring.com/dental-monitoring/
+        - generic [ref=e397]: Learn more
+    - generic [ref=e399]:
+      - heading "What we do" [level=2] [ref=e402]
+      - heading "We partner with forward-thinking dental professionals across the world" [level=2] [ref=e405]
+      - generic [ref=e407]:
+        - generic [ref=e409]:
+          - heading "2 M+" [level=2] [ref=e414]
+          - heading "Patients monitored" [level=2] [ref=e417]:
+            - text: Patients
+            - text: monitored
+        - generic [ref=e419]:
+          - heading "8,000+" [level=2] [ref=e424]
+          - heading "Dental professionals registered" [level=2] [ref=e427]
+        - generic [ref=e429]:
+          - heading "50" [level=2] [ref=e434]
+          - heading "Countries (and counting)" [level=2] [ref=e437]:
+            - text: Countries
+            - text: (and counting)
+      - link "About us" [ref=e441] [cursor=pointer]:
+        - /url: https://dentalmonitoring.com/about-us/
+        - generic [ref=e443]: About us
+      - heading "In the news" [level=2] [ref=e450]
+      - heading "We’re making headlines" [level=2] [ref=e453]
+      - generic [ref=e455]:
+        - generic [ref=e461]:
+          - heading "Introducing the Scanbox pro" [level=2] [ref=e466]
+          - paragraph [ref=e471]: The newest version of their patented device maximizes AI-powered control.
+          - link "Explore" [ref=e477] [cursor=pointer]:
+            - /url: https://www.businesswire.com/news/home/20211004005610/en/DentalMonitoring-Launches-the-ScanBoxpro-the-New-Version-of-Their-Patented-Device-to-Maximize-AI-powered-Control-of-Dental-and-Orthodontic-Care-Anywhere-Anytime
+            - generic [ref=e478]:
+              - generic [ref=e480]: 
+              - generic [ref=e481]: Explore
+        - generic [ref=e487]:
+          - heading "Disruption in Orthodontics" [level=2] [ref=e492]
+          - paragraph [ref=e497]: Learn how we are pioneering AI-powered solutions for all braces and aligner brands.
+          - link "Explore" [ref=e503] [cursor=pointer]:
+            - /url: https://www.businesswire.com/news/home/20210601005494/en/DentalMonitoring-Continues-to-Disrupt-the-Orthodontic-Market-With-AI-powered-Solutions-for-Braces-and-Aligners-of-All-Brands
+            - generic [ref=e504]:
+              - generic [ref=e506]: 
+              - generic [ref=e507]: Explore
+        - generic [ref=e513]:
+          - heading "Announces $150M growth financing" [level=2] [ref=e518]
+          - paragraph [ref=e523]: DentalMonitoring reaches a $1 billion valuation with new round of investments.
+          - link "Explore" [ref=e529] [cursor=pointer]:
+            - /url: https://www.businesswire.com/news/home/20211021005463/en/DentalMonitoring-the-Leading-AI-Based-Dental-Software-Company-Announces-a-150-Million-Growth-Financing-Reaching-a-Valuation-Over-1-Billion
+            - generic [ref=e530]:
+              - generic [ref=e532]: 
+              - generic [ref=e533]: Explore
+      - link "View the news" [ref=e537] [cursor=pointer]:
+        - /url: https://dentalmonitoring.com/in-the-news/
+        - generic [ref=e539]: View the news
+    - generic [ref=e541]:
+      - heading "Partner with us to grow your practice." [level=2] [ref=e544]
+      - link "Book a demo" [ref=e548] [cursor=pointer]:
+        - /url: /contactus/
+        - generic [ref=e550]: Book a demo
+  - generic [ref=e551]:
+    - generic [ref=e553]:
+      - generic [ref=e554]:
+        - navigation "Menu" [ref=e557]:
+          - list [ref=e558]:
+            - listitem [ref=e559]:
+              - link "About Us" [ref=e560] [cursor=pointer]:
+                - /url: https://dentalmonitoring.com/about-us/
+            - listitem [ref=e561]:
+              - link "In the news" [ref=e562] [cursor=pointer]:
+                - /url: https://dentalmonitoring.com/in-the-news/
+            - listitem [ref=e563]:
+              - link "Investors" [ref=e564] [cursor=pointer]:
+                - /url: https://dentalmind.ai/
+            - listitem [ref=e565]:
+              - link "Careers" [ref=e566] [cursor=pointer]:
+                - /url: https://dentalmonitoring.com/careers/
+            - listitem [ref=e567]:
+              - link "Patents" [ref=e568] [cursor=pointer]:
+                - /url: https://dentalmonitoring.com/patents/
+            - listitem [ref=e569]:
+              - link "Disclaimer" [ref=e570] [cursor=pointer]:
+                - /url: https://dentalmonitoring.com/disclaimer/
+            - listitem [ref=e571]:
+              - link "Legal Notices" [ref=e572] [cursor=pointer]:
+                - /url: https://dentalmonitoring.com/terms-of-use/
+            - listitem [ref=e573]:
+              - link "Website Policy" [ref=e574] [cursor=pointer]:
+                - /url: https://dentalmonitoring.com/website-policy/
+            - listitem [ref=e575]:
+              - link "Instruction for Use" [ref=e576] [cursor=pointer]:
+                - /url: https://dentalmonitoring.com/instruction-for-use/
+        - list [ref=e579]:
+          - listitem [ref=e580]:
+            - link "Facebook" [ref=e581] [cursor=pointer]:
+              - /url: https://www.facebook.com/DentalMon/
+              - generic [ref=e582]: Facebook
+              - generic [ref=e583]: 
+          - listitem [ref=e584]:
+            - link "Instagram" [ref=e585] [cursor=pointer]:
+              - /url: https://www.instagram.com/dentalmonitoring/?hl=en
+              - generic [ref=e586]: Instagram
+              - generic [ref=e587]: 
+          - listitem [ref=e588]:
+            - link "Twitter" [ref=e589] [cursor=pointer]:
+              - /url: https://twitter.com/dentalmon?lang=en
+              - generic [ref=e590]: Twitter
+              - generic [ref=e591]: 
+          - listitem [ref=e592]:
+            - link "Linkedin" [ref=e593] [cursor=pointer]:
+              - /url: https://www.linkedin.com/company/dental-monitoring
+              - generic [ref=e594]: Linkedin
+              - generic [ref=e595]: 
+      - generic [ref=e600]:
+        - paragraph [ref=e603]:
+          - text: DentalMonitoring is a product designed and manufactured by Dental Monitoring SAS, for Healthcare Professionals (HCPs). It is also used by patients under the mandatory supervision of Healthcare Professionals (HCPs).
+          - text: DentalMonitoring is designed to assist HCPs with remotely observing intraoral situations and monitoring orthodontic treatments. Refer to your HCP and/or the Instructions for Use before use. Some modules of the DentalMonitoring product are considered as a medical device (in Europe and other countries), registered as such and holding the CE mark. Product availability, claims and regulatory status may differ across countries depending on local regulations. Contact your local representative for further information.
+        - generic [ref=e605]:
+          - generic:
+            - generic:
+              - img "HIPAA_Logo"
+          - generic:
+            - generic:
+              - img "GDPR"
+          - generic:
+            - generic:
+              - img "footer-logo"
+    - text:    
+    - generic:
+      - generic: 
+    - generic:
+      - generic: 
+  - generic [ref=e606]: desktop
+  - generic [ref=e607] [cursor=pointer]:
+    - button "Manage Preferences" [ref=e609]
+    - text: Manage Preferences
