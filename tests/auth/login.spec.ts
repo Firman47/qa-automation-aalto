@@ -39,7 +39,7 @@ test.describe('Login Module', () => {
     });
   });
 
-  test('[AUTH-002] @smoke Login valid Orthodontist — redirect ke dashboard', async ({ page }) => {
+  test('[AUTH-002] @smoke Login valid Orthodontist — redirect (bukan dashboard)', async ({ page }) => {
     await test.step('Login dengan kredensial orthodontist', async () => {
       const [response] = await Promise.all([
         loginPage.waitForLoginResponse(),
@@ -50,9 +50,10 @@ test.describe('Login Module', () => {
       expect(response.body.status).toBe(true);
     });
 
-    await test.step('Verifikasi redirect ke dashboard', async () => {
-      await loginPage.waitForDashboard();
-      await expect(page.getByText(/Good (morning|afternoon|evening)/)).toBeVisible();
+    await test.step('Verifikasi redirect — orthodontist tidak memiliki dashboard', async () => {
+      // Orthodontist redirect ke halaman lain (bukan /dashboard)
+      await loginPage.waitForPostLogin('orthodontist');
+      expect(page.url()).not.toContain('/auth/login');
     });
   });
 

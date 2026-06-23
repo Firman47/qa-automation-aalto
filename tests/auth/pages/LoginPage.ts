@@ -147,6 +147,26 @@ export class LoginPage {
     await this.page.waitForURL(/dashboard/, { timeout: 15000 });
   }
 
+  /**
+   * Wait for post-login state based on role.
+   * - dentist / superadmin: redirect ke /dashboard
+   * - orthodontist: redirect ke halaman masing-masing (BUKAN dashboard)
+   * Returns URL yang dituju setelah login.
+   */
+  async waitForPostLogin(contextRole: string): Promise<string> {
+    if (contextRole === 'dentist' || contextRole === 'superadmin') {
+      await this.page.waitForURL(/dashboard/, { timeout: 15000 });
+    } else {
+      // Orthodontist — tidak memiliki dashboard.
+      // Tunggu sampai URL berubah dari /auth/login (login berhasil).
+      await this.page.waitForFunction(
+        () => !window.location.href.includes('/auth/login'),
+        { timeout: 15000 },
+      );
+    }
+    return this.page.url();
+  }
+
   async waitForLoginPage(): Promise<void> {
     await this.page.waitForURL(/auth\/login/, { timeout: 10000 });
   }

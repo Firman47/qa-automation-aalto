@@ -5,22 +5,32 @@
  * - Logged-in state (dashboard URL, greeting, sidebar)
  * - Logged-out state (login URL, form visible, no session)
  * - Redirect behavior
+ * - Role-aware post-login state (orthodontist tidak memiliki dashboard)
  */
-import { expect, type Page, type Locator } from '@playwright/test';
+import { expect, type Page } from '@playwright/test';
 import { ROUTES } from './auth-config';
 
 /**
- * Verify that the user is on the dashboard and logged in.
- * Checks: URL, greeting text, and sidebar navigation links.
+ * Verify that the user is logged in after a successful login.
+ * For dentist/superadmin: mengecek redirect ke /dashboard + greeting.
+ * For orthodontist: hanya mengecek bahwa URL bukan /auth/login
+ * (orthodontist tidak memiliki dashboard).
  */
-export async function verifyLoggedIn(page: Page): Promise<void> {
-  await page.waitForURL(/dashboard/, { timeout: 15000 });
-  expect(page.url()).toContain('/dashboard');
+export async function verifyLoggedIn(page: Page, contextRole?: string): Promise<void> {
+  if (contextRole === 'dentist' || contextRole === 'superadmin' || !contextRole) {
+    await page.waitForURL(/dashboard/, { timeout: 15000 });
+    expect(page.url()).toContain('/dashboard');
 
-  // Greeting should contain Good morning/afternoon/evening
-  await expect(
-    page.getByText(/Good (morning|afternoon|evening)/),
-  ).toBeVisible({ timeout: 5000 });
+    await expect(
+      page.getByText(/Good (morning|afternoon|evening)/),
+    ).toBeVisible({ timeout: 5000 });
+  } else {
+    // Orthodontist — tidak memiliki dashboard.
+    await page.waitForFunction(
+      () => !window.location.href.includes('/auth/login'),
+      { timeout: 15000 },
+    );
+  }
 }
 
 /**
@@ -71,8 +81,10 @@ export async function verifyRedirectToLogin(page: Page): Promise<void> {
 }
 
 /**
- * Wait for redirect to dashboard and verify key elements.
+ * Wait for redirect after login based on role.
+ * Untuk dentist/superadmin: verifikasi dashboard.
+ * Untuk orthodontist: verifikasi redirect keluar dari login page.
  */
-export async function verifyRedirectToDashboard(page: Page): Promise<void> {
-  await verifyLoggedIn(page);
+export async function verifyRedirectToDashboard(page: Page, contextRole?: string): Promise<void> {
+  await verifyLoggedIn(page, contextRole);
 }

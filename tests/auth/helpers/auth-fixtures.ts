@@ -27,7 +27,7 @@ type AuthFixtures = {
   adminContext: BrowserContext;
 };
 
-async function loginAndWait(page: Page, email: string, password: string): Promise<void> {
+async function loginAndWait(page: Page, email: string, password: string, contextRole: string): Promise<void> {
   const loginPage = new LoginPage(page);
   await page.goto(ROUTES.LOGIN);
   await page.waitForLoadState('networkidle');
@@ -45,14 +45,15 @@ async function loginAndWait(page: Page, email: string, password: string): Promis
     throw new Error(`Fixture login failed for ${email}: ${response.status()} ${JSON.stringify(respBody)}`);
   }
 
-  await loginPage.waitForDashboard();
+  // Gunakan waitForPostLogin — orthodontist redirect ke halaman sendiri (bukan dashboard)
+  await loginPage.waitForPostLogin(contextRole);
 }
 
 export const test = base.extend<AuthFixtures>({
   doctorPage: async ({ browser }, use) => {
     const context = await browser.newContext();
     const page = await context.newPage();
-    await loginAndWait(page, DOCTOR.email, DOCTOR.password);
+    await loginAndWait(page, DOCTOR.email, DOCTOR.password, 'dentist');
     await use(page);
     await context.close();
   },
@@ -60,7 +61,7 @@ export const test = base.extend<AuthFixtures>({
   orthoPage: async ({ browser }, use) => {
     const context = await browser.newContext();
     const page = await context.newPage();
-    await loginAndWait(page, ORTHODONTIST.email, ORTHODONTIST.password);
+    await loginAndWait(page, ORTHODONTIST.email, ORTHODONTIST.password, 'orthodontist');
     await use(page);
     await context.close();
   },
@@ -68,7 +69,7 @@ export const test = base.extend<AuthFixtures>({
   adminPage: async ({ browser }, use) => {
     const context = await browser.newContext();
     const page = await context.newPage();
-    await loginAndWait(page, ADMIN.email, ADMIN.password);
+    await loginAndWait(page, ADMIN.email, ADMIN.password, 'superadmin');
     await use(page);
     await context.close();
   },
@@ -76,7 +77,7 @@ export const test = base.extend<AuthFixtures>({
   doctorContext: async ({ browser }, use) => {
     const context = await browser.newContext();
     const page = await context.newPage();
-    await loginAndWait(page, DOCTOR.email, DOCTOR.password);
+    await loginAndWait(page, DOCTOR.email, DOCTOR.password, 'dentist');
     await use(context);
     await context.close();
   },
@@ -84,7 +85,7 @@ export const test = base.extend<AuthFixtures>({
   orthoContext: async ({ browser }, use) => {
     const context = await browser.newContext();
     const page = await context.newPage();
-    await loginAndWait(page, ORTHODONTIST.email, ORTHODONTIST.password);
+    await loginAndWait(page, ORTHODONTIST.email, ORTHODONTIST.password, 'orthodontist');
     await use(context);
     await context.close();
   },
@@ -92,7 +93,7 @@ export const test = base.extend<AuthFixtures>({
   adminContext: async ({ browser }, use) => {
     const context = await browser.newContext();
     const page = await context.newPage();
-    await loginAndWait(page, ADMIN.email, ADMIN.password);
+    await loginAndWait(page, ADMIN.email, ADMIN.password, 'superadmin');
     await use(context);
     await context.close();
   },

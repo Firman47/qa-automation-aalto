@@ -42,7 +42,8 @@ export const test = base.extend<MyFixtures>({
     if (response.status !== 200) {
       throw new Error(`Orthodontist login failed: ${JSON.stringify(response.body)}`);
     }
-    await loginPage.waitForDashboard();
+    // Orthodontist tidak memiliki dashboard
+    await loginPage.waitForPostLogin('orthodontist');
     await use(loginPage);
   },
 

@@ -9,7 +9,7 @@ import { LoginPage } from '../auth/pages/LoginPage';
 import { ORTHODONTIST } from '../data/auth-test-data';
 
 test.describe('Smoke: Orthodontist Login', () => {
-  test('[SMOKE-ORTHO-001] @smoke Orthodontist login flow — redirect ke dashboard', async ({
+  test('[SMOKE-ORTHO-001] @smoke Orthodontist login flow — redirect (bukan dashboard)', async ({
     page,
   }) => {
     const loginPage = new LoginPage(page);
@@ -24,7 +24,8 @@ test.describe('Smoke: Orthodontist Login', () => {
     expect(response.status).toBe(200);
     expect(response.body.status).toBe(true);
 
-    await loginPage.waitForDashboard();
-    await expect(page.getByText(/Good (morning|afternoon|evening)/)).toBeVisible();
+    // Orthodontist tidak memiliki dashboard — hanya verifikasi redirect keluar dari login page
+    await loginPage.waitForPostLogin('orthodontist');
+    expect(page.url()).not.toContain('/auth/login');
   });
 });

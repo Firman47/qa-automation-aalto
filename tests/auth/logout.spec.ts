@@ -102,7 +102,9 @@ test.describe('Logout Module', () => {
           lp.login(role.email, role.password),
         ]);
         expect(loginResponse.status).toBe(200);
-        await lp.waitForDashboard();
+
+        // Orthodontist tidak memiliki dashboard
+        await lp.waitForPostLogin(role.contextRole);
 
         const { status, body } = await lgp.logout();
         expect(status).toBe(200);

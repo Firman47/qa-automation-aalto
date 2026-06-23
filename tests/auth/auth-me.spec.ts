@@ -119,7 +119,10 @@ test.describe('Auth Me (GET /v1/auth/me)', () => {
           lp.login(role.email, role.password),
         ]);
         expect(loginResponse.status).toBe(200);
-        await lp.waitForDashboard();
+
+        // Orthodontist tidak memiliki dashboard — gunakan waitForPostLogin
+        const contextRole = role.expectedRole === 'orthodontist' ? 'orthodontist' : role.expectedRole;
+        await lp.waitForPostLogin(contextRole);
 
         const meResponse = await amp.getMeViaApi();
         expect(meResponse.status).toBe(200);
