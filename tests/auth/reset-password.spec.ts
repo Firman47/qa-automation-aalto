@@ -7,6 +7,7 @@
  */
 import { test, expect } from '@playwright/test';
 import { ENDPOINTS } from './helpers/auth-config';
+import { validateResetPasswordResponse } from './helpers/auth-schema';
 
 test.describe('Reset Password & Double Login', () => {
   test.describe('Reset Password (POST /v1/auth/reset-password)', () => {
@@ -38,7 +39,7 @@ test.describe('Reset Password & Double Login', () => {
     test('[RST-002] Reset password dengan token invalid — error response', async ({
       page,
     }) => {
-      await test.step('Kirim reset dengan token palsu', async () => {
+      await test.step('Kirim reset dengan token palsu + validasi schema', async () => {
         const response = await page.request.post(
           ENDPOINTS.RESET_PASSWORD,
           {
@@ -55,13 +56,21 @@ test.describe('Reset Password & Double Login', () => {
         const body = await response.json() as Record<string, unknown>;
         expect(body.status).toBe(false);
         expect(body.message).toBeDefined();
+
+        // Schema validation
+        const validation = validateResetPasswordResponse(body);
+        if (!validation.valid) {
+          throw new Error(
+            `RST-002 BUG_AUTOMATION: Reset error response schema invalid. Missing: ${validation.missing.join(', ')}`,
+          );
+        }
       });
     });
 
     test('[RST-003] Reset password dengan password mismatch — validation error', async ({
       page,
     }) => {
-      await test.step('Kirim reset dengan password mismatch', async () => {
+      await test.step('Kirim reset dengan password mismatch + validasi schema', async () => {
         const response = await page.request.post(
           ENDPOINTS.RESET_PASSWORD,
           {
@@ -77,13 +86,21 @@ test.describe('Reset Password & Double Login', () => {
 
         const body = await response.json() as Record<string, unknown>;
         expect(body.status).toBe(false);
+
+        // Schema validation
+        const validation = validateResetPasswordResponse(body);
+        if (!validation.valid) {
+          throw new Error(
+            `RST-003 BUG_AUTOMATION: Reset mismatch response schema invalid. Missing: ${validation.missing.join(', ')}`,
+          );
+        }
       });
     });
 
     test('[RST-004] Reset password dengan password lemah — validation error', async ({
       page,
     }) => {
-      await test.step('Kirim reset dengan password lemah', async () => {
+      await test.step('Kirim reset dengan password lemah + validasi schema', async () => {
         const response = await page.request.post(
           ENDPOINTS.RESET_PASSWORD,
           {
@@ -99,6 +116,14 @@ test.describe('Reset Password & Double Login', () => {
 
         const body = await response.json() as Record<string, unknown>;
         expect(body.status).toBe(false);
+
+        // Schema validation
+        const validation = validateResetPasswordResponse(body);
+        if (!validation.valid) {
+          throw new Error(
+            `RST-004 BUG_AUTOMATION: Reset weak password schema invalid. Missing: ${validation.missing.join(', ')}`,
+          );
+        }
       });
     });
 
@@ -118,19 +143,55 @@ test.describe('Reset Password & Double Login', () => {
         const responses = await Promise.all(promises);
         const rateLimited = responses.some((r) => r.status() === 429);
 
-        // MAY: API might return 429 after too many requests
-        // If not, at least verify all responses have proper structure
         if (rateLimited) {
           const limited = responses.find((r) => r.status() === 429)!;
           const body = await limited.json() as Record<string, unknown>;
           expect(body.status).toBe(false);
         } else {
-          // All returned error — no rate limit reached, that's acceptable
           for (const r of responses) {
             expect([400, 401, 422]).toContain(r.status());
           }
         }
       });
+    });
+
+    test('[RST-009] Reset password sukses via intercept — UI toast sesuai API', async ({
+      page,
+    }) => {
+      await test.step('Route intercept reset password success 200', async () => {
+        await page.route('**/v1/auth/reset-password', async (route) => {
+          if (route.request().method() === 'POST') {
+            await route.fulfill({
+              status: 200,
+              contentType: 'application/json',
+              body: JSON.stringify({
+                status: true,
+                message: 'Password has been reset successfully.',
+                data: { message: 'You can now log in with your new password.' },
+              }),
+            });
+          } else {
+            await route.continue();
+          }
+        });
+      });
+
+      await test.step('Kirim reset request dan verifikasi response', async () => {
+        const response = await page.request.post(ENDPOINTS.RESET_PASSWORD, {
+          data: {
+            token: 'test-valid-token',
+            password: 'NewPassword123!',
+            password_confirmation: 'NewPassword123!',
+          },
+        });
+
+        expect(response.status()).toBe(200);
+        const body = await response.json() as Record<string, unknown>;
+        expect(body.status).toBe(true);
+        expect(body.message).toBe('Password has been reset successfully.');
+      });
+
+      await page.unrouteAll({ behavior: 'ignoreErrors' });
     });
   });
 

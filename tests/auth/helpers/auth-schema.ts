@@ -1,24 +1,22 @@
 /**
  * Aalto Dentist Portal — Auth Response Schema Validation
  *
- * TypeScript interfaces dan validator untuk response shape API Auth.
- * Digunakan oleh spec files untuk verifikasi structure response.
+ * TypeScript interfaces dan validator untuk response shape semua endpoint Auth.
+ * Setiap endpoint memiliki interface sendiri + validator function yang return { valid, missing }.
  */
 
-/** Standard API envelope */
+// ===================== Standard Envelope =====================
+
+/** Standard API envelope — semua endpoint mengembalikan ini */
 export interface ApiResponse<T = unknown> {
   status: boolean;
   message: string;
   data: T | null;
 }
 
-/** Login response — user + clinic info */
-export interface LoginData {
-  user: UserProfile;
-  clinic?: ClinicInfo;
-}
+// ===================== Common Shapes =====================
 
-/** User profile from /v1/auth/me or login response */
+/** User profile — muncul di login response dan /v1/auth/me */
 export interface UserProfile {
   id: string;
   email: string;
@@ -31,7 +29,7 @@ export interface UserProfile {
   profile_image?: string;
 }
 
-/** Clinic information */
+/** Clinic information — nested di user profile */
 export interface ClinicInfo {
   id: string;
   name: string;
@@ -40,42 +38,140 @@ export interface ClinicInfo {
   email?: string;
 }
 
-/** Reset password response */
+// ===================== Endpoint-Specific Shapes =====================
+
+/** POST /v1/auth/login — success response data */
+export interface LoginData {
+  user: UserProfile;
+  clinic?: ClinicInfo;
+  /** Present when double login confirmation required */
+  requires_double_login?: boolean;
+}
+
+/** POST /v1/auth/register — success response data */
+export interface RegisterData {
+  user?: UserProfile;
+  message?: string;
+}
+
+/** POST /v1/auth/forgot-password — success response (minimal) */
+export interface ForgotPasswordData {
+  message?: string;
+}
+
+/** POST /v1/auth/reset-password — success response data */
 export interface ResetPasswordData {
   token?: string;
   expires_at?: string;
+  message?: string;
 }
 
-/** Auth Me response shape */
+/** POST /v1/auth/confirm-double-login — success response */
+export interface ConfirmDoubleLoginData {
+  token?: string;
+  session?: string;
+}
+
+/** GET /v1/auth/me — response data */
 export interface AuthMeData {
   user: UserProfile;
 }
 
-/** Logout response shape */
+/** POST /v1/auth/logout — response data */
 export interface LogoutData {
   redirect_url?: string;
 }
 
-/**
- * Validator helpers — memeriksa bahwa response memiliki field yang diharapkan.
- * Tidak menggunakan assertion; hanya return boolean + detail.
- */
-export function validateUserProfile(obj: unknown): { valid: boolean; missing: string[] } {
+// ===================== Validator Functions =====================
+
+export interface ValidationResult {
+  valid: boolean;
+  missing: string[];
+  extra?: string[];
+}
+
+// ---------- Common Validators ----------
+
+export function validateUserProfile(obj: unknown): ValidationResult {
   if (!obj || typeof obj !== 'object') {
     return { valid: false, missing: ['response is not an object'] };
   }
   const profile = obj as Record<string, unknown>;
   const required = ['id', 'email', 'full_name', 'context_role', 'role', 'is_active'];
-  const missing = required.filter((field) => profile[field] === undefined || profile[field] === null);
+  const missing = required.filter(
+    (field) => profile[field] === undefined || profile[field] === null,
+  );
   return { valid: missing.length === 0, missing };
 }
 
-export function validateClinicInfo(obj: unknown): { valid: boolean; missing: string[] } {
+export function validateClinicInfo(obj: unknown): ValidationResult {
   if (!obj || typeof obj !== 'object') {
     return { valid: false, missing: ['clinic is not an object'] };
   }
   const clinic = obj as Record<string, unknown>;
   const required = ['id', 'name', 'address'];
-  const missing = required.filter((field) => clinic[field] === undefined || clinic[field] === null);
+  const missing = required.filter(
+    (field) => clinic[field] === undefined || clinic[field] === null,
+  );
   return { valid: missing.length === 0, missing };
+}
+
+// ---------- Endpoint-Specific Validators ----------
+
+export function validateLoginResponse(obj: unknown): ValidationResult {
+  if (!obj || typeof obj !== 'object') {
+    return { valid: false, missing: ['response is not an object'] };
+  }
+  const data = obj as Record<string, unknown>;
+
+  // Both direct user and nested data.user are valid
+  const user = (data.user || (data as Record<string, unknown>).user) as Record<string, unknown> | undefined;
+  if (!user) {
+    // If data is the envelope, check data.data.user
+    const innerData = data.data as Record<string, unknown> | undefined;
+    const nestedUser = innerData?.user as Record<string, unknown> | undefined;
+    if (!nestedUser) {
+      return { valid: false, missing: ['user object not found in response'] };
+    }
+    return validateUserProfile(nestedUser);
+  }
+  return validateUserProfile(user);
+}
+
+export function validateRegisterResponse(obj: unknown): ValidationResult {
+  if (!obj || typeof obj !== 'object') {
+    return { valid: false, missing: ['response is not an object'] };
+  }
+  const data = obj as Record<string, unknown>;
+  const hasMessage = data.message !== undefined && data.message !== null;
+  return { valid: hasMessage, missing: hasMessage ? [] : ['message'] };
+}
+
+export function validateForgotPasswordResponse(obj: unknown): ValidationResult {
+  if (!obj || typeof obj !== 'object') {
+    return { valid: false, missing: ['response is not an object'] };
+  }
+  const data = obj as Record<string, unknown>;
+  const hasMessage = data.message !== undefined && data.message !== null;
+  return { valid: hasMessage, missing: hasMessage ? [] : ['message'] };
+}
+
+export function validateResetPasswordResponse(obj: unknown): ValidationResult {
+  if (!obj || typeof obj !== 'object') {
+    return { valid: false, missing: ['response is not an object'] };
+  }
+  // Minimal: just needs message
+  const data = obj as Record<string, unknown>;
+  const hasMessage = data.message !== undefined && data.message !== null;
+  return { valid: hasMessage, missing: hasMessage ? [] : ['message'] };
+}
+
+export function validateLogoutResponse(obj: unknown): ValidationResult {
+  if (!obj || typeof obj !== 'object') {
+    return { valid: false, missing: ['response is not an object'] };
+  }
+  // Logout may or may not have redirect_url — message is the minimum
+  const data = obj as Record<string, unknown>;
+  const hasMessage = data.message !== undefined && data.message !== null;
+  return { valid: hasMessage, missing: hasMessage ? [] : ['message'] };
 }

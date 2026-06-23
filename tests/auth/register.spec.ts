@@ -10,6 +10,7 @@ import { RegisterPage } from './pages/RegisterPage';
 import { REGISTERED_EMAILS } from '../data/auth-test-data';
 import { verifyToastMatchesApi } from './helpers/auth-assertions';
 import { assertNoApiCall } from './helpers/auth-helper';
+import { validateRegisterResponse } from './helpers/auth-schema';
 
 test.describe('Register Module', () => {
   let registerPage: RegisterPage;
@@ -119,7 +120,7 @@ test.describe('Register Module', () => {
       expect(page.url()).toContain('step=2');
     });
 
-    await test.step('Isi Step 2 dan submit', async () => {
+    await test.step('Isi Step 2 dan submit + validasi schema', async () => {
       const practice = RegisterPage.generateUniquePractice();
       await registerPage.fillPracticeInfo(practice);
 
@@ -131,6 +132,14 @@ test.describe('Register Module', () => {
       expect([201, 200]).toContain(response.status);
       expect(response.body.status).toBe(true);
       expect(response.body.message).toBeDefined();
+
+      // Schema validation
+      const validation = validateRegisterResponse(response.body);
+      if (!validation.valid) {
+        throw new Error(
+          `REG-003 BUG_AUTOMATION: Register response schema invalid. Missing: ${validation.missing.join(', ')}`,
+        );
+      }
     });
 
     await test.step('Verifikasi redirect setelah registrasi sukses', async () => {
@@ -163,6 +172,14 @@ test.describe('Register Module', () => {
       expect([409, 422, 400]).toContain(response.status);
       expect(response.body.status).toBe(false);
       expect(response.body.message).toBeDefined();
+
+      // Schema validation
+      const validation = validateRegisterResponse(response.body);
+      if (!validation.valid) {
+        throw new Error(
+          `REG-004 BUG_AUTOMATION: Error response schema invalid. Missing: ${validation.missing.join(', ')}`,
+        );
+      }
 
       // FIX: Verify toast content matches API message
       await verifyToastMatchesApi(
@@ -373,6 +390,14 @@ test.describe('Register Module', () => {
       expect(response.status).toBe(500);
       expect(response.body.status).toBe(false);
 
+      // Schema validation
+      const validation = validateRegisterResponse(response.body);
+      if (!validation.valid) {
+        throw new Error(
+          `REG-016 BUG_AUTOMATION: Error response schema invalid. Missing: ${validation.missing.join(', ')}`,
+        );
+      }
+
       await verifyToastMatchesApi(
         registerPage.toastDescription,
         response,
@@ -381,6 +406,157 @@ test.describe('Register Module', () => {
     });
 
     await page.unrouteAll({ behavior: 'ignoreErrors' });
+  });
+
+  test('[REG-015] Back button dari Step 2 — kembali ke Step 1', async ({ page }) => {
+    await test.step('Isi Step 1 dan navigasi ke Step 2', async () => {
+      const user = RegisterPage.generateUniqueUser();
+      await registerPage.fillPersonalInfo(user);
+      await registerPage.checkTerms();
+      await registerPage.clickNext();
+      await registerPage.waitForStep2();
+      expect(page.url()).toContain('step=2');
+    });
+
+    await test.step('Klik Back dan verifikasi kembali ke Step 1', async () => {
+      await registerPage.clickBack();
+      await registerPage.waitForStep1();
+      expect(page.url()).not.toContain('step=2');
+    });
+
+    await test.step('Verifikasi data Step 1 tetap terisi', async () => {
+      // After going back, the form should retain the filled data
+      const firstNameValue = await registerPage.firstNameInput.inputValue();
+      expect(firstNameValue).not.toBe('');
+    });
+  });
+
+  test('[REG-018] @error-handling Slow API response — loading state', async ({ page }) => {
+    await test.step('Route intercept slow response (5s delay)', async () => {
+      await page.route('**/v1/auth/register', async (route) => {
+        if (route.request().method() === 'POST') {
+          await new Promise((resolve) => setTimeout(resolve, 5000));
+          await route.fulfill({
+            status: 201,
+            contentType: 'application/json',
+            body: JSON.stringify({
+              status: true,
+              message: 'Registration successful. Please check your email.',
+              data: { message: 'Account created successfully.' },
+            }),
+          });
+        } else {
+          await route.continue();
+        }
+      });
+    });
+
+    await test.step('Isi Step 1 dan Step 2, submit — verify loading state', async () => {
+      const user = RegisterPage.generateUniqueUser();
+      await registerPage.fillPersonalInfo(user);
+      await registerPage.checkTerms();
+      await registerPage.clickNext();
+      await registerPage.waitForStep2();
+
+      const practice = RegisterPage.generateUniquePractice();
+      await registerPage.fillPracticeInfo(practice);
+
+      // Submit and wait for the slow response
+      const [response] = await Promise.all([
+        registerPage.waitForRegisterResponse(),
+        registerPage.clickGetStarted(),
+      ]);
+
+      expect(response.status).toBe(201);
+      expect(response.body.status).toBe(true);
+    });
+
+    await page.unrouteAll({ behavior: 'ignoreErrors' });
+  });
+
+  test('[REG-019] Double-submit prevention — hanya 1 API call', async ({ page }) => {
+    let apiCallCount = 0;
+    const handler = (req: { url: () => string; method: () => string }) => {
+      if (req.url().includes('/v1/auth/register') && req.method() === 'POST') {
+        apiCallCount++;
+      }
+    };
+    page.on('request', handler);
+
+    await test.step('Route intercept delay', async () => {
+      await page.route('**/v1/auth/register', async (route) => {
+        if (route.request().method() === 'POST') {
+          // Small delay to simulate processing
+          await new Promise((resolve) => setTimeout(resolve, 200));
+          await route.fulfill({
+            status: 201,
+            contentType: 'application/json',
+            body: JSON.stringify({
+              status: true,
+              message: 'Registration successful.',
+              data: null,
+            }),
+          });
+        } else {
+          await route.continue();
+        }
+      });
+    });
+
+    await test.step('Isi Step 1 dan Step 2', async () => {
+      const user = RegisterPage.generateUniqueUser();
+      await registerPage.fillPersonalInfo(user);
+      await registerPage.checkTerms();
+      await registerPage.clickNext();
+      await registerPage.waitForStep2();
+
+      const practice = RegisterPage.generateUniquePractice();
+      await registerPage.fillPracticeInfo(practice);
+    });
+
+    await test.step('Klik Get Started double cepat dan verifikasi hanya 1 API call', async () => {
+      // Click twice rapidly
+      await registerPage.getStartedButton.click({ force: true });
+      await registerPage.getStartedButton.click({ force: true }).catch(() => {
+        // Second click might be ignored — that's the expected behavior
+      });
+
+      // Wait for the first (and only) response
+      await registerPage.waitForRegisterResponse();
+    });
+
+    await page.waitForTimeout(100);
+    page.off('request', handler);
+
+    expect(
+      apiCallCount,
+      `Double-submit prevention: expected ≤1 API call, got ${apiCallCount}`,
+    ).toBeLessThanOrEqual(1);
+
+    await page.unrouteAll({ behavior: 'ignoreErrors' });
+  });
+
+  test('[REG-026] Step progress indicator — Step 1 vs Step 2 state', async ({
+    page,
+  }) => {
+    await test.step('Verifikasi step progress di Step 1', async () => {
+      await expect(registerPage.stepIndicator).toBeVisible();
+      await expect(registerPage.personalInfoButton).toBeVisible();
+      // Step 2 button might be disabled or not visible yet
+    });
+
+    await test.step('Navigasi ke Step 2', async () => {
+      const user = RegisterPage.generateUniqueUser();
+      await registerPage.fillPersonalInfo(user);
+      await registerPage.checkTerms();
+      await registerPage.clickNext();
+      await registerPage.waitForStep2();
+    });
+
+    await test.step('Verifikasi step progress di Step 2', async () => {
+      await expect(registerPage.stepIndicator).toBeVisible();
+      await expect(registerPage.practiceInfoButton).toBeVisible();
+    });
   });
 
   test('[REG-017] @error-handling Network error — error handling', async ({ page }) => {

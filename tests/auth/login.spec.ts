@@ -6,9 +6,12 @@
  */
 import { test, expect } from '@playwright/test';
 import { LoginPage } from './pages/LoginPage';
-import { DOCTOR, ORTHODONTIST, ADMIN, INVALID_CREDENTIALS } from '../data/auth-test-data';
+import { DOCTOR, ORTHODONTIST, ADMIN, ALL_ROLES, INVALID_CREDENTIALS } from '../data/auth-test-data';
 import { assertToastMismatch } from '../helpers/bug-assertions';
 import { assertNoApiCall } from './helpers/auth-helper';
+import { validateLoginResponse } from './helpers/auth-schema';
+import { verifyLoggedIn, assertOnLoginPage } from './helpers/auth-state';
+import { assertAccessTokenPresent } from './helpers/auth-cookies';
 
 test.describe('Login Module', () => {
   let loginPage: LoginPage;
@@ -389,6 +392,10 @@ test.describe('Login Module', () => {
       const toastText = await loginPage.toastDescription.textContent();
       expect(toastText).toContain('Too many requests');
     });
+
+    await test.step('Tetap di halaman login (tidak redirect)', async () => {
+      assertOnLoginPage(page);
+    });
   });
 
   test('[AUTH-016] Logout flow — POST logout, cookie cleared, redirect login', async ({
@@ -455,12 +462,20 @@ test.describe('Login Module', () => {
       expect(user.context_role).toBe('dentist');
     });
 
-    await test.step('Verifikasi user profile lengkap', async () => {
+    await test.step('Verifikasi user profile lengkap + schema validation', async () => {
       const data = response.body.data as Record<string, unknown>;
       const user = data.user as Record<string, unknown>;
       expect(user.full_name).toBe(DOCTOR.displayName);
       expect(user.is_active).toBe(true);
       expect(user.clinic).toBeDefined();
+
+      // Schema validation
+      const validation = validateLoginResponse(response.body);
+      if (!validation.valid) {
+        throw new Error(
+          `AUTH-017 BUG_AUTOMATION: Login response schema invalid. Missing: ${validation.missing.join(', ')}`,
+        );
+      }
     });
   });
 
@@ -545,6 +560,26 @@ test.describe('Login Module', () => {
     await test.step('Verifikasi NO API call terkirim', async () => {
       await page.waitForTimeout(100);
       expect(requestSent).toBe(false);
+    });
+  });
+
+  test('[AUTH-023] Login page layout — semua element terlihat', async () => {
+    await test.step('Verifikasi heading dan welcome text', async () => {
+      await expect(loginPage.heading).toBeVisible();
+      await expect(loginPage.welcomeText).toBeVisible();
+    });
+
+    await test.step('Verifikasi form elements', async () => {
+      await expect(loginPage.emailInput).toBeVisible();
+      await expect(loginPage.passwordInput).toBeVisible();
+      await expect(loginPage.signInButton).toBeVisible();
+      await expect(loginPage.rememberCheckbox).toBeVisible();
+      await expect(loginPage.showPasswordButton).toBeVisible();
+    });
+
+    await test.step('Verifikasi navigation links', async () => {
+      await expect(loginPage.forgotPasswordLink).toBeVisible();
+      await expect(loginPage.createAccountLink).toBeVisible();
     });
   });
 });

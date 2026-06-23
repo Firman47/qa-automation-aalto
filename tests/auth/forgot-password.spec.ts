@@ -8,6 +8,7 @@ import { test, expect } from '@playwright/test';
 import { ForgotPasswordPage } from './pages/ForgotPasswordPage';
 import { assertNoApiCall } from './helpers/auth-helper';
 import { verifyToastMatchesApi } from './helpers/auth-assertions';
+import { validateForgotPasswordResponse } from './helpers/auth-schema';
 
 test.describe('Forgot Password Module', () => {
   let forgotPage: ForgotPasswordPage;
@@ -45,6 +46,14 @@ test.describe('Forgot Password Module', () => {
 
       expect(response.status).toBe(200);
       expect(response.body.status).toBe(true);
+
+      // Schema validation
+      const validation = validateForgotPasswordResponse(response.body);
+      if (!validation.valid) {
+        throw new Error(
+          `FRG-002 BUG_AUTOMATION: Forgot password response schema invalid. Missing: ${validation.missing.join(', ')}`,
+        );
+      }
 
       // FIX: verify toast with the SAME response — no second API call needed
       await verifyToastMatchesApi(forgotPage.toastDescription, response, 'FRG-002');
@@ -107,5 +116,70 @@ test.describe('Forgot Password Module', () => {
         await forgotPage.clickSendReset();
       });
     });
+  });
+
+  test('[FRG-008] @error-handling Rate limited pada forgot password — 429 toast', async ({
+    page,
+  }) => {
+    await test.step('Route intercept 429 untuk /v1/auth/forgot', async () => {
+      await page.route('**/v1/auth/forgot', async (route) => {
+        if (route.request().method() === 'POST') {
+          await route.fulfill({
+            status: 429,
+            contentType: 'application/json',
+            body: JSON.stringify({
+              status: false,
+              message: 'Too many requests. Please try again later.',
+              data: null,
+            }),
+          });
+        } else {
+          await route.continue();
+        }
+      });
+    });
+
+    await test.step('Isi email dan kirim — intercept 429', async () => {
+      await forgotPage.fillEmail('tatang.doctor@gmail.com');
+      const [response] = await Promise.all([
+        forgotPage.waitForForgotResponse(),
+        forgotPage.clickSendReset(),
+      ]);
+
+      expect(response.status).toBe(429);
+      expect(response.body.status).toBe(false);
+      expect(response.body.message).toContain('Too many requests');
+
+      // Verifikasi toast muncul
+      await expect(forgotPage.errorAlert).toBeVisible({ timeout: 5000 });
+      await verifyToastMatchesApi(forgotPage.toastDescription, response, 'FRG-008');
+    });
+
+    await page.unrouteAll({ behavior: 'ignoreErrors' });
+  });
+
+  test('[FRG-009] @error-handling Network error pada forgot password — error handling', async ({
+    page,
+  }) => {
+    await test.step('Route intercept network error untuk /v1/auth/forgot', async () => {
+      await page.route('**/v1/auth/forgot', async (route) => {
+        if (route.request().method() === 'POST') {
+          await route.abort('internetdisconnected');
+        } else {
+          await route.continue();
+        }
+      });
+    });
+
+    await test.step('Isi email dan kirim — network error', async () => {
+      await forgotPage.fillEmail('tatang.doctor@gmail.com');
+      await forgotPage.clickSendReset();
+    });
+
+    await test.step('Verifikasi error handling muncul', async () => {
+      await expect(forgotPage.errorAlert).toBeVisible({ timeout: 10000 });
+    });
+
+    await page.unrouteAll({ behavior: 'ignoreErrors' });
   });
 });

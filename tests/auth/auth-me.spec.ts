@@ -13,6 +13,7 @@ import { LoginPage } from './pages/LoginPage';
 import { AuthMePage } from './pages/AuthMePage';
 import { DOCTOR, ORTHODONTIST, ADMIN } from '../data/auth-test-data';
 import { ENDPOINTS } from './helpers/auth-config';
+import { validateUserProfile } from './helpers/auth-schema';
 
 test.describe('Auth Me (GET /v1/auth/me)', () => {
   let loginPage: LoginPage;
@@ -35,12 +36,22 @@ test.describe('Auth Me (GET /v1/auth/me)', () => {
       await loginPage.waitForDashboard();
     });
 
-    await test.step('GET /v1/auth/me via request context — verifikasi profile', async () => {
+    await test.step('GET /v1/auth/me via request context — verifikasi profile + schema', async () => {
       const meResponse = await authMePage.getMeViaApi();
       expect(meResponse.status).toBe(200);
       expect(meResponse.body.status).toBe(true);
 
-      const user = authMePage.getUserData(meResponse);
+      const data = meResponse.body.data as Record<string, unknown>;
+      const user = data.user as Record<string, unknown>;
+
+      // Schema validation
+      const validation = validateUserProfile(user);
+      if (!validation.valid) {
+        throw new Error(
+          `ME-001 BUG_AUTOMATION: User profile schema invalid. Missing: ${validation.missing.join(', ')}`,
+        );
+      }
+
       expect(user.email).toBe(DOCTOR.email);
       expect(user.context_role).toBe('dentist');
       expect(user.id).toBeDefined();
@@ -66,12 +77,20 @@ test.describe('Auth Me (GET /v1/auth/me)', () => {
       await loginPage.waitForDashboard();
     });
 
-    await test.step('Verifikasi response mengandung clinic', async () => {
+    await test.step('Verifikasi response mengandung clinic + schema', async () => {
       const meResponse = await loginPage.waitForMeResponse();
       const data = meResponse.body.data as Record<string, unknown>;
       const user = data.user as Record<string, unknown>;
-      const clinic = user.clinic as Record<string, unknown>;
 
+      // Schema validation for user object first
+      const userValidation = validateUserProfile(user);
+      if (!userValidation.valid) {
+        throw new Error(
+          `ME-002 BUG_AUTOMATION: User profile schema invalid. Missing: ${userValidation.missing.join(', ')}`,
+        );
+      }
+
+      const clinic = user.clinic as Record<string, unknown>;
       expect(clinic).toBeDefined();
       expect(clinic.id).toBeDefined();
       expect(clinic.name).toBeDefined();
@@ -105,7 +124,17 @@ test.describe('Auth Me (GET /v1/auth/me)', () => {
         const meResponse = await amp.getMeViaApi();
         expect(meResponse.status).toBe(200);
 
-        const user = amp.getUserData(meResponse);
+        const data = meResponse.body.data as Record<string, unknown>;
+        const user = data.user as Record<string, unknown>;
+
+        // Schema validation per role
+        const validation = validateUserProfile(user);
+        if (!validation.valid) {
+          throw new Error(
+            `ME-003 BUG_AUTOMATION: Profile schema invalid for ${role.label}. Missing: ${validation.missing.join(', ')}`,
+          );
+        }
+
         expect(user.email).toBe(role.email);
         expect(user.context_role).toBe(role.expectedRole);
       });
