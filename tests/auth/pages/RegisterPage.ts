@@ -291,7 +291,7 @@ export class RegisterPage {
     return {
       firstName: 'Test',
       lastName: `User${ts.toString().slice(-4)}`,
-      phone: `+614${Math.floor(100000000 + Math.random() * 900000000)}`,
+      phone: `8${Math.floor(100000000 + Math.random() * 900000000)}`,
       email: `test_${ts}@example.com`,
       experienceLevel: 'Some experience',
       password: 'Password123!',
