@@ -1,0 +1,188 @@
+- generic:
+  - generic:
+    - generic:
+      - generic:
+        - generic:
+          - generic:
+            - img
+            - generic:
+              - heading [level=1]: DID YOU KNOW?
+              - heading [level=1]: Aalto dentist complete treatment in 1-4 visits vs the industry average of 8+
+          - generic:
+            - generic:
+              - generic:
+                - generic:
+                  - heading [level=1]: Orthodontist Support
+              - generic:
+                - generic:
+                  - heading [level=1]: Remote Monitoring
+              - generic:
+                - generic:
+                  - heading [level=1]: AI Assisted Workflow
+            - heading [level=1]: The clear aligner operating system for dentists.
+        - generic:
+          - generic:
+            - generic:
+              - generic:
+                - img
+              - generic:
+                - group "progress":
+                  - generic:
+                    - generic:
+                      - generic:
+                        - button [disabled]
+                      - generic:
+                        - generic: Personal Information
+                        - generic: Tell us about yourself
+                    - generic:
+                      - generic:
+                        - button [disabled]
+                      - generic:
+                        - generic: Practice Information
+                        - generic: Your practice details
+                  - status: Step 0 of 2
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - generic:
+                            - generic: First Name*
+                        - generic:
+                          - generic:
+                            - textbox:
+                              - /placeholder: John
+                              - text: Test
+                      - generic:
+                        - generic:
+                          - generic:
+                            - generic: Last Name*
+                        - generic:
+                          - generic:
+                            - textbox:
+                              - /placeholder: Doe
+                              - text: User
+                    - generic:
+                      - generic:
+                        - generic:
+                          - generic: Phone Number*
+                      - generic:
+                        - generic:
+                          - button:
+                            - generic: "+61"
+                          - textbox: "+61"
+                          - generic:
+                            - textbox:
+                              - /placeholder: Phone Number
+                              - text: "412345678"
+                            - generic:
+                              - paragraph: "+61"
+                    - generic:
+                      - generic:
+                        - generic:
+                          - generic: Email*
+                      - generic:
+                        - generic:
+                          - textbox:
+                            - /placeholder: your.email@example.com
+                            - text: test.user@example.com
+                    - generic:
+                      - generic:
+                        - generic:
+                          - generic: Which of the following describes you?*
+                      - generic:
+                        - combobox [expanded]:
+                          - generic: Select your experience level
+                        - combobox
+                    - generic:
+                      - generic:
+                        - generic:
+                          - generic:
+                            - generic: Password*
+                        - generic:
+                          - generic:
+                            - textbox:
+                              - /placeholder: Create a password
+                              - text: Password123!
+                            - generic:
+                              - button
+                      - generic:
+                        - progressbar
+                      - paragraph: "Strong password. Must contain:"
+                      - list:
+                        - listitem:
+                          - generic:
+                            - text: Password must be at least 12 characters
+                            - generic: "- Requirement met"
+                        - listitem:
+                          - generic:
+                            - text: Password must contain at least one number
+                            - generic: "- Requirement met"
+                        - listitem:
+                          - generic:
+                            - text: Password must contain at least one lowercase letter
+                            - generic: "- Requirement met"
+                        - listitem:
+                          - generic:
+                            - text: Password must contain at least one uppercase letter
+                            - generic: "- Requirement met"
+                        - listitem:
+                          - generic:
+                            - text: Password must contain at least one special character
+                            - generic: "- Requirement met"
+                    - generic:
+                      - generic:
+                        - generic:
+                          - generic:
+                            - generic: Confirm Password*
+                        - generic:
+                          - generic:
+                            - textbox:
+                              - /placeholder: Confirm your password
+                              - text: Password123!
+                            - generic:
+                              - button
+                    - generic:
+                      - generic:
+                        - generic:
+                          - generic: Referral Code
+                      - generic:
+                        - generic:
+                          - textbox:
+                            - /placeholder: Enter referral code (optional)
+                    - generic:
+                      - generic:
+                        - generic:
+                          - checkbox:
+                            - checkbox
+                        - generic:
+                          - generic:
+                            - paragraph:
+                              - text: I agree to the
+                              - link:
+                                - /url: /terms
+                                - text: Terms of Service
+                              - text: and
+                              - link:
+                                - /url: /privacy
+                                - text: Privacy Policy
+                    - button [disabled]: Next
+                - generic:
+                  - paragraph:
+                    - text: Already have an account?
+                    - link:
+                      - /url: /auth/login
+                      - text: Sign In
+                - generic:
+                  - paragraph: ·
+                  - paragraph: Protected by Aalto · 256-bit encryption · HIPAA compliant
+  - listbox [ref=e196]:
+    - group [ref=e197]:
+      - option "New to clear aligners" [active] [ref=e198]:
+        - generic [ref=e200]: New to clear aligners
+      - option "Some experience" [ref=e201]:
+        - generic [ref=e203]: Some experience
+      - option "Good foundation" [ref=e204]:
+        - generic [ref=e206]: Good foundation
+      - option "Very experienced" [ref=e207]:
+        - generic [ref=e209]: Very experienced

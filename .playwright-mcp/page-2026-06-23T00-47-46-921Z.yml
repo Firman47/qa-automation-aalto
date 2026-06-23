@@ -1,0 +1,120 @@
+- generic:
+  - generic:
+    - generic:
+      - generic:
+        - generic:
+          - generic:
+            - img
+            - generic:
+              - heading [level=1]: DID YOU KNOW?
+              - heading [level=1]: Aalto dentist complete treatment in 1-4 visits vs the industry average of 8+
+          - generic:
+            - generic:
+              - generic:
+                - generic:
+                  - heading [level=1]: Orthodontist Support
+              - generic:
+                - generic:
+                  - heading [level=1]: Remote Monitoring
+              - generic:
+                - generic:
+                  - heading [level=1]: AI Assisted Workflow
+            - heading [level=1]: The clear aligner operating system for dentists.
+        - generic:
+          - generic:
+            - generic:
+              - generic:
+                - img
+              - generic:
+                - group "progress":
+                  - generic:
+                    - generic:
+                      - generic:
+                        - button [disabled]
+                      - generic:
+                        - generic: Personal Information
+                        - generic: Tell us about yourself
+                    - generic:
+                      - generic:
+                        - button [disabled]
+                      - generic:
+                        - generic: Practice Information
+                        - generic: Your practice details
+                  - status: Step 1 of 2
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - generic: Name of your primary practice*
+                      - generic:
+                        - generic:
+                          - textbox:
+                            - /placeholder: Enter your practice name
+                    - generic:
+                      - generic:
+                        - generic:
+                          - generic: Postcode or zipcode of your primary practice*
+                      - generic:
+                        - generic:
+                          - textbox:
+                            - /placeholder: Enter postcode or zipcode
+                    - generic:
+                      - generic:
+                        - generic:
+                          - generic: What is your role?*
+                      - generic:
+                        - combobox [expanded]:
+                          - generic: Select your role
+                        - combobox
+                    - generic:
+                      - generic:
+                        - generic:
+                          - generic: How many clear aligner cases have you done in the last year?*
+                      - generic:
+                        - combobox:
+                          - generic: How many clear aligner cases have you done in the last year?
+                        - combobox
+                    - generic:
+                      - generic:
+                        - generic:
+                          - generic: AHPRA Registration Number*
+                      - generic:
+                        - generic:
+                          - textbox:
+                            - /placeholder: Enter your AHPRA registration number
+                    - generic:
+                      - generic:
+                        - generic:
+                          - generic: Where did you hear about us?*
+                      - generic:
+                        - combobox:
+                          - generic: Where did you hear about us?
+                        - combobox
+                    - button: Back
+                    - button: Get Started
+                - generic:
+                  - paragraph:
+                    - text: Already have an account?
+                    - link:
+                      - /url: /auth/login
+                      - text: Sign In
+                - generic:
+                  - paragraph: ·
+                  - paragraph: Protected by Aalto · 256-bit encryption · HIPAA compliant
+  - listbox [ref=e266]:
+    - group [ref=e267]:
+      - option "Associate Dentist" [active] [ref=e268]:
+        - generic [ref=e270]: Associate Dentist
+      - option "Practice Owner" [ref=e271]:
+        - generic [ref=e273]: Practice Owner
+      - option "Practice Manager" [ref=e274]:
+        - generic [ref=e276]: Practice Manager
+      - option "Principal Dentist" [ref=e277]:
+        - generic [ref=e279]: Principal Dentist
+      - option "Foundation Year Dentist" [ref=e280]:
+        - generic [ref=e282]: Foundation Year Dentist
+      - option "Orthodontist" [ref=e283]:
+        - generic [ref=e285]: Orthodontist
+      - option "Other, please specify" [ref=e286]:
+        - generic [ref=e288]: Other, please specify

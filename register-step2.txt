@@ -1,0 +1,74 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e4]:
+    - generic [ref=e5]:
+      - generic [ref=e6]:
+        - img [ref=e7]
+        - generic [ref=e37]:
+          - heading "DID YOU KNOW?" [level=1] [ref=e38]
+          - heading "Aalto dentist complete treatment in 1-4 visits vs the industry average of 8+" [level=1] [ref=e39]
+      - generic [ref=e40]:
+        - generic [ref=e41]:
+          - heading "Orthodontist Support" [level=1] [ref=e44]
+          - heading "Remote Monitoring" [level=1] [ref=e47]
+          - heading "AI Assisted Workflow" [level=1] [ref=e50]
+        - heading "The clear aligner operating system for dentists." [level=1] [ref=e51]
+    - generic [ref=e54]:
+      - img "Aalto Logo" [ref=e56]
+      - generic [ref=e57]:
+        - group "progress" [ref=e58]:
+          - generic [ref=e59]:
+            - generic [ref=e60]:
+              - button "Personal Information" [disabled] [ref=e62]
+              - generic [ref=e65]:
+                - generic [ref=e66]: Personal Information
+                - generic [ref=e67]: Tell us about yourself
+            - generic [ref=e68]:
+              - button "Practice Information" [disabled] [ref=e70]
+              - generic [ref=e73]:
+                - generic [ref=e74]: Practice Information
+                - generic [ref=e75]: Your practice details
+          - status: Step 1 of 2
+        - generic [ref=e211]:
+          - generic [ref=e212]:
+            - generic [ref=e215]: Name of your primary practice*
+            - textbox "Name of your primary practice*" [ref=e218]:
+              - /placeholder: Enter your practice name
+          - generic [ref=e219]:
+            - generic [ref=e222]: Postcode or zipcode of your primary practice*
+            - textbox "Postcode or zipcode of your primary practice*" [ref=e225]:
+              - /placeholder: Enter postcode or zipcode
+          - generic [ref=e226]:
+            - generic [ref=e229]: What is your role?*
+            - generic [ref=e230]:
+              - combobox "What is your role?*" [ref=e231]:
+                - generic [ref=e232]: Select your role
+              - combobox [ref=e235]
+          - generic [ref=e236]:
+            - generic [ref=e239]: How many clear aligner cases have you done in the last year?*
+            - generic [ref=e240]:
+              - combobox "How many clear aligner cases have you done in the last year?*" [ref=e241]:
+                - generic [ref=e242]: How many clear aligner cases have you done in the last year?
+              - combobox [ref=e245]
+          - generic [ref=e246]:
+            - generic [ref=e249]: AHPRA Registration Number*
+            - textbox "AHPRA Registration Number*" [ref=e252]:
+              - /placeholder: Enter your AHPRA registration number
+          - generic [ref=e253]:
+            - generic [ref=e256]: Where did you hear about us?*
+            - generic [ref=e257]:
+              - combobox "Where did you hear about us?*" [ref=e258]:
+                - generic [ref=e259]: Where did you hear about us?
+              - combobox [ref=e262]
+          - button "Back" [ref=e263]
+          - button "Get Started" [ref=e264] [cursor=pointer]: Get Started
+        - paragraph [ref=e190]:
+          - text: Already have an account?
+          - link "Sign In" [ref=e191] [cursor=pointer]:
+            - /url: /auth/login
+        - generic [ref=e192]:
+          - paragraph [ref=e193]: ·
+          - paragraph [ref=e194]: Protected by Aalto · 256-bit encryption · HIPAA compliant
+  - region "Notifications (F8)":
+    - list
+  - region "Notifications (F8)":
+    - list

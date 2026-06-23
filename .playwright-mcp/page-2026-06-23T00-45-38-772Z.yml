@@ -1,0 +1,122 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e4]:
+    - generic [ref=e5]:
+      - generic [ref=e6]:
+        - img [ref=e7]
+        - generic [ref=e37]:
+          - heading "DID YOU KNOW?" [level=1] [ref=e38]
+          - heading "Aalto dentist complete treatment in 1-4 visits vs the industry average of 8+" [level=1] [ref=e39]
+      - generic [ref=e40]:
+        - generic [ref=e41]:
+          - heading "Orthodontist Support" [level=1] [ref=e44]
+          - heading "Remote Monitoring" [level=1] [ref=e47]
+          - heading "AI Assisted Workflow" [level=1] [ref=e50]
+        - heading "The clear aligner operating system for dentists." [level=1] [ref=e51]
+    - generic [ref=e54]:
+      - img "Aalto Logo" [ref=e56]
+      - generic [ref=e57]:
+        - group "progress" [ref=e58]:
+          - generic [ref=e59]:
+            - generic [ref=e60]:
+              - button "Personal Information" [disabled] [ref=e62]
+              - generic [ref=e65]:
+                - generic [ref=e66]: Personal Information
+                - generic [ref=e67]: Tell us about yourself
+            - generic [ref=e68]:
+              - button "Practice Information" [disabled] [ref=e70]
+              - generic [ref=e73]:
+                - generic [ref=e74]: Practice Information
+                - generic [ref=e75]: Your practice details
+          - status: Step 0 of 2
+        - generic [ref=e77]:
+          - generic [ref=e78]:
+            - generic [ref=e79]:
+              - generic [ref=e82]: First Name*
+              - textbox "First Name*" [ref=e85]:
+                - /placeholder: John
+            - generic [ref=e86]:
+              - generic [ref=e89]: Last Name*
+              - textbox "Last Name*" [ref=e92]:
+                - /placeholder: Doe
+          - generic [ref=e93]:
+            - generic [ref=e96]: Phone Number*
+            - generic [ref=e98]:
+              - button "Show popup" [ref=e99] [cursor=pointer]:
+                - generic: "+61"
+              - textbox [ref=e102]: "+61"
+              - generic [ref=e103]:
+                - textbox "Phone Number" [ref=e104]
+                - generic:
+                  - paragraph: "+61"
+          - generic [ref=e105]:
+            - generic [ref=e108]: Email*
+            - textbox "Email*" [ref=e111]:
+              - /placeholder: your.email@example.com
+          - generic [ref=e112]:
+            - generic [ref=e115]: Which of the following describes you?*
+            - generic [ref=e116]:
+              - combobox "Which of the following describes you?*" [ref=e117]:
+                - generic [ref=e118]: Select your experience level
+              - combobox [ref=e121]
+          - generic [ref=e122]:
+            - generic [ref=e123]:
+              - generic [ref=e126]: Password*
+              - generic [ref=e128]:
+                - textbox "Password*" [ref=e129]:
+                  - /placeholder: Create a password
+                - button "Show password" [ref=e131]
+            - progressbar "0%" [ref=e134]
+            - paragraph [ref=e136]: "Enter a password. Must contain:"
+            - list "Password requirements" [ref=e137]:
+              - listitem [ref=e138]:
+                - generic [ref=e140]:
+                  - text: Password must be at least 12 characters
+                  - generic [ref=e141]: "- Requirement not met"
+              - listitem [ref=e142]:
+                - generic [ref=e144]:
+                  - text: Password must contain at least one number
+                  - generic [ref=e145]: "- Requirement not met"
+              - listitem [ref=e146]:
+                - generic [ref=e148]:
+                  - text: Password must contain at least one lowercase letter
+                  - generic [ref=e149]: "- Requirement not met"
+              - listitem [ref=e150]:
+                - generic [ref=e152]:
+                  - text: Password must contain at least one uppercase letter
+                  - generic [ref=e153]: "- Requirement not met"
+              - listitem [ref=e154]:
+                - generic [ref=e156]:
+                  - text: Password must contain at least one special character
+                  - generic [ref=e157]: "- Requirement not met"
+          - generic [ref=e159]:
+            - generic [ref=e162]: Confirm Password*
+            - generic [ref=e164]:
+              - textbox "Confirm Password*" [ref=e165]:
+                - /placeholder: Confirm your password
+              - button "Show password" [ref=e167]
+          - generic [ref=e169]:
+            - generic [ref=e172]: Referral Code
+            - textbox "Referral Code" [ref=e175]:
+              - /placeholder: Enter referral code (optional)
+          - generic [ref=e179]:
+            - checkbox "I agree to the Terms of Service and Privacy Policy" [ref=e181]:
+              - checkbox [ref=e182]
+            - paragraph [ref=e185] [cursor=pointer]:
+              - text: I agree to the
+              - link "Terms of Service" [ref=e186]:
+                - /url: /terms
+              - text: and
+              - link "Privacy Policy" [ref=e187]:
+                - /url: /privacy
+          - button "Next" [disabled] [ref=e188]
+        - paragraph [ref=e190]:
+          - text: Already have an account?
+          - link "Sign In" [ref=e191] [cursor=pointer]:
+            - /url: /auth/login
+        - generic [ref=e192]:
+          - paragraph [ref=e193]: ·
+          - paragraph [ref=e194]: Protected by Aalto · 256-bit encryption · HIPAA compliant
+  - region "Notifications (F8)":
+    - list
+  - region "Notifications (F8)":
+    - list

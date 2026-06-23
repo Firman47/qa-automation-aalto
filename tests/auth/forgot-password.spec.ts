@@ -6,6 +6,8 @@
  */
 import { test, expect } from '@playwright/test';
 import { ForgotPasswordPage } from './pages/ForgotPasswordPage';
+import { assertNoApiCall } from './helpers/auth-helper';
+import { verifyToastMatchesApi } from './helpers/auth-assertions';
 
 test.describe('Forgot Password Module', () => {
   let forgotPage: ForgotPasswordPage;
@@ -30,54 +32,51 @@ test.describe('Forgot Password Module', () => {
   });
 
   test('[FRG-002] @smoke Kirim reset link dengan email valid', async () => {
-    await test.step('Isi email valid dan klik send', async () => {
+    await test.step('Isi email valid', async () => {
+      // FIX: fillEmail harus SEBELUM Promise.all — bukan di dalamnya
+      await forgotPage.fillEmail('tatang.doctor@gmail.com');
+    });
+
+    await test.step('Klik send, tangkap response, dan verifikasi toast', async () => {
       const [response] = await Promise.all([
         forgotPage.waitForForgotResponse(),
-        forgotPage.fillEmail('tatang.doctor@gmail.com'),
         forgotPage.clickSendReset(),
       ]);
 
       expect(response.status).toBe(200);
       expect(response.body.status).toBe(true);
+
+      // FIX: verify toast with the SAME response — no second API call needed
+      await verifyToastMatchesApi(forgotPage.toastDescription, response, 'FRG-002');
     });
   });
 
   test('[FRG-003] Kirim reset link dengan email tidak terdaftar', async () => {
-    await test.step('Isi email tidak terdaftar dan klik send', async () => {
+    await test.step('Isi email tidak terdaftar', async () => {
+      await forgotPage.fillEmail('unregistered@test.com');
+    });
+
+    await test.step('Klik send dan verifikasi response', async () => {
       const [response] = await Promise.all([
         forgotPage.waitForForgotResponse(),
-        forgotPage.fillEmail('unregistered@test.com'),
         forgotPage.clickSendReset(),
       ]);
 
       // API mungkin tetap 200 untuk security (tidak reveal user existence)
-      // atau 404 jika API mengembalikan error
       expect([200, 404]).toContain(response.status);
-    });
 
-    await test.step('Verifikasi toast muncul (success atau error)', async () => {
-      await expect(forgotPage.errorAlert).toBeVisible({ timeout: 5000 });
+      // Verifikasi toast content sesuai API message
+      await verifyToastMatchesApi(forgotPage.toastDescription, response, 'FRG-003');
     });
   });
 
   test('[FRG-004] Kirim reset link dengan email kosong — client-side validation', async ({
     page,
   }) => {
-    let requestSent = false;
-
-    page.on('request', (req) => {
-      if (req.url().includes('/v1/auth/forgot') && req.method() === 'POST') {
-        requestSent = true;
-      }
-    });
-
-    await test.step('Klik Send reset link tanpa isi email', async () => {
-      await forgotPage.clickSendReset();
-    });
-
-    await test.step('Verifikasi NO API call terkirim', async () => {
-      await page.waitForTimeout(100);
-      expect(requestSent).toBe(false);
+    await test.step('Verifikasi NO API call terkirim saat klik send tanpa email', async () => {
+      await assertNoApiCall(page, '/v1/auth/forgot', 'POST', async () => {
+        await forgotPage.clickSendReset();
+      });
     });
 
     await test.step('Tetap di forgot-password page', async () => {
@@ -99,22 +98,14 @@ test.describe('Forgot Password Module', () => {
   test('[FRG-006] Kirim reset link dengan invalid email format — client-side validation', async ({
     page,
   }) => {
-    let requestSent = false;
-
-    page.on('request', (req) => {
-      if (req.url().includes('/v1/auth/forgot') && req.method() === 'POST') {
-        requestSent = true;
-      }
-    });
-
-    await test.step('Isi email format invalid', async () => {
+    await test.step('Isi email format invalid dan klik send', async () => {
       await forgotPage.fillEmail('not-an-email');
-      await forgotPage.clickSendReset();
     });
 
     await test.step('Verifikasi NO API call terkirim', async () => {
-      await page.waitForTimeout(100);
-      expect(requestSent).toBe(false);
+      await assertNoApiCall(page, '/v1/auth/forgot', 'POST', async () => {
+        await forgotPage.clickSendReset();
+      });
     });
   });
 });

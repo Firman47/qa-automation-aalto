@@ -144,56 +144,35 @@ Jangan mengganti implementation test yang sudah bekerja hanya karena bisa dibuat
 ```
 .
 ├── tests/
-│   ├── auth/                      # AUTH, REG, FRG test IDs
+│   ├── auth/                      # AUTH, REG, FRG, RST, LGT, ME test IDs
 │   │   ├── login.spec.ts
 │   │   ├── register.spec.ts
 │   │   ├── forgot-password.spec.ts
+│   │   ├── reset-password.spec.ts
+│   │   ├── logout.spec.ts
+│   │   ├── auth-me.spec.ts
 │   │   ├── pages/                 # Auth page objects
 │   │   │   ├── LoginPage.ts
 │   │   │   ├── RegisterPage.ts
 │   │   │   └── ForgotPasswordPage.ts
-│   │   └── data/                  # Auth test data
-│   │       └── test-data.ts
+│   │   └── data/                  # Auth test data (pending)
 │   ├── dashboard/                 # DSH test IDs
 │   │   ├── dashboard.spec.ts
 │   │   └── pages/
 │   │       └── DashboardPage.ts
-│   ├── patients/                  # PAT test IDs (Cases)
-│   │   ├── patients.spec.ts
-│   │   ├── case-qr.spec.ts
-│   │   ├── pages/
-│   │   │   ├── PatientsPage.ts
-│   │   │   └── CaseDetailPage.ts
-│   │   └── data/
-│   │       └── test-data.ts
-│   ├── leads/                     # LDS test IDs
-│   │   ├── lead-patients.spec.ts
-│   │   ├── lead-income.spec.ts
-│   │   ├── invoices.spec.ts
+│   ├── patients/                  # PAT test IDs (Cases) — pending
+│   │   ├── data/
 │   │   └── pages/
-│   │       └── LeadsPage.ts
-│   ├── cms/                       # CMS test IDs
-│   │   ├── blogs.spec.ts
-│   │   ├── categories.spec.ts
+│   ├── leads/                     # LDS, LDI, INV test IDs — pending
 │   │   └── pages/
-│   │       └── BlogsPage.ts
-│   ├── users/                     # USR test IDs
-│   │   ├── users.spec.ts
+│   ├── cms/                       # CMS test IDs — pending
 │   │   └── pages/
-│   │       └── UsersPage.ts
-│   ├── messages/                  # MSG test IDs
-│   │   ├── patients.spec.ts
-│   │   ├── support-admin.spec.ts
+│   ├── users/                     # USR test IDs — pending
 │   │   └── pages/
-│   │       └── MessagesPage.ts
-│   ├── settings/                  # SET test IDs
-│   │   ├── general.spec.ts
-│   │   ├── bank-account.spec.ts
-│   │   ├── practice.spec.ts
-│   │   ├── notifications.spec.ts
-│   │   ├── security.spec.ts
+│   ├── messages/                  # MSG, MSGSUP test IDs — pending
 │   │   └── pages/
-│   │       └── SettingsPage.ts
+│   ├── settings/                  # SET, SETBNK, SETPRC, SETNOT, SETSEC test IDs — pending
+│   │   └── pages/
 │   ├── smoke/                     # SMOKE test IDs
 │   │   ├── doctor-login.spec.ts
 │   │   ├── orthodontist-login.spec.ts
@@ -201,16 +180,21 @@ Jangan mengganti implementation test yang sudah bekerja hanya karena bisa dibuat
 │   ├── data/                      # Shared cross-module test data
 │   │   └── auth-test-data.ts
 │   └── helpers/                   # Shared helpers
-│       └── bug-assertions.ts
+│       ├── bug-assertions.ts
+│       └── fixtures.ts
 ├── docs/
 │   ├── API_DOCUMENTATION.md       # API contracts, response shapes, error codes
 │   ├── WEBSITE_DOCUMENTATION.md   # UI structure, routing, component behavior
 │   ├── testcases/
 │   │   ├── AUTH_TEST_CASES.md     # Login test case specifications
 │   │   ├── REGISTER_TEST_CASES.md # Register test case specifications
-│   │   └── FRG_TEST_CASES.md      # Forgot password test case specifications
+│   │   ├── FRG_TEST_CASES.md      # Forgot password test case specifications
+│   │   ├── RST_TEST_CASES.md      # Reset password test case specifications
+│   │   ├── ME_TEST_CASES.md       # Auth Me test case specifications
+│   │   └── LGT_TEST_CASES.md      # Logout test case specifications
 │   └── qa/
 │       ├── BUG_REPORT_TEMPLATE.md
+│       ├── AUTH_QA_REPORT.md      # Auth module QA report
 │       └── PLAYWRIGHT_ENGINEER_AGENT.md  # complete reference (31 sections)
 ├── playwright.config.ts
 └── package.json
@@ -228,6 +212,9 @@ Jangan mengganti implementation test yang sudah bekerja hanya karena bisa dibuat
    - `docs/testcases/AUTH_TEST_CASES.md` — Login test case specifications
    - `docs/testcases/REGISTER_TEST_CASES.md` — Register test case specifications
    - `docs/testcases/FRG_TEST_CASES.md` — Forgot password test case specifications
+   - `docs/testcases/RST_TEST_CASES.md` — Reset password test case specifications
+   - `docs/testcases/ME_TEST_CASES.md` — Auth Me test case specifications
+   - `docs/testcases/LGT_TEST_CASES.md` — Logout test case specifications
    - `docs/qa/BUG_REPORT_TEMPLATE.md` — Bug report format
 4. Jika ada ketidaksesuaian antara dokumentasi dan hasil observasi, catat sebagai `BUG_DOCUMENTATION`.
 5. **Always verify locators against the real DOM** before writing assertions. Gunakan Playwright codegen atau manual headed inspection.
@@ -1185,6 +1172,9 @@ import { VALID_USER } from "./data/test-users";
 | `AUTH-XXX`      | Login             | `tests/auth/login.spec.ts`                         |
 | `REG-XXX`       | Register          | `tests/auth/register.spec.ts`                      |
 | `FRG-XXX`       | Forgot Password   | `tests/auth/forgot-password.spec.ts`               |
+| `RST-XXX`       | Reset Password    | `tests/auth/reset-password.spec.ts`                |
+| `ME-XXX`        | Auth Me           | `tests/auth/auth-me.spec.ts`                       |
+| `LGT-XXX`       | Logout            | `tests/auth/logout.spec.ts`                        |
 | `DSH-XXX`       | Dashboard         | `tests/dashboard/dashboard.spec.ts`                |
 | `PAT-XXX`       | Patients (Cases)  | `tests/patients/patients.spec.ts`                  |
 | `PQR-XXX`       | Case QR Code      | `tests/patients/case-qr.spec.ts`                   |
@@ -2119,7 +2109,7 @@ page.getByRole("button").filter({ has: page.locator('[class*="bell"]') });
 
 ### 29.3 Known Project State
 
-**Status:** Greenfield project — no existing tests yet. All test cases need to be created from scratch.
+**Status:** In progress — Auth module (login, register, forgot password, reset password, logout, auth-me) + Dashboard + Smoke tests sudah selesai. Module lainnya (patients, leads, cms, users, messages, settings) masih pending — struktur folder sudah dibuat, spec files dan page objects belum diimplementasi.
 
 **Aalto App Structure (confirmed via DOM exploration):**
 
@@ -2368,16 +2358,17 @@ Gunakan struktur folder berikut sebagai standar project:
 
 ```
 tests/
-├── auth/          # AUTH, REG, FRG test IDs
-├── dashboard/     # DSH test IDs
-├── patients/      # PAT, PQR test IDs
-├── leads/         # LDS, LDI, INV test IDs
-├── cms/           # BLG, CAT test IDs
-├── users/         # USR test IDs
-├── messages/      # MSG, MSGSUP test IDs
-├── settings/      # SET, SETBNK, SETPRC, SETNOT, SETSEC test IDs
-├── smoke/         # SMOKE-DOC, SMOKE-ORTHO, SMOKE-ADMIN test IDs
-└── helpers/       # bug-assertions, fixtures
+├── auth/          # AUTH, REG, FRG, RST, ME, LGT test IDs ✅
+├── dashboard/     # DSH test IDs ✅
+├── patients/      # PAT, PQR test IDs ⏳ pending
+├── leads/         # LDS, LDI, INV test IDs ⏳ pending
+├── cms/           # BLG, CAT test IDs ⏳ pending
+├── users/         # USR test IDs ⏳ pending
+├── messages/      # MSG, MSGSUP test IDs ⏳ pending
+├── settings/      # SET, SETBNK, SETPRC, SETNOT, SETSEC test IDs ⏳ pending
+├── smoke/         # SMOKE-DOC, SMOKE-ORTHO, SMOKE-ADMIN test IDs ✅
+├── data/          # Shared cross-module test data ✅
+└── helpers/       # bug-assertions, fixtures ✅
 ```
 
 ### 30.1 Module Folder Rules

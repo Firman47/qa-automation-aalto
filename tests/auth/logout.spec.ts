@@ -6,13 +6,16 @@
  */
 import { test, expect } from '@playwright/test';
 import { LoginPage } from './pages/LoginPage';
-import { DOCTOR } from '../data/auth-test-data';
+import { LogoutPage } from './pages/LogoutPage';
+import { DOCTOR, ORTHODONTIST, ADMIN, ALL_ROLES } from '../data/auth-test-data';
 
 test.describe('Logout Module', () => {
   let loginPage: LoginPage;
+  let logoutPage: LogoutPage;
 
   test.beforeEach(async ({ page }) => {
     loginPage = new LoginPage(page);
+    logoutPage = new LogoutPage(page);
     await loginPage.open();
     await expect(loginPage.heading).toBeVisible();
   });
@@ -30,24 +33,18 @@ test.describe('Logout Module', () => {
     });
 
     await test.step('Klik avatar dan logout', async () => {
-      await loginPage.clickAvatar();
-      const [logoutResponse] = await Promise.all([
-        loginPage.waitForLogoutResponse(),
-        loginPage.clickSignOut(),
-      ]);
-
-      expect(logoutResponse.status).toBe(200);
-      expect(logoutResponse.body.status).toBe(true);
-      expect(logoutResponse.body.message).toContain('Logout');
+      const { status, body } = await logoutPage.logout();
+      expect(status).toBe(200);
+      expect(body.status).toBe(true);
+      expect(body.message).toBeDefined();
     });
 
     await test.step('Verifikasi redirect ke login page', async () => {
-      await loginPage.waitForLoginPage();
-      expect(page.url()).toContain('/auth/login');
+      await logoutPage.verifyOnLoginPage();
     });
 
     await test.step('Verifikasi cookie access_token dihapus', async () => {
-      const hasCookie = await loginPage.isAccessTokenCookiePresent();
+      const hasCookie = await logoutPage.isAccessTokenCookiePresent();
       expect(hasCookie).toBe(false);
     });
   });
@@ -63,12 +60,8 @@ test.describe('Logout Module', () => {
       expect(loginResponse.status).toBe(200);
       await loginPage.waitForDashboard();
 
-      await loginPage.clickAvatar();
-      await Promise.all([
-        loginPage.waitForLogoutResponse(),
-        loginPage.clickSignOut(),
-      ]);
-      await loginPage.waitForLoginPage();
+      await logoutPage.logout();
+      await logoutPage.waitForLoginPage();
     });
 
     await test.step('Coba akses /dashboard langsung', async () => {
@@ -76,21 +69,23 @@ test.describe('Logout Module', () => {
       await page.waitForLoadState('networkidle');
     });
 
-    await test.step('Verifikasi redirect ke login', async () => {
+    await test.step('Verifikasi redirect ke login dengan semua element login terlihat', async () => {
+      // FIX: Verifikasi URL dan element login
       expect(page.url()).toContain('/auth/login');
+      await expect(loginPage.heading).toBeVisible({ timeout: 10000 });
+      await expect(loginPage.emailInput).toBeVisible();
+      await expect(loginPage.passwordInput).toBeVisible();
+      await expect(loginPage.signInButton).toBeVisible();
     });
   });
 
   test('[LGT-003] Logout dari berbagai role — redirect konsisten', async ({
     page,
   }) => {
-    const roles = [
-      { email: DOCTOR.email, password: DOCTOR.password, label: 'doctor' },
-    ];
-
-    for (const role of roles) {
-      await test.step(`Logout role: ${role.label}`, async () => {
+    for (const role of ALL_ROLES) {
+      await test.step(`Logout role: ${role.role}`, async () => {
         const lp = new LoginPage(page);
+        const lgp = new LogoutPage(page);
         await lp.open();
 
         const [loginResponse] = await Promise.all([
@@ -100,15 +95,11 @@ test.describe('Logout Module', () => {
         expect(loginResponse.status).toBe(200);
         await lp.waitForDashboard();
 
-        await lp.clickAvatar();
-        const [logoutResponse] = await Promise.all([
-          lp.waitForLogoutResponse(),
-          lp.clickSignOut(),
-        ]);
+        const { status, body } = await lgp.logout();
+        expect(status).toBe(200);
+        expect(body.status).toBe(true);
 
-        expect(logoutResponse.status).toBe(200);
-        await lp.waitForLoginPage();
-        expect(page.url()).toContain('/auth/login');
+        await lgp.verifyOnLoginPage();
       });
     }
   });

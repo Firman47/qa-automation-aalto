@@ -8,6 +8,7 @@ import { test, expect } from '@playwright/test';
 import { LoginPage } from './pages/LoginPage';
 import { DOCTOR, ORTHODONTIST, ADMIN, INVALID_CREDENTIALS } from '../data/auth-test-data';
 import { assertToastMismatch } from '../helpers/bug-assertions';
+import { assertNoApiCall } from './helpers/auth-helper';
 
 test.describe('Login Module', () => {
   let loginPage: LoginPage;
@@ -70,42 +71,29 @@ test.describe('Login Module', () => {
   });
 
   test('[AUTH-004] Login dengan email kosong — validasi client-side', async ({ page }) => {
-    let requestSent = false;
-
-    page.on('request', (req) => {
-      if (req.url().includes('/v1/auth/login') && req.method() === 'POST') {
-        requestSent = true;
-      }
-    });
-
     await test.step('Isi password, kosongkan email, klik SIGN IN', async () => {
       await loginPage.fillPassword(DOCTOR.password);
       await loginPage.clickSignIn();
     });
 
     await test.step('Verifikasi NO API call terkirim', async () => {
-      await page.waitForTimeout(100); // microtask drain
-      expect(requestSent).toBe(false);
+      await assertNoApiCall(page, '/v1/auth/login', 'POST', async () => {
+        // Action already happened above; re-trigger to capture
+        await loginPage.clickSignIn();
+      });
     });
   });
 
   test('[AUTH-005] Login dengan password kosong — validasi client-side', async ({ page }) => {
-    let requestSent = false;
-
-    page.on('request', (req) => {
-      if (req.url().includes('/v1/auth/login') && req.method() === 'POST') {
-        requestSent = true;
-      }
-    });
-
     await test.step('Isi email, kosongkan password, klik SIGN IN', async () => {
       await loginPage.fillEmail(DOCTOR.email);
       await loginPage.clickSignIn();
     });
 
     await test.step('Verifikasi NO API call terkirim', async () => {
-      await page.waitForTimeout(100);
-      expect(requestSent).toBe(false);
+      await assertNoApiCall(page, '/v1/auth/login', 'POST', async () => {
+        await loginPage.clickSignIn();
+      });
     });
   });
 
@@ -181,13 +169,20 @@ test.describe('Login Module', () => {
 
   test('[AUTH-008] Toggle show/hide password', async ({ page }) => {
     await test.step('Isi password', async () => {
-      await loginPage.fillPassword('Password123!');
+      // FIX: Use DOCTOR.password instead of hardcoded string
+      await loginPage.fillPassword(DOCTOR.password);
     });
 
-    await test.step('Toggle show password', async () => {
+    await test.step('Toggle show password — type berubah ke text', async () => {
       await loginPage.toggleShowPassword();
       const type = await loginPage.passwordInput.getAttribute('type');
       expect(type).toBe('text');
+    });
+
+    await test.step('Toggle hide password — type kembali ke password', async () => {
+      await loginPage.toggleShowPassword();
+      const type = await loginPage.passwordInput.getAttribute('type');
+      expect(type).toBe('password');
     });
   });
 
@@ -433,27 +428,36 @@ test.describe('Login Module', () => {
   test('[AUTH-017] Login response — verifikasi struktur user + clinic', async ({
     page,
   }) => {
-    await test.step('Login doctor — parse response body', async () => {
-      const [response] = await Promise.all([
+    let response: { status: number; body: Record<string, unknown> };
+
+    await test.step('Login doctor dan tangkap response', async () => {
+      const [resp] = await Promise.all([
         loginPage.waitForLoginResponse(),
         loginPage.login(DOCTOR.email, DOCTOR.password),
       ]);
+      response = resp;
+    });
 
+    await test.step('Verifikasi HTTP status dan envelope', async () => {
       expect(response.status).toBe(200);
-      const body = response.body;
+      expect(response.body.status).toBe(true);
+      expect(response.body.message).toBeDefined();
+    });
 
-      // Verifikasi struktur response
-      expect(body.status).toBe(true);
-      expect(body.message).toBeDefined();
-      expect(body.data).toBeDefined();
-
-      const data = body.data as Record<string, unknown>;
+    await test.step('Verifikasi data.user dan field wajib', async () => {
+      expect(response.body.data).toBeDefined();
+      const data = response.body.data as Record<string, unknown>;
       expect(data.user).toBeDefined();
 
       const user = data.user as Record<string, unknown>;
       expect(user.id).toBeDefined();
       expect(user.email).toBe(DOCTOR.email);
       expect(user.context_role).toBe('dentist');
+    });
+
+    await test.step('Verifikasi user profile lengkap', async () => {
+      const data = response.body.data as Record<string, unknown>;
+      const user = data.user as Record<string, unknown>;
       expect(user.full_name).toBe(DOCTOR.displayName);
       expect(user.is_active).toBe(true);
       expect(user.clinic).toBeDefined();
@@ -490,9 +494,13 @@ test.describe('Login Module', () => {
     });
   });
 
-  test('[AUTH-019] GET /v1/auth/me — verifikasi profile setelah login', async ({
+  test('[AUTH-019] GET /v1/auth/me — verifikasi profile setelah login (via browser network)', async ({
     page,
   }) => {
+    // NOTE: AUTH-019 tests GET /v1/auth/me via browser's native network request.
+    // ME-001 tests the same endpoint via API request context.
+    // Both are kept — AUTH-019 validates the frontend triggers /auth/me correctly,
+    // ME-001 validates the backend response structure directly.
     await test.step('Login doctor', async () => {
       const [response] = await Promise.all([
         loginPage.waitForLoginResponse(),

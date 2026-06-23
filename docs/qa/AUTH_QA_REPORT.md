@@ -25,12 +25,12 @@
 
 | Metrik                          | Nilai                               |
 | ------------------------------- | ----------------------------------- |
-| **Total test cases (docs)**     | 77                                  |
+| **Total test cases (docs)**     | 80                                  |
 | **Total test spec (implemented)**| 50                                  |
 | **Tests active**                | 48                                  |
 | **Tests skipped**               | 2 (REG-003, RST-001)                |
 | **BUG_APP detection points**    | 2 (AUTH-006, AUTH-007)              |
-| **Coverage implementation**     | **64.9%** (50/77)                   |
+| **Coverage implementation**     | **62.5%** (50/80)                   |
 | **Documentation coverage**      | **100%** (6/6 modul didokumentasi)  |
 
 ### Status Legend
@@ -78,13 +78,13 @@
 ### 3.1 Overall Coverage
 
 ```
-Docs Total:   77 test cases
+Docs Total:   80 test cases
                     │
         ┌───────────┴───────────┐
         │                       │
-    Implemented (50)        Missing (27)
+    Implemented (50)        Missing (30)
         │                       │
-    ┌───┴───┐               Gap: 35.1%
+    ┌───┴───┐               Gap: 37.5%
     │       │
   Active  Skipped
   (48)    (2)
@@ -100,19 +100,19 @@ Docs Total:   77 test cases
 | LGT    | 6     | 3    | 3      | 0       | 3       | **50.0%**  |
 | ME     | 6     | 4    | 4      | 0       | 2       | **66.7%**  |
 | RST    | 9     | 5    | 4      | 1       | 4       | **55.6%**  |
-| **Total** | **77** | **50** | **48** | **2** | **27** | **64.9%** |
+| **Total** | **80** | **50** | **48** | **2** | **30** | **62.5%** |
 
 ### 3.3 Missing Tests by Category
 
-| Type              | Count | Details |
-| ----------------- | ----- | ------- |
-| Error Handling    | 8     | API 500, network error, slow response for AUTH-016/017/018, REG-021/022/023, FRG-006/007 |
-| Loading State     | 3     | AUTH-013, REG-022, FRG-008 |
-| UI Component      | 8     | Password strength bar, step progress, password checklist live update |
-| API Contract      | 2     | RST-001, RST-005 (valid token scenarios) |
-| Layout/UI Verify  | 3     | AUTH-019, REG-024, FRG-009 |
-| Register validations | 3  | REG-008, REG-017, REG-018 |
-| Other             | 2     | ME-003 (token expiry), LGT-003 (multi-role incomplete) |
+| Type                | Approx. Count | Key Items |
+| ------------------- | ------------- | --------- |
+| Error Handling      | ~7            | API 500 (AUTH-016, REG-021, FRG-006, LGT-004, ME-006), network error (AUTH-017, REG-023, FRG-007, LGT-005), slow response (AUTH-018, REG-022) |
+| Client Validation   | ~10           | Double empty (AUTH-006), password requirement variants (REG-012→016), phone format (REG-005), Step 2 fields (REG-020), Experience Level (REG-016) |
+| UI Component        | ~5            | Password strength bar (REG-009), step progress (REG-017), back navigation (REG-018), checklist live update (REG-008), avatar menu (LGT-006) |
+| Loading State       | ~3            | AUTH-013, FRG-008, LGT-003 |
+| API Contract / E2E  | ~5            | Reset token validation (RST-003/005/007/008), API 422 + conflict (REG-025/026), multi-tab (REG-027) |
+| Layout / UI Verify  | ~3            | AUTH-019, REG-024, ME-003 (token expiry redirect) |
+| Incomplete Coverage | ~2            | LGT-003 (multi-role only tests doctor), REG-003 (Step 2 blocked) |
 
 ---
 
@@ -121,6 +121,7 @@ Docs Total:   77 test cases
 ### 4.1 AUTH (Login) — 20/23 Implemented
 
 **Implemented (20):**
+> **IDs below use SPEC test IDs (AUTH-001 to AUTH-020).** Due to a renumbering shift, spec numbering does not always match doc numbering (see §8.1 for full mapping).
 
 | ID       | Test                          | Type            | Priority | Status |
 | -------- | ----------------------------- | --------------- | -------- | ------ |
@@ -145,17 +146,15 @@ Docs Total:   77 test cases
 | AUTH-019 | GET /auth/me verification     | API Contract    | P2       | ✅     |
 | AUTH-020 | Whitespace email validation   | Client Val      | P1       | ✅     |
 
-**Missing (3):**
+**Missing (3):** (20 spec tests out of 23 doc = 87.0%)
 
-| ID       | Test                          | Why Missing                        |
-| -------- | ----------------------------- | ---------------------------------- |
-| AUTH-013 | Loading state (spinner)       | Not yet implemented                |
-| AUTH-016 | API 500 error handling        | Not yet implemented                |
-| AUTH-017 | Network error handling        | Not yet implemented                |
-| AUTH-018 | Slow response loading         | Not yet implemented                |
-| AUTH-019 | Login page layout verification| Not yet implemented                |
+| ID (Doc) | Test                                | Why Missing                     |
+| -------- | ----------------------------------- | ------------------------------- |
+| AUTH-013 | Loading state (spinner)             | Not yet implemented             |
+| AUTH-016 | API 500 error handling              | Not yet implemented             |
+| AUTH-017 | Network error handling              | Not yet implemented             |
 
-> **Note:** Test IDs in spec use slightly different numbering (AUTH-012 = password expired in spec vs docs). Mapping may shift.
+> **Note:** 3 AUTH spec tests are miscategorized (AUTH-016=Logout belongs to LGT, AUTH-019=Auth Me belongs to ME, AUTH-020=Whitespace is extra). 6 doc tests have no direct spec counterpart, but 3 are offset by miscategorized spec tests. See §8.1 for full mapping.
 
 ---
 
@@ -205,6 +204,7 @@ Docs Total:   77 test cases
 ### 4.3 FRG (Forgot Password) — 6/9 Implemented
 
 **Implemented (6):**
+> **IDs below use SPEC test IDs (FRG-001 to FRG-006).** Mapping: FRG-001 spec = FRG-009 doc (layout), FRG-006 spec = FRG-004 doc (invalid email format).
 
 | ID       | Test                                | Priority | Status |
 | -------- | ----------------------------------- | -------- | ------ |
@@ -217,12 +217,11 @@ Docs Total:   77 test cases
 
 **Missing (3):**
 
-| ID       | Test                                | Why Missing            |
+| ID (Doc) | Test                                | Why Missing            |
 | -------- | ----------------------------------- | ---------------------- |
 | FRG-006  | API 500 error handling              | Not implemented        |
 | FRG-007  | Network error handling              | Not implemented        |
 | FRG-008  | Loading state                       | Not implemented        |
-| FRG-009  | Page layout verification            | Not implemented        |
 
 ---
 
@@ -236,9 +235,9 @@ Docs Total:   77 test cases
 | LGT-002  | Protected route after logout        | P1       | ✅     |
 | LGT-003  | Logout berbagai role                | P2       | ⚠️ **Hanya doctor** |
 
-**Missing (3):**
+**Missing (4):**
 
-| ID       | Test                                | Why Missing            |
+| ID (Doc) | Test                                | Why Missing            |
 | -------- | ----------------------------------- | ---------------------- |
 | LGT-003  | Loading state saat logout           | Not implemented        |
 | LGT-004  | API 500 error handling              | Not implemented        |
@@ -282,14 +281,14 @@ Docs Total:   77 test cases
 | RST-005  | Double login — invalid token        | P2       | ✅     |
 
 **Missing (4):**
+> **Note:** Spec RST-005 (double login — invalid token) = Doc RST-006. Doc RST-005 (confirm success) is NOT in spec. See §8.1 for full mapping.
 
-| ID       | Test                                | Why Missing            |
+| ID (Doc) | Test                                | Why Missing            |
 | -------- | ----------------------------------- | ---------------------- |
+| RST-003  | Reset password — token kosong       | Not implemented        |
 | RST-005  | Double login — confirm success      | Not implemented        |
-| RST-006  | Double login — token kosong         | Not implemented        |
 | RST-007  | Double login — token kosong         | Not implemented        |
 | RST-008  | Double login — UI verification      | Not implemented        |
-| RST-009  | Reset password — end-to-end flow    | Not implemented        |
 
 ---
 
@@ -313,6 +312,8 @@ Both use `assertToastMismatch()` helper which throws `Error` with `BUG_APP` pref
 | **FRG-003** | Email tidak terdaftar — API behavior    | If UI toast ≠ API message, test silently PASSES              |
 
 > **Risk:** These tests validate that an error toast appears, but do NOT verify that the toast text matches the API response. If the app displays a generic "Registration failed" instead of "Email is already registered", the test would still PASS — masking a BUG_APP.
+>
+> **Verified:** Spec audit confirms REG-004 (`register.spec.ts`), FRG-002, and FRG-003 (`forgot-password.spec.ts`) all have **no `assertToastMismatch`** calls. This is the top-priority gap to close (see §9.1 Quick Wins).
 
 ---
 
@@ -339,17 +340,17 @@ Both use `assertToastMismatch()` helper which throws `Error` with `BUG_APP` pref
 
 | Risk Level | Count | Items |
 | ---------- | ----- | ----- |
-| 🔴 **High** | 3     | REG-004 missing BUG_APP detection; REG-003 blocked (no complete register flow E2E); 35% gap between docs and implementation |
-| 🟡 **Medium** | 5   | Auth error handling (500/network) mostly untested; Loading states untested; Password strength bar untested; RST-001 blocked; LGT-003 only tests 1/3 roles |
+| 🔴 **High** | 3     | REG-004 missing BUG_APP detection; REG-003 blocked (no complete register flow E2E); 37.5% gap between docs and implementation |
+| 🟡 **Medium** | 6   | Auth error handling (500/network) mostly untested; Loading states untested; Password strength bar untested; RST-001 blocked; LGT-003 only tests 1/3 roles; FRG/FRG missing BUG_APP detection |
 | 🟢 **Low** | 3      | UI layout verification tests are P3; RST success scenarios are P3; FRG page layout is P3 |
 
 ### 7.1 Key Risks
 
-1. **UI/API Message Mismatch undetected in Register** — REG-004 (email already registered) has no `assertToastMismatch`, unlike AUTH-006/007 which do. If the app displays a generic toast instead of the specific API message for registration errors, it won't be caught.
+1. **UI/API Message Mismatch undetected in Register & Forgot Password** — REG-004, FRG-002, and FRG-003 have no `assertToastMismatch`, unlike AUTH-006/007 which do. If the app displays a generic toast instead of the specific API message for registration/forgot password errors, it won't be caught.
 
 2. **Complete Register Flow Cannot Be E2E Tested** — REG-003 is skipped because Step 2 Page Object is incomplete. The most critical positive path (user registers → creates account → logs in) is not automated.
 
-3. **Error Handling Coverage Gap** — 8 of 11 documented error handling tests (API 500, network error, slow response, loading states) across all modules are not implemented. The app's resilience to backend failures is largely untested.
+3. **Error Handling Coverage Gap** — Majority of error handling tests (API 500, network error, slow response, loading states) across all modules are not implemented. The app's resilience to backend failures is largely untested.
 
 4. **Reset Password Flow Blocked** — The full reset password flow (forgot → receive token → reset → login with new password) cannot be tested end-to-end without email access or a test hook.
 
@@ -357,18 +358,84 @@ Both use `assertToastMismatch()` helper which throws `Error` with `BUG_APP` pref
 
 ## 8. Observations & Gaps
 
-### 8.1 Test ID Mapping Inconsistency
+### 8.1 Test ID Mapping Inconsistency (Spec → Doc)
 
-There is a numbering mismatch between docs and spec files:
+Spec IDs do not always match doc IDs. Comprehensive mapping below:
 
-| Doc ID    | Spec ID  | Issue |
-| --------- | -------- | ----- |
-| AUTH-013  | —        | Loading state test in docs but NOT in spec |
-| AUTH-016  | —        | API 500 test in docs but NOT in spec |
-| —         | AUTH-016 | Spec's AUTH-016 = Logout flow (should be LGT) |
-| —         | AUTH-019 | Spec's AUTH-019 = GET /auth/me (should be ME) |
+#### AUTH Mapping
 
-> **Recommendation:** Align spec test IDs with doc test IDs for traceability.
+| Spec ID  | Spec Title                    | Maps to Doc ID | Notes                 |
+| -------- | ----------------------------- | -------------- | --------------------- |
+| AUTH-001 | Login valid Doctor            | AUTH-001       | ✅ Match              |
+| AUTH-002 | Login valid Orthodontist      | AUTH-002       | ✅ Match              |
+| AUTH-003 | Login valid Admin             | AUTH-003       | ✅ Match              |
+| AUTH-004 | Email kosong                  | AUTH-004       | ✅ Match              |
+| AUTH-005 | Password kosong               | AUTH-005       | ✅ Match              |
+| AUTH-006 | Password salah — error toast  | AUTH-011       | ⚠️ Shift (+5)        |
+| AUTH-007 | Email tidak terdaftar         | AUTH-012       | ⚠️ Shift (+5)        |
+| AUTH-008 | Show/hide password toggle     | AUTH-008       | ✅ Match              |
+| AUTH-009 | Forgot password link          | AUTH-009       | ✅ Match              |
+| AUTH-010 | Register link                 | AUTH-010       | ✅ Match              |
+| AUTH-011 | Remember me checkbox          | AUTH-023       | ⚠️ Shift (+12)       |
+| AUTH-012 | Password expired (intercept)  | AUTH-020       | ⚠️ Shift (+8)        |
+| AUTH-013 | Account locked (intercept)    | AUTH-021       | ⚠️ Shift (+8)        |
+| AUTH-014 | Double login (intercept)      | AUTH-022       | ⚠️ Shift (+8)        |
+| AUTH-015 | Rate limited (intercept)      | AUTH-015       | ✅ Match              |
+| AUTH-016 | Logout flow verification      | —              | ❌ Miscategorized (→ LGT) |
+| AUTH-017 | Response structure verify     | AUTH-014       | ⚠️ Shift (-3)        |
+| AUTH-018 | Invalid email format          | AUTH-007       | ⚠️ Shift (-11)       |
+| AUTH-019 | GET /auth/me verification     | —              | ❌ Miscategorized (→ ME) |
+| AUTH-020 | Whitespace email validation   | —              | ❌ Extra — not in docs |
+
+**Doc tests NOT in spec:** AUTH-006 (double empty), AUTH-016 (API 500), AUTH-017 (network error), AUTH-018 (slow response), AUTH-019 (layout). All 5 are unimplemented.
+
+#### FRG Mapping
+
+| Spec ID  | Spec Title                    | Maps to Doc ID | Notes          |
+| -------- | ----------------------------- | -------------- | -------------- |
+| FRG-001  | Page — tampilan               | FRG-009        | ⚠️ Layout test |
+| FRG-002  | Kirim reset link — valid      | FRG-001        | ⚠️ Shift (-1)  |
+| FRG-003  | Kirim reset link — tdk terdftr| FRG-002        | ⚠️ Shift (-1)  |
+| FRG-004  | Email kosong                  | FRG-003        | ⚠️ Shift (-1)  |
+| FRG-005  | Back to login link            | FRG-005        | ✅ Match        |
+| FRG-006  | Invalid email format          | FRG-004        | ⚠️ Shift (-2)  |
+
+**Doc tests NOT in spec:** FRG-006 (API 500), FRG-007 (network error), FRG-008 (loading state).
+
+#### LGT Mapping
+
+| Spec ID  | Spec Title                    | Maps to Doc ID | Notes          |
+| -------- | ----------------------------- | -------------- | -------------- |
+| LGT-001  | Logout via avatar menu        | LGT-001        | ✅ Match       |
+| LGT-002  | Protected route after logout  | LGT-002        | ✅ Match       |
+| LGT-003  | Logout berbagai role          | —              | ❌ Extra test  |
+
+**Doc tests NOT in spec:** LGT-003 (loading state), LGT-004 (API 500), LGT-005 (network error), LGT-006 (avatar dropdown menu).
+
+#### ME Mapping
+
+| Spec ID  | Spec Title                    | Maps to Doc ID | Notes          |
+| -------- | ----------------------------- | -------------- | -------------- |
+| ME-001   | GET /auth/me — profile        | ME-001         | ✅ Match       |
+| ME-002   | GET /auth/me — clinic info    | ME-002         | ✅ Match       |
+| ME-003   | GET /auth/me — semua role     | ME-005         | ⚠️ Shift (+2)  |
+| ME-004   | GET /auth/me — 401 no auth    | ME-004         | ✅ Match       |
+
+**Doc tests NOT in spec:** ME-003 (token expiry), ME-006 (API 500).
+
+#### RST Mapping
+
+| Spec ID  | Spec Title                    | Maps to Doc ID | Notes          |
+| -------- | ----------------------------- | -------------- | -------------- |
+| RST-001  | Reset — valid token (skipped) | RST-001        | ✅ Match       |
+| RST-002  | Reset — invalid token         | RST-002        | ✅ Match       |
+| RST-003  | Reset — password mismatch     | RST-004        | ⚠️ Shift (+1)  |
+| RST-004  | Reset — password lemah        | —              | ❌ Extra test  |
+| RST-005  | Double login — invalid token  | RST-006        | ⚠️ Shift (+1)  |
+
+**Doc tests NOT in spec:** RST-003 (token kosong), RST-005 (confirm success), RST-007 (token kosong DL), RST-008 (DL UI verify), RST-009 (E2E).
+
+> **Recommendation:** Realign spec test IDs to match doc test IDs for traceability, or add a prefix-based mapping comment block at the top of each spec file.
 
 ### 8.2 LGT-003 — Role Coverage Incomplete
 
@@ -396,6 +463,7 @@ ME-003 (token expiry → redirect to login) is documented but not implemented. I
 | Test      | Effort | Reason |
 | --------- | ------ | ------ |
 | REG-004 BUG_APP | Small | Add `assertToastMismatch()` to register 409 test |
+| FRG-002/FRG-003 BUG_APP | Small | Add `assertToastMismatch()` to forgot password tests |
 | REG-003 (Step 2 PO) | Medium | Unblocks complete register E2E flow |
 | AUTH-013 Loading State | Small | Prevents double-click issues |
 | AUTH-016/AUTH-017 API Error | Medium | Ensures graceful error handling |
@@ -421,8 +489,9 @@ ME-003 (token expiry → redirect to login) is documented but not implemented. I
 ### 9.1 Quick Wins (Sangat Mudah, High Impact)
 
 1. **Add BUG_APP detection to REG-004** — ~10 menit. Copy `assertToastMismatch()` pattern from AUTH-006.
-2. **Add LGT-003 roles** — ~5 menit. Add `ORTHODONTIST` and `ADMIN` to the roles array in `logout.spec.ts`.
-3. **Add `fillPracticeInfo()` to RegisterPage** — ~30 menit. Unblocks REG-003.
+2. **Add BUG_APP detection to FRG-002/FRG-003** — ~10 menit. Same `assertToastMismatch()` pattern, apply to `forgot-password.spec.ts`.
+3. **Add LGT-003 roles** — ~5 menit. Add `ORTHODONTIST` and `ADMIN` to the roles array in `logout.spec.ts`.
+4. **Add `fillPracticeInfo()` to RegisterPage** — ~30 menit. Unblocks REG-003.
 
 ---
 
@@ -452,6 +521,8 @@ ME-003 (token expiry → redirect to login) is documented but not implemented. I
 | Auth Test Data | `tests/data/auth-test-data.ts` |
 
 ### B. Test Execution Matrix (Full)
+
+> **⚠️ Note:** This matrix uses **doc test IDs** for the `ID` column, but **spec implementation status** for `Implemented`/`Status`. Due to renumbering shifts (see §8.1), some entries may appear misaligned (e.g., RST-006 shows 📄 but is actually implemented as spec RST-005).
 
 | ID        | Implemented | Status  | BUG_APP | Priority |
 | --------- | ----------- | ------- | ------- | -------- |
@@ -544,6 +615,6 @@ ME-003 (token expiry → redirect to login) is documented but not implemented. I
 
 ---
 
-> **Report generated:** June 22, 2026
-> **Based on:** Test case docs v1.0 + Spec file audit
-> **Next review:** Setelah implementasi gap coverage
+> **Report generated:** June 23, 2026
+> **Based on:** Test case docs v1.0 + Spec file audit (playwright-engineer audit)
+> **Next review:** Setelah implementasi gap coverage dan Quick Wins
